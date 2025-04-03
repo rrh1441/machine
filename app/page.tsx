@@ -2,9 +2,12 @@ import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { AlertCircle, CheckCircle, ChevronRight, DollarSign, Gift, PlayCircle, Star, Users } from "lucide-react"
+import { AlertCircle, CheckCircle, ChevronRight, DollarSign, Gift, Star, Users } from "lucide-react" // Removed PlayCircle as it's no longer used
 
 export default function LandingPage() {
+  // Get the current year for the footer
+  const currentYear = new Date().getFullYear();
+
   return (
     <div className="flex min-h-screen flex-col">
       {/* Navigation */}
@@ -27,7 +30,7 @@ export default function LandingPage() {
                 <Link href="#pricing">Pricing</Link>
               </Button>
               <Button asChild>
-                <Link href="/booking">Book Now</Link>
+                <Link href="/booking">Book Now</Link> {/* Ensure /booking route exists or update link */}
               </Button>
             </nav>
           </div>
@@ -47,8 +50,8 @@ export default function LandingPage() {
         <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 relative">
           <div className="absolute inset-0 z-0">
             <Image
-              src="/images/tennis-ball-hero.png"
-              alt="Tennis ball on dark court"
+              src="/images/tennis-ball-hero.png" // Correct path as confirmed
+              alt="Tennis ball on dark court background" // Slightly improved alt text
               fill
               className="object-cover"
               priority
@@ -92,10 +95,10 @@ export default function LandingPage() {
             </div>
             <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
               <Image
-                src="/placeholder.svg?height=800&width=800"
+                src="/action.jpg" // Image updated as discussed
                 width={500}
                 height={500}
-                alt="Hydrogen Proton Ball Machine"
+                alt="Hydrogen Proton ball machine in action on a court"
                 className="mx-auto aspect-square overflow-hidden rounded-xl object-cover object-center sm:w-full"
               />
               <div className="flex flex-col justify-center space-y-4">
@@ -136,22 +139,7 @@ export default function LandingPage() {
                 </ul>
               </div>
             </div>
-            <div className="flex justify-center mt-8">
-              <div className="relative w-full max-w-2xl aspect-video rounded-xl overflow-hidden">
-                <div className="absolute inset-0 flex items-center justify-center bg-black/20">
-                  <Button variant="outline" size="icon" className="h-16 w-16 rounded-full bg-white/90 hover:bg-white">
-                    <PlayCircle className="h-8 w-8 text-green-600" />
-                    <span className="sr-only">Play video</span>
-                  </Button>
-                </div>
-                <Image
-                  src="/placeholder.svg?height=720&width=1280"
-                  alt="Video thumbnail"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            </div>
+            {/* Removed the horizontal video placeholder div that was here */}
           </div>
         </section>
 
@@ -239,19 +227,17 @@ export default function LandingPage() {
                 </div>
               </div>
               <div className="flex justify-center">
-                <div className="relative w-[280px] h-[500px] bg-black rounded-xl overflow-hidden border-4 border-gray-800 shadow-xl">
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/20">
-                    <Button variant="outline" size="icon" className="h-16 w-16 rounded-full bg-white/90 hover:bg-white">
-                      <PlayCircle className="h-8 w-8 text-green-600" />
-                      <span className="sr-only">Play video</span>
-                    </Button>
-                  </div>
-                  <Image
-                    src="/placeholder.svg?height=1920&width=1080"
-                    alt="Video of ball machine in use"
-                    fill
-                    className="object-cover"
-                  />
+                {/* YouTube Short embed within the phone frame */}
+                <div className="relative w-[280px] h-[500px] bg-black rounded-xl overflow-hidden border-4 border-gray-800 shadow-xl p-1">
+                  <iframe
+                    className="absolute top-0 left-0 w-full h-full rounded-lg"
+                    src="https://www.youtube.com/embed/VIDEO_ID2" // Your Short's Video ID
+                    title="Seattle Ball Machine Rental Demo (Vertical)"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                  ></iframe>
                 </div>
               </div>
             </div>
@@ -412,6 +398,7 @@ export default function LandingPage() {
                 </p>
               </div>
             </div>
+            {/* Testimonials with avatars removed */}
             <div className="mx-auto grid max-w-5xl gap-6 py-12 md:grid-cols-2 lg:grid-cols-3">
               <Card>
                 <CardContent className="pt-6">
@@ -425,10 +412,8 @@ export default function LandingPage() {
                       "The ball machine was perfect for my practice sessions. Easy pickup and return process, and the
                       machine worked flawlessly."
                     </p>
+                    {/* Avatar Removed */}
                     <div className="flex items-center gap-4">
-                      <div className="rounded-full bg-gray-100 p-1">
-                        <div className="h-8 w-8 rounded-full bg-gray-200" />
-                      </div>
                       <div>
                         <p className="font-medium">Sarah T.</p>
                         <p className="text-sm text-gray-500">USTA 4.0 Player</p>
@@ -449,10 +434,8 @@ export default function LandingPage() {
                       "I bought the 10-pack and it's been a game changer for my training. The variety of drills you can
                       set up is impressive."
                     </p>
+                    {/* Avatar Removed */}
                     <div className="flex items-center gap-4">
-                      <div className="rounded-full bg-gray-100 p-1">
-                        <div className="h-8 w-8 rounded-full bg-gray-200" />
-                      </div>
                       <div>
                         <p className="font-medium">Michael R.</p>
                         <p className="text-sm text-gray-500">Club Player</p>
@@ -473,10 +456,8 @@ export default function LandingPage() {
                       "Great service! I was considering buying this machine and renting it first helped me make my
                       decision. Highly recommend."
                     </p>
+                    {/* Avatar Removed */}
                     <div className="flex items-center gap-4">
-                      <div className="rounded-full bg-gray-100 p-1">
-                        <div className="h-8 w-8 rounded-full bg-gray-200" />
-                      </div>
                       <div>
                         <p className="font-medium">Jennifer L.</p>
                         <p className="text-sm text-gray-500">Tennis Coach</p>
@@ -515,16 +496,16 @@ export default function LandingPage() {
       <footer className="w-full border-t bg-white py-6">
         <div className="container flex flex-col items-center justify-between gap-4 md:flex-row px-4 md:px-6">
           <p className="text-sm text-gray-500">
-            &copy; {new Date().getFullYear()} Seattle Ball Machine Rental. All rights reserved.
+            © {currentYear} Seattle Ball Machine Rental. All rights reserved.
           </p>
           <nav className="flex gap-4 sm:gap-6">
-            <Link href="#" className="text-sm text-gray-500 hover:underline">
+            <Link href="#" className="text-sm text-gray-500 hover:underline"> {/* <-- Update link */}
               Support
             </Link>
-            <Link href="#" className="text-sm text-gray-500 hover:underline">
+            <Link href="#" className="text-sm text-gray-500 hover:underline"> {/* <-- Update link */}
               Privacy Policy
             </Link>
-            <Link href="#" className="text-sm text-gray-500 hover:underline">
+            <Link href="#" className="text-sm text-gray-500 hover:underline"> {/* <-- Update link */}
               Terms of Service
             </Link>
           </nav>
@@ -533,4 +514,3 @@ export default function LandingPage() {
     </div>
   )
 }
-
