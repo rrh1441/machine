@@ -1,8 +1,12 @@
+// Updated app/page.tsx
+
+'use client' // <-- Added this line
+
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { AlertCircle, CheckCircle, ChevronRight, DollarSign, Gift, Star, Users } from "lucide-react" // Removed PlayCircle as it's no longer used
+import { AlertCircle, CheckCircle, ChevronRight, DollarSign, Gift, Star, Users } from "lucide-react"
 
 export default function LandingPage() {
   // Get the current year for the footer
@@ -30,7 +34,8 @@ export default function LandingPage() {
                 <Link href="#pricing">Pricing</Link>
               </Button>
               <Button asChild>
-                <Link href="/booking">Book Now</Link> {/* Ensure /booking route exists or update link */}
+                {/* TODO: Ensure /booking route exists or update link */}
+                <Link href="/booking">Book Now</Link>
               </Button>
             </nav>
           </div>
@@ -50,8 +55,9 @@ export default function LandingPage() {
         <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 relative">
           <div className="absolute inset-0 z-0">
             <Image
-              src="/images/tennis-ball-hero.png" // Correct path as confirmed
-              alt="Tennis ball on dark court background" // Slightly improved alt text
+              // TODO: Make sure this image exists in your public/images folder
+              src="/images/tennis-ball-hero.png"
+              alt="Tennis ball on dark court background"
               fill
               className="object-cover"
               priority
@@ -73,9 +79,12 @@ export default function LandingPage() {
                 delivers consistent, customizable drills.
               </p>
               <div className="space-x-4 pt-2">
-                <Button size="lg" className="bg-yellow-500 hover:bg-yellow-600 text-black font-bold shadow-lg">
-                  Check Availability & Book
-                  <ChevronRight className="ml-2 h-4 w-4" />
+                {/* TODO: Point this button to your booking page/component */}
+                <Button asChild size="lg" className="bg-yellow-500 hover:bg-yellow-600 text-black font-bold shadow-lg">
+                   <Link href="/booking">
+                    Check Availability & Book
+                    <ChevronRight className="ml-2 h-4 w-4" />
+                   </Link>
                 </Button>
               </div>
             </div>
@@ -95,7 +104,8 @@ export default function LandingPage() {
             </div>
             <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
               <Image
-                src="/action.jpg" // Image updated as discussed
+                // TODO: Make sure this image exists in your public folder
+                src="/action.jpg"
                 width={500}
                 height={500}
                 alt="Hydrogen Proton ball machine in action on a court"
@@ -139,7 +149,6 @@ export default function LandingPage() {
                 </ul>
               </div>
             </div>
-            {/* Removed the horizontal video placeholder div that was here */}
           </div>
         </section>
 
@@ -223,7 +232,10 @@ export default function LandingPage() {
                   </li>
                 </ul>
                 <div className="pt-4">
-                  <Button className="bg-green-600 hover:bg-green-700">Book Your Session Now</Button>
+                   {/* TODO: Point this button to your booking page/component */}
+                   <Button asChild className="bg-green-600 hover:bg-green-700">
+                     <Link href="/booking">Book Your Session Now</Link>
+                  </Button>
                 </div>
               </div>
               <div className="flex justify-center">
@@ -231,7 +243,8 @@ export default function LandingPage() {
                 <div className="relative w-[280px] h-[500px] bg-black rounded-xl overflow-hidden border-4 border-gray-800 shadow-xl p-1">
                   <iframe
                     className="absolute top-0 left-0 w-full h-full rounded-lg"
-                    src="https://www.youtube.com/embed/VIDEO_ID2" // Your Short's Video ID
+                    // TODO: Replace YOUR_YOUTUBE_SHORT_ID with your actual YouTube Short video ID
+                    src="https://www.youtube.com/embed/YOUR_YOUTUBE_SHORT_ID"
                     title="Seattle Ball Machine Rental Demo (Vertical)"
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -288,7 +301,10 @@ export default function LandingPage() {
                   </div>
                 </CardContent>
                 <CardFooter>
-                  <Button className="w-full bg-green-600 hover:bg-green-700">Book Single Session</Button>
+                  {/* TODO: Point this button to your booking page/component */}
+                  <Button asChild className="w-full bg-green-600 hover:bg-green-700">
+                     <Link href="/booking?plan=single">Book Single Session</Link>
+                   </Button>
                 </CardFooter>
               </Card>
               <Card className="flex flex-col border-green-200 bg-green-50">
@@ -327,7 +343,10 @@ export default function LandingPage() {
                   </div>
                 </CardContent>
                 <CardFooter>
-                  <Button className="w-full bg-green-600 hover:bg-green-700">Buy 3-Pack & Schedule Later</Button>
+                   {/* TODO: Point this button to your booking/purchase page */}
+                   <Button asChild className="w-full bg-green-600 hover:bg-green-700">
+                      <Link href="/booking?plan=3pack">Buy 3-Pack & Schedule Later</Link>
+                   </Button>
                 </CardFooter>
               </Card>
               <Card className="flex flex-col">
@@ -363,7 +382,10 @@ export default function LandingPage() {
                   </div>
                 </CardContent>
                 <CardFooter>
-                  <Button className="w-full bg-green-600 hover:bg-green-700">Buy 10-Pack & Schedule Later</Button>
+                  {/* TODO: Point this button to your booking/purchase page */}
+                  <Button asChild className="w-full bg-green-600 hover:bg-green-700">
+                    <Link href="/booking?plan=10pack">Buy 10-Pack & Schedule Later</Link>
+                  </Button>
                 </CardFooter>
               </Card>
             </div>
@@ -483,9 +505,10 @@ export default function LandingPage() {
                 </p>
               </div>
               <div className="space-x-4">
-                <Button size="lg" className="bg-yellow-500 hover:bg-yellow-600 text-black font-bold">
-                  Check Availability & Book Now
-                </Button>
+                 {/* TODO: Point this button to your booking page/component */}
+                 <Button asChild size="lg" className="bg-yellow-500 hover:bg-yellow-600 text-black font-bold">
+                    <Link href="/booking">Check Availability & Book Now</Link>
+                 </Button>
               </div>
             </div>
           </div>
@@ -499,13 +522,14 @@ export default function LandingPage() {
             © {currentYear} Seattle Ball Machine Rental. All rights reserved.
           </p>
           <nav className="flex gap-4 sm:gap-6">
-            <Link href="#" className="text-sm text-gray-500 hover:underline"> {/* <-- Update link */}
+            {/* TODO: Create actual pages/links for these */}
+            <Link href="/support" className="text-sm text-gray-500 hover:underline">
               Support
             </Link>
-            <Link href="#" className="text-sm text-gray-500 hover:underline"> {/* <-- Update link */}
+            <Link href="/privacy" className="text-sm text-gray-500 hover:underline">
               Privacy Policy
             </Link>
-            <Link href="#" className="text-sm text-gray-500 hover:underline"> {/* <-- Update link */}
+            <Link href="/terms" className="text-sm text-gray-500 hover:underline">
               Terms of Service
             </Link>
           </nav>
