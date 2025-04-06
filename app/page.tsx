@@ -1,4 +1,4 @@
-// Updated app/page.tsx (April 6, 2025)
+// Updated app/page.tsx (April 6, 2025 - Final Video ID)
 
 'use client'
 
@@ -58,7 +58,7 @@ export default function LandingPage() {
         <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 relative">
           <div className="absolute inset-0 z-0">
             <Image
-              // ACTION REQUIRED: Make sure this image exists in your public/images folder
+              // ACTION REQUIRED: Make sure this image exists at public/images/tennis-ball-hero.png
               src="/images/tennis-ball-hero.png"
               alt="Tennis ball on dark court background"
               fill
@@ -107,7 +107,7 @@ export default function LandingPage() {
             </div>
             <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
               <Image
-                // ACTION REQUIRED: Ensure this image exists in your public folder
+                // ACTION REQUIRED: Ensure this image exists at public/action.jpg (lowercase extension)
                 src="/action.jpg"
                 width={500}
                 height={500}
@@ -243,11 +243,12 @@ export default function LandingPage() {
               </div>
               <div className="flex justify-center">
                 {/* YouTube Short embed within the phone frame */}
+                {/* Reminder: Check YouTube video settings: Audience = "No, it's not made for kids" & "Allow embedding" = checked */}
                 <div className="relative w-[280px] h-[500px] bg-black rounded-xl overflow-hidden border-4 border-gray-800 shadow-xl p-1">
                   <iframe
                     className="absolute top-0 left-0 w-full h-full rounded-lg"
-                    // Updated with your Video ID R6pW0pOUG1s
-                    src="https://www.youtube.com/embed/YOUR_YOUTUBE_SHORT_ID6"
+                    // Updated with your confirmed Video ID
+                    src="https://www.youtube.com/embed/ABCDEFG123"
                     title="Seattle Ball Machine Rental Demo (Vertical)"
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
