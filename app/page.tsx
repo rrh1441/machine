@@ -13,7 +13,7 @@ export default function LandingPage() {
   const currentYear = new Date().getFullYear(); // Will be 2025
 
   return (
-    <div className="flex min-h-screen flex-col"> {/* <<< This div starts the main wrapper */}
+    <div className="flex min-h-screen flex-col">
       {/* Navigation */}
       <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur">
         <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
@@ -108,6 +108,7 @@ export default function LandingPage() {
             <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
               <Image
                 // UPDATED: Changed from action.jpg to action.png
+                // ACTION REQUIRED: Ensure 'action.png' exists in public folder
                 src="/action.png"
                 width={500}
                 height={500}
@@ -248,7 +249,7 @@ export default function LandingPage() {
                   <iframe
                     className="absolute top-0 left-0 w-full h-full rounded-lg"
                     // UPDATED: Changed the video ID to the correct one
-                    src="https://www.youtube.com/embed/FhzlDpDv3nM"
+                    src="https://www.youtube.com/embed/FhzlDpDv3nM" // ACTION REQUIRED: Verify this src is correct
                     title="Seattle Ball Machine Rental Demo (Vertical)"
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -566,6 +567,6 @@ export default function LandingPage() {
           </nav>
         </div>
       </footer>
-    </div> {/* <<< This is the corrected closing div tag for the main wrapper */}
+    </div>
   )
 }
