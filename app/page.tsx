@@ -1,12 +1,11 @@
-// Updated app/page.tsx (April 6, 2025 - Final Video ID)
-
 'use client'
 
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { AlertCircle, CheckCircle, ChevronRight, DollarSign, Gift, Star, Users } from "lucide-react"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet" // Added Sheet components
+import { AlertCircle, CheckCircle, ChevronRight, DollarSign, Gift, Menu, Star, Users } from "lucide-react" // Added Menu icon
 
 export default function LandingPage() {
   // Get the current year for the footer
@@ -14,33 +13,80 @@ export default function LandingPage() {
 
   return (
     <div className="flex min-h-screen flex-col">
-      {/* Navigation */}
+      {/* Navigation - Improved for Mobile */}
       <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur">
         <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
           <div className="flex gap-6 md:gap-10">
             <Link href="/" className="flex items-center space-x-2">
-              <span className="inline-block font-bold text-xl">Seattle Ball Machine Rental</span>
+              {/* Adjusted text size slightly */}
+              <span className="inline-block font-bold text-lg md:text-xl">Seattle Ball Machine</span>
             </Link>
           </div>
-          <div className="flex flex-1 items-center justify-end space-x-4">
-            <nav className="flex items-center space-x-2">
+          <div className="flex flex-1 items-center justify-end">
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex items-center space-x-2">
               <Button asChild variant="ghost">
                 <Link href="#features">Features</Link>
               </Button>
               <Button asChild variant="ghost">
                 <Link href="#how-it-works">How It Works</Link>
               </Button>
-               <Button asChild variant="ghost">
+              <Button asChild variant="ghost">
                 <Link href="#about">About</Link>
               </Button>
               <Button asChild variant="ghost">
                 <Link href="#pricing">Pricing</Link>
               </Button>
               <Button asChild>
-                {/* ACTION REQUIRED: Ensure /booking route/page exists */}
                 <Link href="/booking">Book Now</Link>
               </Button>
             </nav>
+
+            {/* Mobile Navigation */}
+            <div className="md:hidden">
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" size="icon" className="mr-2">
+                    <Menu className="h-5 w-5" />
+                    <span className="sr-only">Toggle menu</span>
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="right" className="w-[240px] sm:w-[300px]">
+                  <nav className="flex flex-col gap-4 mt-8">
+                    {/* Added SheetClose wrapping links for better UX potentially, or keep simple Links */}
+                    {/* Simple Links approach shown here */}
+                    <Link
+                      href="#features"
+                      className="flex items-center py-2 text-lg font-medium border-b"
+                     // onClick={() => document.dispatchEvent(new MouseEvent('click'))} // Optional: Close sheet on click if not using SheetClose
+                    >
+                      Features
+                    </Link>
+                    <Link
+                      href="#how-it-works"
+                      className="flex items-center py-2 text-lg font-medium border-b"
+                    >
+                      How It Works
+                    </Link>
+                    <Link
+                      href="#about"
+                      className="flex items-center py-2 text-lg font-medium border-b"
+                    >
+                      About
+                    </Link>
+                    <Link
+                      href="#pricing"
+                      className="flex items-center py-2 text-lg font-medium border-b"
+                    >
+                      Pricing
+                    </Link>
+                    <Button asChild className="mt-4">
+                      <Link href="/booking">Book Now</Link>
+                    </Button>
+                  </nav>
+                </SheetContent>
+              </Sheet>
+            </div>
           </div>
         </div>
       </header>
@@ -58,7 +104,6 @@ export default function LandingPage() {
         <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 relative">
           <div className="absolute inset-0 z-0">
             <Image
-              // ACTION REQUIRED: Make sure this image exists at public/images/tennis-ball-hero.png
               src="/images/tennis-ball-hero.png"
               alt="Tennis ball on dark court background"
               fill
@@ -83,7 +128,6 @@ export default function LandingPage() {
               </p>
               <div className="space-x-4 pt-2">
                 <Button asChild size="lg" className="bg-yellow-500 hover:bg-yellow-600 text-black font-bold shadow-lg">
-                   {/* ACTION REQUIRED: Ensure /booking route/page exists */}
                    <Link href="/booking">
                     Check Availability & Book
                     <ChevronRight className="ml-2 h-4 w-4" />
@@ -107,8 +151,6 @@ export default function LandingPage() {
             </div>
             <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
               <Image
-                // UPDATED: Changed from action.jpg to action.png
-                // ACTION REQUIRED: Ensure 'action.png' exists in public folder
                 src="/action.png"
                 width={500}
                 height={500}
@@ -236,7 +278,6 @@ export default function LandingPage() {
                   </li>
                 </ul>
                 <div className="pt-4">
-                   {/* ACTION REQUIRED: Ensure /booking route/page exists */}
                    <Button asChild className="bg-green-600 hover:bg-green-700">
                      <Link href="/booking">Book Your Session Now</Link>
                   </Button>
@@ -244,11 +285,9 @@ export default function LandingPage() {
               </div>
               <div className="flex justify-center">
                 {/* YouTube Short embed within the phone frame */}
-                {/* Reminder: Check YouTube video settings: Audience = "No, it's not made for kids" & "Allow embedding" = checked */}
                 <div className="relative w-[280px] h-[500px] bg-black rounded-xl overflow-hidden border-4 border-gray-800 shadow-xl p-1">
                   <iframe
                     className="absolute top-0 left-0 w-full h-full rounded-lg"
-                    // UPDATED: Changed the video ID to the correct one
                     src="https://www.youtube.com/embed/FhzlDpDv3nM" // ACTION REQUIRED: Verify this src is correct
                     title="Seattle Ball Machine Rental Demo (Vertical)"
                     frameBorder="0"
@@ -262,13 +301,12 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* About Me Section */}
+        {/* About Me Section - Shortened to Two Paragraphs */}
         <section id="about" className="w-full py-12 md:py-24 lg:py-32 bg-gray-50">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-6 text-center">
                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">About Me</h2>
                <Image
-                  // ACTION REQUIRED: Ensure 'aboutme.png' exists in your public folder
                   src="/aboutme.png"
                   alt="Photo of the site owner"
                   width={128}
@@ -277,16 +315,10 @@ export default function LandingPage() {
                 />
                 <div className="max-w-3xl mx-auto space-y-4">
                   <p className="text-gray-600 md:text-xl/relaxed">
-                    When I started playing tennis in New York, a local spot had a ball machine where I got hundreds of reps in 30-minute sessions before work. It was fantastic for improvement.
+                    When I started playing tennis in New York, a local spot had a ball machine for quick sessions before work. After moving to Seattle, finding time for practice became much harder, especially with a young family. That's when I purchased this Hydrogen Proton ball machine.
                   </p>
-                  <p className="text-gray-600 md:text-xl/relaxed">
-                    Then I moved to Seattle, and finding time to practice became much harder, especially with a two-year-old running around! Coordinating with partners wasn't always feasible.
-                  </p>
-                  <p className="text-gray-600 md:text-xl/relaxed">
-                    Now, I have this Hydrogen Proton ball machine to get my practice in whenever I can sneak away. On a good week, I might use it for a few hours, but often it just sits there.
-                  </p>
-                   <p className="text-gray-600 md:text-xl/relaxed font-medium">
-                    I built this rental service so other members of our local Seattle tennis community can get consistent, quality practice just like I needed. Hope it helps you improve your game!
+                  <p className="text-gray-600 md:text-xl/relaxed font-medium">
+                    Since I only use it occasionally, I'm making it available to the Seattle tennis community so others can benefit from consistent, quality practice. My hope is that it helps you improve your game just as it has helped mine!
                   </p>
               </div>
             </div>
@@ -304,7 +336,9 @@ export default function LandingPage() {
                 </p>
               </div>
             </div>
+            {/* Reconstructing the pricing grid accurately */}
             <div className="mx-auto grid max-w-5xl gap-6 py-12 md:grid-cols-3">
+              {/* Single Session Card */}
               <Card className="flex flex-col">
                 <CardHeader>
                   <CardTitle>Single Session</CardTitle>
@@ -337,12 +371,12 @@ export default function LandingPage() {
                   </div>
                 </CardContent>
                 <CardFooter>
-                   {/* ACTION REQUIRED: Ensure /booking route/page exists */}
                    <Button asChild className="w-full bg-green-600 hover:bg-green-700">
                      <Link href="/booking?plan=single">Book Single Session</Link>
                    </Button>
                 </CardFooter>
               </Card>
+              {/* 3-Pack Card */}
               <Card className="flex flex-col border-green-200 bg-green-50">
                 <CardHeader>
                   <div className="bg-green-600 text-white text-xs font-bold px-3 py-1 rounded-full w-fit mb-2">
@@ -379,12 +413,12 @@ export default function LandingPage() {
                   </div>
                 </CardContent>
                 <CardFooter>
-                   {/* ACTION REQUIRED: Ensure /booking route/page exists */}
                    <Button asChild className="w-full bg-green-600 hover:bg-green-700">
                       <Link href="/booking?plan=3pack">Buy 3-Pack & Schedule Later</Link>
                    </Button>
                 </CardFooter>
               </Card>
+              {/* 10-Pack Card */}
               <Card className="flex flex-col">
                 <CardHeader>
                   <CardTitle>10-Pack</CardTitle>
@@ -418,13 +452,13 @@ export default function LandingPage() {
                   </div>
                 </CardContent>
                 <CardFooter>
-                  {/* ACTION REQUIRED: Ensure /booking route/page exists */}
                   <Button asChild className="w-full bg-green-600 hover:bg-green-700">
                     <Link href="/booking?plan=10pack">Buy 10-Pack & Schedule Later</Link>
                   </Button>
                 </CardFooter>
               </Card>
-            </div>
+            </div> {/* End of Pricing Grid */}
+
             <div className="text-center text-gray-500 mt-4">All rentals include 75 balls & pickup basket</div>
 
             {/* No-Hassle Guarantee */}
@@ -442,8 +476,8 @@ export default function LandingPage() {
                 </div>
               </div>
             </div>
-          </div>
-        </section>
+          </div> {/* End of Pricing Container */}
+        </section> {/* End of Pricing Section */}
 
         {/* Testimonials Section */}
         <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-50">
@@ -537,7 +571,6 @@ export default function LandingPage() {
                 </p>
               </div>
               <div className="space-x-4">
-                 {/* ACTION REQUIRED: Ensure /booking route/page exists */}
                  <Button asChild size="lg" className="bg-yellow-500 hover:bg-yellow-600 text-black font-bold">
                     <Link href="/booking">Check Availability & Book Now</Link>
                  </Button>
@@ -545,7 +578,7 @@ export default function LandingPage() {
             </div>
           </div>
         </section>
-      </main>
+      </main> {/* End of Main Content */}
 
       {/* Footer */}
       <footer className="w-full border-t bg-white py-6">
@@ -554,7 +587,6 @@ export default function LandingPage() {
             © {currentYear} Seattle Ball Machine Rental. All rights reserved.
           </p>
           <nav className="flex gap-4 sm:gap-6">
-            {/* ACTION REQUIRED: Create these pages */}
             <Link href="/support" className="text-sm text-gray-500 hover:underline">
               Support
             </Link>
@@ -567,6 +599,6 @@ export default function LandingPage() {
           </nav>
         </div>
       </footer>
-    </div>
-  )
-}
+    </div> // End of Main Wrapper Div
+  ) // End of Return Statement
+} // End of LandingPage Component
