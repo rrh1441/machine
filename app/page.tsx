@@ -1,6 +1,6 @@
-// Updated app/page.tsx
+// Updated app/page.tsx (April 6, 2025)
 
-'use client' // <-- Added this line
+'use client'
 
 import Link from "next/link"
 import Image from "next/image"
@@ -10,7 +10,7 @@ import { AlertCircle, CheckCircle, ChevronRight, DollarSign, Gift, Star, Users }
 
 export default function LandingPage() {
   // Get the current year for the footer
-  const currentYear = new Date().getFullYear();
+  const currentYear = new Date().getFullYear(); // Will be 2025
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -30,11 +30,14 @@ export default function LandingPage() {
               <Button asChild variant="ghost">
                 <Link href="#how-it-works">How It Works</Link>
               </Button>
+               <Button asChild variant="ghost">
+                <Link href="#about">About</Link>
+              </Button>
               <Button asChild variant="ghost">
                 <Link href="#pricing">Pricing</Link>
               </Button>
               <Button asChild>
-                {/* TODO: Ensure /booking route exists or update link */}
+                {/* ACTION REQUIRED: Ensure /booking route/page exists */}
                 <Link href="/booking">Book Now</Link>
               </Button>
             </nav>
@@ -55,7 +58,7 @@ export default function LandingPage() {
         <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 relative">
           <div className="absolute inset-0 z-0">
             <Image
-              // TODO: Make sure this image exists in your public/images folder
+              // ACTION REQUIRED: Make sure this image exists in your public/images folder
               src="/images/tennis-ball-hero.png"
               alt="Tennis ball on dark court background"
               fill
@@ -79,8 +82,8 @@ export default function LandingPage() {
                 delivers consistent, customizable drills.
               </p>
               <div className="space-x-4 pt-2">
-                {/* TODO: Point this button to your booking page/component */}
                 <Button asChild size="lg" className="bg-yellow-500 hover:bg-yellow-600 text-black font-bold shadow-lg">
+                   {/* ACTION REQUIRED: Ensure /booking route/page exists */}
                    <Link href="/booking">
                     Check Availability & Book
                     <ChevronRight className="ml-2 h-4 w-4" />
@@ -104,7 +107,7 @@ export default function LandingPage() {
             </div>
             <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
               <Image
-                // TODO: Make sure this image exists in your public folder
+                // ACTION REQUIRED: Ensure this image exists in your public folder
                 src="/action.jpg"
                 width={500}
                 height={500}
@@ -188,7 +191,7 @@ export default function LandingPage() {
                 </div>
                 <div className="space-y-2">
                   <h3 className="text-xl font-bold">Pick Up & Play</h3>
-                  <p className="text-gray-500">Pick up the machine in Queen Anne. Balls and basket included.</p>
+                  <p className="text-gray-500">Pick up the machine in Queen Anne, Seattle. Balls and basket included.</p>
                 </div>
               </div>
             </div>
@@ -232,7 +235,7 @@ export default function LandingPage() {
                   </li>
                 </ul>
                 <div className="pt-4">
-                   {/* TODO: Point this button to your booking page/component */}
+                   {/* ACTION REQUIRED: Ensure /booking route/page exists */}
                    <Button asChild className="bg-green-600 hover:bg-green-700">
                      <Link href="/booking">Book Your Session Now</Link>
                   </Button>
@@ -243,8 +246,8 @@ export default function LandingPage() {
                 <div className="relative w-[280px] h-[500px] bg-black rounded-xl overflow-hidden border-4 border-gray-800 shadow-xl p-1">
                   <iframe
                     className="absolute top-0 left-0 w-full h-full rounded-lg"
-                    // TODO: Replace YOUR_YOUTUBE_SHORT_ID with your actual YouTube Short video ID
-                    src="https://www.youtube.com/embed/YOUR_YOUTUBE_SHORT_ID"
+                    // Updated with your Video ID R6pW0pOUG1s
+                    src="https://www.youtube.com/embed/YOUR_YOUTUBE_SHORT_ID6"
                     title="Seattle Ball Machine Rental Demo (Vertical)"
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -252,6 +255,37 @@ export default function LandingPage() {
                     allowFullScreen
                   ></iframe>
                 </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* About Me Section */}
+        <section id="about" className="w-full py-12 md:py-24 lg:py-32 bg-gray-50">
+          <div className="container px-4 md:px-6">
+            <div className="flex flex-col items-center justify-center space-y-6 text-center">
+               <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">About Me</h2>
+               <Image
+                  // ACTION REQUIRED: Ensure 'aboutme.png' exists in your public folder
+                  src="/aboutme.png"
+                  alt="Photo of the site owner"
+                  width={128}
+                  height={128}
+                  className="rounded-full object-cover border-4 border-white shadow-md"
+                />
+                <div className="max-w-3xl mx-auto space-y-4">
+                  <p className="text-gray-600 md:text-xl/relaxed">
+                    When I started playing tennis in New York, a local spot had a ball machine where I got hundreds of reps in 30-minute sessions before work. It was fantastic for improvement.
+                  </p>
+                  <p className="text-gray-600 md:text-xl/relaxed">
+                    Then I moved to Seattle, and finding time to practice became much harder, especially with a two-year-old running around! Coordinating with partners wasn't always feasible.
+                  </p>
+                  <p className="text-gray-600 md:text-xl/relaxed">
+                    Now, I have this Hydrogen Proton ball machine to get my practice in whenever I can sneak away. On a good week, I might use it for a few hours, but often it just sits there.
+                  </p>
+                   <p className="text-gray-600 md:text-xl/relaxed font-medium">
+                    I built this rental service so other members of our local Seattle tennis community can get consistent, quality practice just like I needed. Hope it helps you improve your game!
+                  </p>
               </div>
             </div>
           </div>
@@ -301,8 +335,8 @@ export default function LandingPage() {
                   </div>
                 </CardContent>
                 <CardFooter>
-                  {/* TODO: Point this button to your booking page/component */}
-                  <Button asChild className="w-full bg-green-600 hover:bg-green-700">
+                   {/* ACTION REQUIRED: Ensure /booking route/page exists */}
+                   <Button asChild className="w-full bg-green-600 hover:bg-green-700">
                      <Link href="/booking?plan=single">Book Single Session</Link>
                    </Button>
                 </CardFooter>
@@ -343,7 +377,7 @@ export default function LandingPage() {
                   </div>
                 </CardContent>
                 <CardFooter>
-                   {/* TODO: Point this button to your booking/purchase page */}
+                   {/* ACTION REQUIRED: Ensure /booking route/page exists */}
                    <Button asChild className="w-full bg-green-600 hover:bg-green-700">
                       <Link href="/booking?plan=3pack">Buy 3-Pack & Schedule Later</Link>
                    </Button>
@@ -382,7 +416,7 @@ export default function LandingPage() {
                   </div>
                 </CardContent>
                 <CardFooter>
-                  {/* TODO: Point this button to your booking/purchase page */}
+                  {/* ACTION REQUIRED: Ensure /booking route/page exists */}
                   <Button asChild className="w-full bg-green-600 hover:bg-green-700">
                     <Link href="/booking?plan=10pack">Buy 10-Pack & Schedule Later</Link>
                   </Button>
@@ -411,7 +445,7 @@ export default function LandingPage() {
 
         {/* Testimonials Section */}
         <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-50">
-          <div className="container px-4 md:px-6">
+           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">What Our Customers Say</h2>
@@ -420,7 +454,6 @@ export default function LandingPage() {
                 </p>
               </div>
             </div>
-            {/* Testimonials with avatars removed */}
             <div className="mx-auto grid max-w-5xl gap-6 py-12 md:grid-cols-2 lg:grid-cols-3">
               <Card>
                 <CardContent className="pt-6">
@@ -434,7 +467,6 @@ export default function LandingPage() {
                       "The ball machine was perfect for my practice sessions. Easy pickup and return process, and the
                       machine worked flawlessly."
                     </p>
-                    {/* Avatar Removed */}
                     <div className="flex items-center gap-4">
                       <div>
                         <p className="font-medium">Sarah T.</p>
@@ -456,7 +488,6 @@ export default function LandingPage() {
                       "I bought the 10-pack and it's been a game changer for my training. The variety of drills you can
                       set up is impressive."
                     </p>
-                    {/* Avatar Removed */}
                     <div className="flex items-center gap-4">
                       <div>
                         <p className="font-medium">Michael R.</p>
@@ -478,7 +509,6 @@ export default function LandingPage() {
                       "Great service! I was considering buying this machine and renting it first helped me make my
                       decision. Highly recommend."
                     </p>
-                    {/* Avatar Removed */}
                     <div className="flex items-center gap-4">
                       <div>
                         <p className="font-medium">Jennifer L.</p>
@@ -494,7 +524,7 @@ export default function LandingPage() {
 
         {/* CTA Section */}
         <section className="w-full py-12 md:py-24 lg:py-32 bg-green-600">
-          <div className="container px-4 md:px-6">
+           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center text-white">
               <div className="space-y-2">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
@@ -505,7 +535,7 @@ export default function LandingPage() {
                 </p>
               </div>
               <div className="space-x-4">
-                 {/* TODO: Point this button to your booking page/component */}
+                 {/* ACTION REQUIRED: Ensure /booking route/page exists */}
                  <Button asChild size="lg" className="bg-yellow-500 hover:bg-yellow-600 text-black font-bold">
                     <Link href="/booking">Check Availability & Book Now</Link>
                  </Button>
@@ -517,12 +547,12 @@ export default function LandingPage() {
 
       {/* Footer */}
       <footer className="w-full border-t bg-white py-6">
-        <div className="container flex flex-col items-center justify-between gap-4 md:flex-row px-4 md:px-6">
+         <div className="container flex flex-col items-center justify-between gap-4 md:flex-row px-4 md:px-6">
           <p className="text-sm text-gray-500">
             © {currentYear} Seattle Ball Machine Rental. All rights reserved.
           </p>
           <nav className="flex gap-4 sm:gap-6">
-            {/* TODO: Create actual pages/links for these */}
+            {/* ACTION REQUIRED: Create these pages */}
             <Link href="/support" className="text-sm text-gray-500 hover:underline">
               Support
             </Link>
