@@ -13,7 +13,7 @@ export default function LandingPage() {
   const currentYear = new Date().getFullYear(); // Will be 2025
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col"> {/* <<< This div starts the main wrapper */}
       {/* Navigation */}
       <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur">
         <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
@@ -566,5 +566,6 @@ export default function LandingPage() {
           </nav>
         </div>
       </footer>
-    </div>
+    </div> {/* <<< This is the corrected closing div tag for the main wrapper */}
   )
+}
