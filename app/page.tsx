@@ -107,8 +107,8 @@ export default function LandingPage() {
             </div>
             <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
               <Image
-                // ACTION REQUIRED: Ensure this image exists at public/action.jpg (lowercase extension)
-                src="/action.jpg"
+                // UPDATED: Changed from action.jpg to action.png
+                src="/action.png"
                 width={500}
                 height={500}
                 alt="Hydrogen Proton ball machine in action on a court"
@@ -247,8 +247,8 @@ export default function LandingPage() {
                 <div className="relative w-[280px] h-[500px] bg-black rounded-xl overflow-hidden border-4 border-gray-800 shadow-xl p-1">
                   <iframe
                     className="absolute top-0 left-0 w-full h-full rounded-lg"
-                    // Updated with your confirmed Video ID
-                    src="https://www.youtube.com/embed/ABCDEFG123"
+                    // UPDATED: Changed the video ID to the correct one
+                    src="https://www.youtube.com/embed/FhzlDpDv3nM"
                     title="Seattle Ball Machine Rental Demo (Vertical)"
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -568,4 +568,3 @@ export default function LandingPage() {
       </footer>
     </div>
   )
-}
