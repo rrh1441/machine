@@ -1,6 +1,4 @@
-'use client' // Moved to the very top
-
-/* eslint-disable @next/next/no-img-element */ // This comment is now below 'use client'
+'use client' // MUST be the very first line
 
 import Link from "next/link"
 import Image from "next/image"
@@ -42,7 +40,6 @@ export default function LandingPage() {
                 <Link href="#pricing">Pricing</Link>
               </Button>
               <Button asChild>
-                {/* --- MODIFIED LINK --- */}
                 <Link href="/#pricing">Book Now</Link>
               </Button>
             </nav>
@@ -89,7 +86,6 @@ export default function LandingPage() {
                       Pricing
                     </Link>
                     <Button asChild className="mt-4">
-                      {/* --- MODIFIED LINK --- */}
                       <Link href="/#pricing">Book Now</Link>
                     </Button>
                   </nav>
@@ -113,7 +109,6 @@ export default function LandingPage() {
         <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 relative">
           <div className="absolute inset-0 z-0">
             <Image
-              // ACTION REQUIRED: Ensure image exists at public/images/tennis-ball-hero.png
               src="/images/tennis-ball-hero.png"
               alt="Tennis ball on dark court background"
               fill
@@ -138,7 +133,6 @@ export default function LandingPage() {
               </p>
               <div className="space-x-4 pt-2">
                 <Button asChild size="lg" className="bg-yellow-500 hover:bg-yellow-600 text-black font-bold shadow-lg">
-                  {/* --- MODIFIED LINK --- */}
                   <Link href="/#pricing">
                     Check Availability & Book
                     <ChevronRight className="ml-2 h-4 w-4" />
@@ -162,7 +156,6 @@ export default function LandingPage() {
             </div>
             <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
               <Image
-                // ACTION REQUIRED: Ensure image exists at public/action.png
                 src="/action.png"
                 width={500}
                 height={500}
@@ -315,7 +308,6 @@ export default function LandingPage() {
 
                   <div className="pt-2">
                     <Button asChild>
-                      {/* --- MODIFIED LINK --- */}
                       <Link href="/#pricing">Check Packages & Pricing</Link>
                     </Button>
                   </div>
@@ -362,7 +354,6 @@ export default function LandingPage() {
                 </ul>
                 <div className="pt-4">
                   <Button asChild className="bg-green-600 hover:bg-green-700">
-                    {/* --- MODIFIED LINK --- */}
                     <Link href="/#pricing">View Rental Options</Link>
                   </Button>
                 </div>
@@ -409,7 +400,6 @@ export default function LandingPage() {
         </section>
 
         {/* Pricing Section */}
-        {/* Added scroll-mt-16 to offset fixed header */}
         <section id="pricing" className="w-full py-12 md:py-24 lg:py-32 bg-gray-50 scroll-mt-16">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
@@ -453,7 +443,6 @@ export default function LandingPage() {
                     </ul>
                   </div>
                 </CardContent>
-                {/* --- MODIFIED CARD FOOTER --- */}
                 <CardFooter>
                   <Button asChild className="w-full bg-green-600 hover:bg-green-700">
                     <Link href="https://buy.stripe.com/bIY17w7UF9wzaqc8wx" target="_blank" rel="noopener noreferrer">
@@ -498,7 +487,6 @@ export default function LandingPage() {
                     </ul>
                   </div>
                 </CardContent>
-                 {/* --- MODIFIED CARD FOOTER --- */}
                 <CardFooter>
                   <Button asChild className="w-full bg-green-600 hover:bg-green-700">
                     <Link href="https://buy.stripe.com/fZe6rQ7UF8svgOA7sx" target="_blank" rel="noopener noreferrer">
@@ -540,7 +528,6 @@ export default function LandingPage() {
                     </ul>
                   </div>
                 </CardContent>
-                {/* --- MODIFIED CARD FOOTER --- */}
                 <CardFooter>
                   <Button asChild className="w-full bg-green-600 hover:bg-green-700">
                     <Link href="https://buy.stripe.com/eVa03sdeZaADaqcfZ4" target="_blank" rel="noopener noreferrer">
@@ -661,7 +648,6 @@ export default function LandingPage() {
               </div>
               <div className="space-x-4">
                 <Button asChild size="lg" className="bg-yellow-500 hover:bg-yellow-600 text-black font-bold">
-                  {/* --- MODIFIED LINK --- */}
                   <Link href="/#pricing">View Pricing & Purchase</Link>
                 </Button>
               </div>
