@@ -5,8 +5,8 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-// Added MapPin and Menu icons
-import { AlertCircle, CheckCircle, ChevronRight, DollarSign, Gift, MapPin, Menu, Star, Users } from "lucide-react"
+// Added MapPin, Menu, and Timer icons
+import { AlertCircle, CheckCircle, ChevronRight, DollarSign, Gift, MapPin, Menu, Star, Users, Timer } from "lucide-react"
 
 export default function LandingPage() {
   // Get the current year for the footer
@@ -256,7 +256,7 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* --- NEW Pick Up Location Section --- */}
+        {/* Pick Up Location Section */}
         <section id="pickup" className="w-full py-12 md:py-24 lg:py-32 bg-white">
           <div className="container px-4 md:px-6">
             {/* Section Header */}
@@ -284,6 +284,7 @@ export default function LandingPage() {
                </div>
                {/* Text Column */}
               <div className="flex flex-col justify-center space-y-6">
+                 {/* Location Details */}
                  <div className="space-y-3">
                    <div className="flex items-center gap-2">
                      <MapPin className="h-6 w-6 text-green-600 flex-shrink-0" />
@@ -294,13 +295,32 @@ export default function LandingPage() {
                     <span className="font-medium"> W McGraw St & 4th Ave W</span>.
                   </p>
                   <p className="text-gray-600 text-lg leading-relaxed">
-                     You'll find us close to local landmarks like <span className="font-medium">Bar Miriam</span> and <span className="font-medium">Five Corners Hardware</span>. It's also just a few blocks from the David Rodgers Park tennis courts!
+                     You'll find us close to local landmarks like <span className="font-medium">Bar Miriam</span> and <span className="font-medium">Five Corners Hardware</span>.
                   </p>
                   <p className="text-gray-600 text-lg leading-relaxed font-semibold text-green-800 bg-green-50 p-3 rounded-md border border-green-200">
                      <AlertCircle className="inline-block h-5 w-5 mr-2 mb-1 text-green-700" />
                      For privacy, the exact street address and detailed pickup instructions will be provided in your booking confirmation email after payment.
                   </p>
                 </div>
+
+                 {/* Nearby Courts List - Added Here */}
+                 <div className="space-y-2 pt-2">
+                    <div className="flex items-center gap-2">
+                        <Timer className="h-6 w-6 text-green-600 flex-shrink-0" />
+                        <h4 className="text-xl font-bold">Nearby Courts</h4>
+                    </div>
+                    <p className="text-gray-600">
+                        <strong className="font-medium text-gray-800">&lt; 5 min drive:</strong> David Rodgers Park, Observatory Courts
+                    </p>
+                    <p className="text-gray-600">
+                        <strong className="font-medium text-gray-800">&lt; 10 min drive:</strong> Upper Woodland, Lower Woodland, Green Lake West, Gilman Playfield, Wallingford Playfield, Magnolia Playfield, Magnolia Park
+                    </p>
+                    <p className="text-gray-600">
+                        <strong className="font-medium text-gray-800">&lt; 15 min drive:</strong> Rogers Park, Montlake Playfield, Volunteer Park
+                    </p>
+                 </div>
+                 {/* End Nearby Courts List */}
+
                  <div className="pt-2">
                    <Button asChild>
                       {/* ACTION REQUIRED: Ensure /booking route exists */}
