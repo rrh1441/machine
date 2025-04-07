@@ -1,51 +1,36 @@
-import type { Metadata } from 'next'
-import './globals.css'
+// app/layout.tsx
+import dynamic from "next/dynamic";
+import Script from "next/script";
+import "./globals.css";
 
-// Define the site metadata with advanced title template
-export const metadata: Metadata = {
-  // Title Configuration:
-  title: {
-    // Default title used on the homepage or if a page doesn't specify one
-    default: 'Seattle Ball Machine Rental',
-    // Template used for other pages: %s will be replaced by the page's specific title
-    template: '%s | Seattle Ball Machine Rental',
-  },
-  // Site description (good for SEO)
-  description: 'Rent a Hydrogen Proton tennis ball machine in Queen Anne, Seattle. Easy online booking and convenient pickup.',
-  // Optional: You can keep or remove the generator tag
-  // generator: 'v0.dev',
+const Analytics = dynamic(
+  () => import("@vercel/analytics/react").then((mod) => mod.Analytics),
+  { ssr: false }
+);
 
-  // --- Icon Handling ---
-  // This metadata block assumes you are using the file-based convention:
-  // Place your `favicon.ico`, `icon.png`/`icon.svg`, `apple-icon.png`
-  // directly in the `app/` directory alongside this layout.tsx file.
-  // Next.js will automatically detect them.
+export const metadata = {
+  title: "Seattle Ball Machine Rental",
+  description: "Elevate your tennis game with professional ball machine rentals in Queen Anne, Seattle.",
+};
 
-  // If you PREFER to keep icons in `public/` and link them explicitly,
-  // you would uncomment and configure the 'icons' section below instead:
-  /*
-  icons: {
-    icon: '/icon.png', // Assumes icon.png is in public/
-    shortcut: '/favicon.ico', // Assumes favicon.ico is in public/
-    apple: '/apple-icon.png', // Assumes apple-icon.png is in public/
-    // other: { rel: 'other-icon', url: '/other-icon.png' }, // Example for other icons
-  },
-  */
-}
-
-// The RootLayout component remains the same
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      {/* You could add classes here for default themes, fonts etc. if needed */}
+      <head>
+        {/* Datafa.st Analytics Script */}
+        <Script
+          src="https://datafa.st/js/script.js"
+          data-website-id="67f46250fc139202d6288041"
+          data-domain="seattleballmachine.com"
+          strategy="lazyOnload"
+          defer
+        />
+      </head>
       <body>
-        {/* The ThemeProvider or other context providers would typically wrap children */}
         {children}
+        {/* Dynamically loaded Vercel Analytics */}
+        <Analytics />
       </body>
     </html>
-  )
+  );
 }
