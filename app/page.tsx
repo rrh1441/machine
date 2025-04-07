@@ -5,12 +5,11 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-// Added MapPin, Menu, and Timer icons
 import { AlertCircle, CheckCircle, ChevronRight, DollarSign, Gift, MapPin, Menu, Star, Users, Timer } from "lucide-react"
 
 export default function LandingPage() {
   // Get the current year for the footer
-  const currentYear = new Date().getFullYear(); // Will be 2025
+  const currentYear = new Date().getFullYear();
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -19,7 +18,6 @@ export default function LandingPage() {
         <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
           <div className="flex gap-6 md:gap-10">
             <Link href="/" className="flex items-center space-x-2">
-              {/* Adjusted text size slightly */}
               <span className="inline-block font-bold text-lg md:text-xl">Seattle Ball Machine</span>
             </Link>
           </div>
@@ -32,7 +30,6 @@ export default function LandingPage() {
               <Button asChild variant="ghost">
                 <Link href="#how-it-works">How It Works</Link>
               </Button>
-              {/* Added Pickup Link */}
               <Button asChild variant="ghost">
                 <Link href="#pickup">Pickup</Link>
               </Button>
@@ -43,7 +40,6 @@ export default function LandingPage() {
                 <Link href="#pricing">Pricing</Link>
               </Button>
               <Button asChild>
-                {/* All CTA buttons now link to the pricing section */}
                 <Link href="#pricing">Book Now</Link>
               </Button>
             </nav>
@@ -58,41 +54,23 @@ export default function LandingPage() {
                   </Button>
                 </SheetTrigger>
                 <SheetContent side="right" className="w-[240px] sm:w-[300px]">
-                  {/* Links inside mobile nav sheet */}
                   <nav className="flex flex-col gap-4 mt-8">
-                    <Link
-                      href="#features"
-                      className="flex items-center py-2 text-lg font-medium border-b"
-                    >
+                    <Link href="#features" className="flex items-center py-2 text-lg font-medium border-b">
                       Features
                     </Link>
-                    <Link
-                      href="#how-it-works"
-                      className="flex items-center py-2 text-lg font-medium border-b"
-                    >
+                    <Link href="#how-it-works" className="flex items-center py-2 text-lg font-medium border-b">
                       How It Works
                     </Link>
-                    {/* Added Pickup Link */}
-                    <Link
-                      href="#pickup"
-                      className="flex items-center py-2 text-lg font-medium border-b"
-                    >
+                    <Link href="#pickup" className="flex items-center py-2 text-lg font-medium border-b">
                       Pickup
                     </Link>
-                    <Link
-                      href="#about"
-                      className="flex items-center py-2 text-lg font-medium border-b"
-                    >
+                    <Link href="#about" className="flex items-center py-2 text-lg font-medium border-b">
                       About
                     </Link>
-                    <Link
-                      href="#pricing"
-                      className="flex items-center py-2 text-lg font-medium border-b"
-                    >
+                    <Link href="#pricing" className="flex items-center py-2 text-lg font-medium border-b">
                       Pricing
                     </Link>
                     <Button asChild className="mt-4">
-                      {/* All CTA buttons now link to the pricing section */}
                       <Link href="#pricing">Book Now</Link>
                     </Button>
                   </nav>
@@ -116,7 +94,6 @@ export default function LandingPage() {
         <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 relative">
           <div className="absolute inset-0 z-0">
             <Image
-              // ACTION REQUIRED: Ensure image exists at public/images/tennis-ball-hero.png
               src="/images/tennis-ball-hero.png"
               alt="Tennis ball on dark court background"
               fill
@@ -128,7 +105,7 @@ export default function LandingPage() {
           <div className="container relative z-10 px-4 md:px-6">
             <div className="flex flex-col items-center space-y-4 text-center">
               <div className="space-y-2">
-                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none text-white text-shadow-lg">
+                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl text-white text-shadow-lg">
                   Elevate Your Tennis Game
                 </h1>
                 <p className="mx-auto max-w-[700px] text-white text-xl md:text-2xl text-shadow-md">
@@ -141,7 +118,6 @@ export default function LandingPage() {
               </p>
               <div className="space-x-4 pt-2">
                 <Button asChild size="lg" className="bg-yellow-500 hover:bg-yellow-600 text-black font-bold shadow-lg">
-                  {/* Primary CTA now links to the pricing section */}
                   <Link href="#pricing">
                     Check Availability &amp; Book
                     <ChevronRight className="ml-2 h-4 w-4" />
@@ -158,14 +134,13 @@ export default function LandingPage() {
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Features &amp; Benefits</h2>
-                <p className="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                <p className="max-w-[900px] text-gray-500 md:text-xl lg:text-base xl:text-xl">
                   The Hydrogen Proton ball machine offers professional-grade training for players of all levels
                 </p>
               </div>
             </div>
             <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
               <Image
-                // ACTION REQUIRED: Ensure image exists at public/action.png
                 src="/action.png"
                 width={500}
                 height={500}
@@ -219,7 +194,7 @@ export default function LandingPage() {
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">How It Works</h2>
-                <p className="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                <p className="max-w-[900px] text-gray-500 md:text-xl lg:text-base xl:text-xl">
                   Renting a ball machine has never been easier
                 </p>
               </div>
@@ -259,22 +234,22 @@ export default function LandingPage() {
         {/* Pick Up Location Section */}
         <section id="pickup" className="w-full py-12 md:py-24 lg:py-32 bg-white">
           <div className="container px-4 md:px-6">
-            {/* Section Header */}
             <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
               <div className="space-y-2">
-                <div className="inline-block rounded-lg bg-green-100 px-3 py-1 text-sm text-green-700">Pickup</div>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Convenient Queen Anne Pickup</h2>
-                <p className="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                <div className="inline-block rounded-lg bg-green-100 px-3 py-1 text-sm text-green-700">
+                  Pickup
+                </div>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
+                  Convenient Queen Anne Pickup
+                </h2>
+                <p className="max-w-[900px] text-gray-500 md:text-xl lg:text-base xl:text-xl">
                   Easy access right in the neighborhood, close to local courts.
                 </p>
               </div>
             </div>
-            {/* Section Content Grid */}
             <div className="mx-auto grid max-w-5xl items-center gap-8 lg:grid-cols-2 lg:gap-12">
-              {/* Image Column */}
               <div className="flex justify-center items-center">
                 <Image
-                  // ACTION REQUIRED: Place courts.png in your /public folder
                   src="/courts.png"
                   width={450}
                   height={550}
@@ -282,9 +257,7 @@ export default function LandingPage() {
                   className="overflow-hidden rounded-xl object-contain shadow-lg border"
                 />
               </div>
-              {/* Text Column */}
               <div className="flex flex-col justify-center space-y-6">
-                {/* Location Details */}
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
                     <MapPin className="h-6 w-6 text-green-600 flex-shrink-0" />
@@ -302,11 +275,9 @@ export default function LandingPage() {
                     For privacy, the exact street address and detailed pickup instructions will be provided in your booking confirmation email after payment.
                   </p>
                 </div>
-
                 <div className="pt-2">
                   <Button asChild>
-                    {/* Change link from /booking to pricing anchor */}
-                    <Link href="#pricing">Check Availability</Link>
+                    <Link href="#pricing">Book Now</Link>
                   </Button>
                 </div>
               </div>
@@ -319,18 +290,21 @@ export default function LandingPage() {
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">See It In Action</h2>
-                <p className="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
+                  See It In Action
+                </h2>
+                <p className="max-w-[900px] text-gray-500 md:text-xl lg:text-base xl:text-xl">
                   Watch how easy it is to set up and use the Hydrogen Proton ball machine
                 </p>
               </div>
             </div>
             <div className="mx-auto grid max-w-5xl gap-12 py-12 md:grid-cols-2 items-center">
               <div className="flex flex-col space-y-4">
-                <h3 className="text-2xl font-bold">Professional Training at Your Fingertips</h3>
+                <h3 className="text-2xl font-bold">
+                  Professional Training at Your Fingertips
+                </h3>
                 <p className="text-gray-500">
-                  The Hydrogen Proton ball machine offers a variety of drills and settings to help you improve your
-                  game. Watch as our demonstration shows how simple it is to:
+                  The Hydrogen Proton ball machine offers a variety of drills and settings to help you improve your game. Watch as our demonstration shows how simple it is to:
                 </p>
                 <ul className="space-y-2">
                   <li className="flex items-center gap-2">
@@ -352,17 +326,14 @@ export default function LandingPage() {
                 </ul>
                 <div className="pt-4">
                   <Button asChild className="bg-green-600 hover:bg-green-700">
-                    {/* Change link from /booking to pricing anchor */}
                     <Link href="#pricing">Book Your Session Now</Link>
                   </Button>
                 </div>
               </div>
               <div className="flex justify-center">
-                {/* YouTube Short embed within the phone frame */}
                 <div className="relative w-[280px] h-[500px] bg-black rounded-xl overflow-hidden border-4 border-gray-800 shadow-xl p-1">
                   <iframe
                     className="absolute top-0 left-0 w-full h-full rounded-lg"
-                    // ACTION REQUIRED: Verify this src is correct
                     src="https://www.youtube.com/embed/FhzlDpDv3nM"
                     title="Seattle Ball Machine Rental Demo (Vertical)"
                     frameBorder="0"
@@ -382,7 +353,6 @@ export default function LandingPage() {
             <div className="flex flex-col items-center justify-center space-y-6 text-center">
               <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">About Me</h2>
               <Image
-                // ACTION REQUIRED: Ensure image exists at public/aboutme.png
                 src="/aboutme.png"
                 alt="Photo of the site owner"
                 width={128}
@@ -390,10 +360,10 @@ export default function LandingPage() {
                 className="rounded-full object-cover border-4 border-white shadow-md"
               />
               <div className="max-w-3xl mx-auto space-y-4">
-                <p className="text-gray-600 md:text-xl/relaxed">
+                <p className="text-gray-600 md:text-xl">
                   When I started playing tennis in New York, a local spot had a ball machine for quick sessions before work. After moving to Seattle, finding time for practice became much harder, especially with a young family. That's when I purchased this Hydrogen Proton ball machine.
                 </p>
-                <p className="text-gray-600 md:text-xl/relaxed font-medium">
+                <p className="text-gray-600 md:text-xl font-medium">
                   Since I only use it occasionally, I'm making it available to the Seattle tennis community so others can benefit from consistent, quality practice. My hope is that it helps you improve your game just as it has helped mine!
                 </p>
               </div>
@@ -407,7 +377,7 @@ export default function LandingPage() {
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Rental Options</h2>
-                <p className="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                <p className="max-w-[900px] text-gray-500 md:text-xl lg:text-base xl:text-xl">
                   Choose the option that works best for your schedule and budget
                 </p>
               </div>
@@ -492,7 +462,7 @@ export default function LandingPage() {
                 <CardFooter>
                   <Button asChild className="w-full bg-green-600 hover:bg-green-700">
                     <Link href="https://buy.stripe.com/fZe6rQ7UF8svgOA7sx" legacyBehavior>
-                      <a>Buy 3-Pack &amp; Schedule Later</a>
+                      <a>Buy 3-Pack</a>
                     </Link>
                   </Button>
                 </CardFooter>
@@ -533,7 +503,7 @@ export default function LandingPage() {
                 <CardFooter>
                   <Button asChild className="w-full bg-green-600 hover:bg-green-700">
                     <Link href="https://buy.stripe.com/eVa03sdeZaADaqcfZ4" legacyBehavior>
-                      <a>Buy 10-Pack &amp; Schedule Later</a>
+                      <a>Buy 10-Pack</a>
                     </Link>
                   </Button>
                 </CardFooter>
@@ -559,7 +529,7 @@ export default function LandingPage() {
               </div>
               <div className="space-x-4">
                 <Button asChild size="lg" className="bg-yellow-500 hover:bg-yellow-600 text-black font-bold">
-                  <Link href="#pricing">Check Availability &amp; Book Now</Link>
+                  <Link href="#pricing">Book Now</Link>
                 </Button>
               </div>
             </div>
