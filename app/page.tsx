@@ -1,4 +1,4 @@
-'use client' // MUST be the very first line
+'use client';
 
 import Link from "next/link"
 import Image from "next/image"
@@ -677,4 +677,3 @@ export default function LandingPage() {
       </footer>
     </div>
   )
-}
