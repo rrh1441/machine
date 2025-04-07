@@ -1,8 +1,9 @@
-/* eslint-disable @next/next/no-img-element */
-'use client' // Keep 'use client' as some components might need it (Sheet, etc.)
+'use client' // Moved to the very top
+
+/* eslint-disable @next/next/no-img-element */ // This comment is now below 'use client'
 
 import Link from "next/link"
-import Image from "next/image" // Keep using next/image for optimized images
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
@@ -19,7 +20,6 @@ export default function LandingPage() {
         <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
           <div className="flex gap-6 md:gap-10">
             <Link href="/" className="flex items-center space-x-2">
-              {/* Adjusted text size slightly */}
               <span className="inline-block font-bold text-lg md:text-xl">Seattle Ball Machine</span>
             </Link>
           </div>
@@ -32,7 +32,6 @@ export default function LandingPage() {
               <Button asChild variant="ghost">
                 <Link href="#how-it-works">How It Works</Link>
               </Button>
-              {/* Added Pickup Link */}
               <Button asChild variant="ghost">
                 <Link href="#pickup">Pickup</Link>
               </Button>
@@ -58,7 +57,6 @@ export default function LandingPage() {
                   </Button>
                 </SheetTrigger>
                 <SheetContent side="right" className="w-[240px] sm:w-[300px]">
-                  {/* Links inside mobile nav sheet */}
                   <nav className="flex flex-col gap-4 mt-8">
                     <Link
                       href="#features"
@@ -72,7 +70,6 @@ export default function LandingPage() {
                     >
                       How It Works
                     </Link>
-                    {/* Added Pickup Link */}
                     <Link
                       href="#pickup"
                       className="flex items-center py-2 text-lg font-medium border-b"
@@ -225,7 +222,7 @@ export default function LandingPage() {
               </div>
             </div>
             <div className="mx-auto grid max-w-5xl items-start gap-6 py-12 md:grid-cols-3">
-              {/* --- STEP 1 MODIFIED DESCRIPTION --- */}
+              {/* Step 1 */}
               <div className="flex flex-col items-center space-y-4 text-center h-full">
                 <div className="flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
                   <span className="text-2xl font-bold text-green-600">1</span>
@@ -235,7 +232,7 @@ export default function LandingPage() {
                   <p className="text-gray-500">Scroll down to the pricing section and select a single session or a multi-session pack.</p>
                 </div>
               </div>
-              {/* --- STEP 2 MODIFIED DESCRIPTION --- */}
+              {/* Step 2 */}
               <div className="flex flex-col items-center space-y-4 text-center h-full">
                 <div className="flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
                   <span className="text-2xl font-bold text-green-600">2</span>
@@ -245,7 +242,7 @@ export default function LandingPage() {
                   <p className="text-gray-500">Click the purchase button to pay securely via Stripe. After payment, you'll see a confirmation and the scheduling link.</p>
                 </div>
               </div>
-              {/* --- STEP 3 MODIFIED DESCRIPTION --- */}
+              {/* Step 3 */}
               <div className="flex flex-col items-center space-y-4 text-center h-full">
                 <div className="flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
                   <span className="text-2xl font-bold text-green-600">3</span>
@@ -262,7 +259,6 @@ export default function LandingPage() {
         {/* Pick Up Location Section */}
         <section id="pickup" className="w-full py-12 md:py-24 lg:py-32 bg-white">
           <div className="container px-4 md:px-6">
-            {/* Section Header */}
             <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
               <div className="space-y-2">
                   <div className="inline-block rounded-lg bg-green-100 px-3 py-1 text-sm text-green-700">Pickup</div>
@@ -272,22 +268,17 @@ export default function LandingPage() {
                 </p>
               </div>
             </div>
-            {/* Section Content Grid */}
             <div className="mx-auto grid max-w-5xl items-center gap-8 lg:grid-cols-2 lg:gap-12">
-                {/* Image Column */}
                 <div className="flex justify-center items-center">
                   <Image
-                  // ACTION REQUIRED: Place courts.png in your /public folder (e.g., /public/courts.png)
                   src="/courts.png"
-                  width={450} // Adjust width as needed based on image aspect ratio
-                  height={550} // Adjust height as needed based on image aspect ratio
+                  width={450}
+                  height={550}
                   alt="Map showing pickup location in Queen Anne, Seattle near David Rodgers Park"
                   className="overflow-hidden rounded-xl object-contain shadow-lg border"
                   />
                 </div>
-                {/* Text Column */}
               <div className="flex flex-col justify-center space-y-6">
-                  {/* Location Details */}
                   <div className="space-y-3">
                     <div className="flex items-center gap-2">
                       <MapPin className="h-6 w-6 text-green-600 flex-shrink-0" />
@@ -306,7 +297,6 @@ export default function LandingPage() {
                   </p>
                 </div>
 
-                  {/* Nearby Courts List - Added Here */}
                   <div className="space-y-2 pt-2">
                     <div className="flex items-center gap-2">
                         <Timer className="h-6 w-6 text-green-600 flex-shrink-0" />
@@ -322,7 +312,6 @@ export default function LandingPage() {
                         <strong className="font-medium text-gray-800">< 15 min drive:</strong> Rogers Park, Montlake Playfield, Volunteer Park
                     </p>
                   </div>
-                  {/* End Nearby Courts List */}
 
                   <div className="pt-2">
                     <Button asChild>
@@ -334,10 +323,9 @@ export default function LandingPage() {
             </div>
           </div>
         </section>
-        {/* --- END Pick Up Location Section --- */}
 
         {/* Video Demonstration Section */}
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-50"> {/* Alternating background */}
+        <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-50">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
@@ -380,11 +368,9 @@ export default function LandingPage() {
                 </div>
               </div>
               <div className="flex justify-center">
-                {/* YouTube Short embed within the phone frame */}
                 <div className="relative w-[280px] h-[500px] bg-black rounded-xl overflow-hidden border-4 border-gray-800 shadow-xl p-1">
                   <iframe
                     className="absolute top-0 left-0 w-full h-full rounded-lg"
-                    // Using the correct video ID provided by user
                     src={`https://www.youtube.com/embed/FhzlDpDv3nM`}
                     title="Seattle Ball Machine Rental Demo (Vertical)"
                     frameBorder="0"
@@ -398,13 +384,12 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* About Me Section - Shortened to Two Paragraphs */}
-        <section id="about" className="w-full py-12 md:py-24 lg:py-32 bg-white"> {/* Alternating background */}
+        {/* About Me Section */}
+        <section id="about" className="w-full py-12 md:py-24 lg:py-32 bg-white">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-6 text-center">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">About Me</h2>
                 <Image
-                    // ACTION REQUIRED: Ensure image exists at public/aboutme.png
                     src="/aboutme.png"
                     alt="Photo of the site owner"
                     width={128}
@@ -424,7 +409,8 @@ export default function LandingPage() {
         </section>
 
         {/* Pricing Section */}
-        <section id="pricing" className="w-full py-12 md:py-24 lg:py-32 bg-gray-50 scroll-mt-16"> {/* Added scroll-mt-16 for header offset */}
+        {/* Added scroll-mt-16 to offset fixed header */}
+        <section id="pricing" className="w-full py-12 md:py-24 lg:py-32 bg-gray-50 scroll-mt-16">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
@@ -434,7 +420,6 @@ export default function LandingPage() {
                 </p>
               </div>
             </div>
-            {/* Restoring standard formatting for pricing cards */}
             <div className="mx-auto grid max-w-5xl gap-6 py-12 md:grid-cols-3">
               {/* Single Session Card */}
               <Card className="flex flex-col">
@@ -471,7 +456,6 @@ export default function LandingPage() {
                 {/* --- MODIFIED CARD FOOTER --- */}
                 <CardFooter>
                   <Button asChild className="w-full bg-green-600 hover:bg-green-700">
-                    {/* Direct Stripe Link */}
                     <Link href="https://buy.stripe.com/bIY17w7UF9wzaqc8wx" target="_blank" rel="noopener noreferrer">
                       Purchase Single Session
                     </Link>
@@ -517,7 +501,6 @@ export default function LandingPage() {
                  {/* --- MODIFIED CARD FOOTER --- */}
                 <CardFooter>
                   <Button asChild className="w-full bg-green-600 hover:bg-green-700">
-                     {/* Direct Stripe Link */}
                     <Link href="https://buy.stripe.com/fZe6rQ7UF8svgOA7sx" target="_blank" rel="noopener noreferrer">
                       Purchase 3-Pack
                     </Link>
@@ -560,7 +543,6 @@ export default function LandingPage() {
                 {/* --- MODIFIED CARD FOOTER --- */}
                 <CardFooter>
                   <Button asChild className="w-full bg-green-600 hover:bg-green-700">
-                     {/* Direct Stripe Link */}
                     <Link href="https://buy.stripe.com/eVa03sdeZaADaqcfZ4" target="_blank" rel="noopener noreferrer">
                       Purchase 10-Pack
                     </Link>
@@ -569,7 +551,6 @@ export default function LandingPage() {
               </Card>
             </div>
             <div className="text-center text-gray-500 mt-4">All rentals include 75 balls & pickup basket</div>
-            {/* No-Hassle Guarantee */}
             <div className="max-w-3xl mx-auto mt-12 bg-green-50 border border-green-200 rounded-lg p-6">
               <div className="flex flex-col md:flex-row items-center gap-4 text-center md:text-left">
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-green-100">
@@ -588,7 +569,7 @@ export default function LandingPage() {
         </section>
 
         {/* Testimonials Section */}
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-white"> {/* Alternating background */}
+        <section className="w-full py-12 md:py-24 lg:py-32 bg-white">
             <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
@@ -598,7 +579,6 @@ export default function LandingPage() {
                 </p>
               </div>
             </div>
-            {/* Restoring standard formatting for testimonial cards */}
             <div className="mx-auto grid max-w-5xl gap-6 py-12 md:grid-cols-2 lg:grid-cols-3">
               <Card>
                 <CardContent className="pt-6">
@@ -697,7 +677,6 @@ export default function LandingPage() {
             © {currentYear} Seattle Ball Machine Rental. All rights reserved.
           </p>
           <nav className="flex gap-4 sm:gap-6">
-            {/* ACTION REQUIRED: Create these pages */}
             <Link href="/support" className="text-sm text-gray-500 hover:underline">
               Support
             </Link>
