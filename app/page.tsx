@@ -1,11 +1,11 @@
-'use client'
+/* eslint-disable @next/next/no-img-element */
+'use client' // Keep 'use client' as some components might need it (Sheet, etc.)
 
 import Link from "next/link"
-import Image from "next/image"
+import Image from "next/image" // Keep using next/image for optimized images
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-// Added MapPin, Menu, and Timer icons
 import { AlertCircle, CheckCircle, ChevronRight, DollarSign, Gift, MapPin, Menu, Star, Users, Timer } from "lucide-react"
 
 export default function LandingPage() {
@@ -43,8 +43,8 @@ export default function LandingPage() {
                 <Link href="#pricing">Pricing</Link>
               </Button>
               <Button asChild>
-                {/* ACTION REQUIRED: Ensure /booking route exists */}
-                <Link href="/booking">Book Now</Link>
+                {/* --- MODIFIED LINK --- */}
+                <Link href="/#pricing">Book Now</Link>
               </Button>
             </nav>
 
@@ -92,8 +92,8 @@ export default function LandingPage() {
                       Pricing
                     </Link>
                     <Button asChild className="mt-4">
-                       {/* ACTION REQUIRED: Ensure /booking route exists */}
-                      <Link href="/booking">Book Now</Link>
+                      {/* --- MODIFIED LINK --- */}
+                      <Link href="/#pricing">Book Now</Link>
                     </Button>
                   </nav>
                 </SheetContent>
@@ -141,11 +141,11 @@ export default function LandingPage() {
               </p>
               <div className="space-x-4 pt-2">
                 <Button asChild size="lg" className="bg-yellow-500 hover:bg-yellow-600 text-black font-bold shadow-lg">
-                   {/* ACTION REQUIRED: Ensure /booking route exists */}
-                   <Link href="/booking">
+                  {/* --- MODIFIED LINK --- */}
+                  <Link href="/#pricing">
                     Check Availability & Book
                     <ChevronRight className="ml-2 h-4 w-4" />
-                   </Link>
+                  </Link>
                 </Button>
               </div>
             </div>
@@ -165,7 +165,7 @@ export default function LandingPage() {
             </div>
             <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
               <Image
-                 // ACTION REQUIRED: Ensure image exists at public/action.png
+                // ACTION REQUIRED: Ensure image exists at public/action.png
                 src="/action.png"
                 width={500}
                 height={500}
@@ -225,31 +225,34 @@ export default function LandingPage() {
               </div>
             </div>
             <div className="mx-auto grid max-w-5xl items-start gap-6 py-12 md:grid-cols-3">
+              {/* --- STEP 1 MODIFIED DESCRIPTION --- */}
               <div className="flex flex-col items-center space-y-4 text-center h-full">
                 <div className="flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
                   <span className="text-2xl font-bold text-green-600">1</span>
                 </div>
                 <div className="space-y-2">
-                  <h3 className="text-xl font-bold">Select Your Time</h3>
-                  <p className="text-gray-500">Choose a single session or purchase a package for multiple rentals.</p>
+                  <h3 className="text-xl font-bold">Choose Your Package</h3>
+                  <p className="text-gray-500">Scroll down to the pricing section and select a single session or a multi-session pack.</p>
                 </div>
               </div>
+              {/* --- STEP 2 MODIFIED DESCRIPTION --- */}
               <div className="flex flex-col items-center space-y-4 text-center h-full">
                 <div className="flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
                   <span className="text-2xl font-bold text-green-600">2</span>
                 </div>
                 <div className="space-y-2">
-                  <h3 className="text-xl font-bold">Easy Payment</h3>
-                  <p className="text-gray-500">Secure online payment via Stripe with instant confirmation.</p>
+                  <h3 className="text-xl font-bold">Secure Payment</h3>
+                  <p className="text-gray-500">Click the purchase button to pay securely via Stripe. After payment, you'll see a confirmation and the scheduling link.</p>
                 </div>
               </div>
+              {/* --- STEP 3 MODIFIED DESCRIPTION --- */}
               <div className="flex flex-col items-center space-y-4 text-center h-full">
                 <div className="flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
                   <span className="text-2xl font-bold text-green-600">3</span>
                 </div>
                 <div className="space-y-2">
-                  <h3 className="text-xl font-bold">Pick Up & Play</h3>
-                  <p className="text-gray-500">Pick up the machine in Queen Anne, Seattle. Balls and basket included.</p>
+                  <h3 className="text-xl font-bold">Schedule & Play</h3>
+                  <p className="text-gray-500">Use the provided Calendly link to book your time slot. Then, pick up the machine in Queen Anne and enjoy your practice!</p>
                 </div>
               </div>
             </div>
@@ -262,7 +265,7 @@ export default function LandingPage() {
             {/* Section Header */}
             <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
               <div className="space-y-2">
-                 <div className="inline-block rounded-lg bg-green-100 px-3 py-1 text-sm text-green-700">Pickup</div>
+                  <div className="inline-block rounded-lg bg-green-100 px-3 py-1 text-sm text-green-700">Pickup</div>
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Convenient Queen Anne Pickup</h2>
                 <p className="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                   Easy access right in the neighborhood, close to local courts.
@@ -271,63 +274,63 @@ export default function LandingPage() {
             </div>
             {/* Section Content Grid */}
             <div className="mx-auto grid max-w-5xl items-center gap-8 lg:grid-cols-2 lg:gap-12">
-               {/* Image Column */}
-               <div className="flex justify-center items-center">
-                 <Image
+                {/* Image Column */}
+                <div className="flex justify-center items-center">
+                  <Image
                   // ACTION REQUIRED: Place courts.png in your /public folder (e.g., /public/courts.png)
                   src="/courts.png"
                   width={450} // Adjust width as needed based on image aspect ratio
                   height={550} // Adjust height as needed based on image aspect ratio
                   alt="Map showing pickup location in Queen Anne, Seattle near David Rodgers Park"
                   className="overflow-hidden rounded-xl object-contain shadow-lg border"
-                 />
-               </div>
-               {/* Text Column */}
+                  />
+                </div>
+                {/* Text Column */}
               <div className="flex flex-col justify-center space-y-6">
-                 {/* Location Details */}
-                 <div className="space-y-3">
-                   <div className="flex items-center gap-2">
-                     <MapPin className="h-6 w-6 text-green-600 flex-shrink-0" />
-                     <h3 className="text-2xl font-bold">Location Details</h3>
-                   </div>
+                  {/* Location Details */}
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2">
+                      <MapPin className="h-6 w-6 text-green-600 flex-shrink-0" />
+                      <h3 className="text-2xl font-bold">Location Details</h3>
+                    </div>
                   <p className="text-gray-600 text-lg leading-relaxed">
                     The general pickup area is located in upper Queen Anne, Seattle, near the corner of
                     <span className="font-medium"> W McGraw St & 4th Ave W</span>.
                   </p>
                   <p className="text-gray-600 text-lg leading-relaxed">
-                     You'll find us close to local landmarks like <span className="font-medium">Bar Miriam</span> and <span className="font-medium">Five Corners Hardware</span>.
+                      You'll find us close to local landmarks like <span className="font-medium">Bar Miriam</span> and <span className="font-medium">Five Corners Hardware</span>.
                   </p>
                   <p className="text-gray-600 text-lg leading-relaxed font-semibold text-green-800 bg-green-50 p-3 rounded-md border border-green-200">
-                     <AlertCircle className="inline-block h-5 w-5 mr-2 mb-1 text-green-700" />
-                     For privacy, the exact street address and detailed pickup instructions will be provided in your booking confirmation email after payment.
+                      <AlertCircle className="inline-block h-5 w-5 mr-2 mb-1 text-green-700" />
+                      For privacy, the exact street address and detailed pickup instructions will be provided in your booking confirmation email after payment.
                   </p>
                 </div>
 
-                 {/* Nearby Courts List - Added Here */}
-                 <div className="space-y-2 pt-2">
+                  {/* Nearby Courts List - Added Here */}
+                  <div className="space-y-2 pt-2">
                     <div className="flex items-center gap-2">
                         <Timer className="h-6 w-6 text-green-600 flex-shrink-0" />
                         <h4 className="text-xl font-bold">Nearby Courts</h4>
                     </div>
                     <p className="text-gray-600">
-                        <strong className="font-medium text-gray-800">&lt; 5 min drive:</strong> David Rodgers Park, Observatory Courts
+                        <strong className="font-medium text-gray-800">< 5 min drive:</strong> David Rodgers Park, Observatory Courts
                     </p>
                     <p className="text-gray-600">
-                        <strong className="font-medium text-gray-800">&lt; 10 min drive:</strong> Upper Woodland, Lower Woodland, Green Lake West, Gilman Playfield, Wallingford Playfield, Magnolia Playfield, Magnolia Park
+                        <strong className="font-medium text-gray-800">< 10 min drive:</strong> Upper Woodland, Lower Woodland, Green Lake West, Gilman Playfield, Wallingford Playfield, Magnolia Playfield, Magnolia Park
                     </p>
                     <p className="text-gray-600">
-                        <strong className="font-medium text-gray-800">&lt; 15 min drive:</strong> Rogers Park, Montlake Playfield, Volunteer Park
+                        <strong className="font-medium text-gray-800">< 15 min drive:</strong> Rogers Park, Montlake Playfield, Volunteer Park
                     </p>
-                 </div>
-                 {/* End Nearby Courts List */}
+                  </div>
+                  {/* End Nearby Courts List */}
 
-                 <div className="pt-2">
-                   <Button asChild>
-                      {/* ACTION REQUIRED: Ensure /booking route exists */}
-                     <Link href="/booking">Check Availability</Link>
-                   </Button>
-                 </div>
-              </div>
+                  <div className="pt-2">
+                    <Button asChild>
+                      {/* --- MODIFIED LINK --- */}
+                      <Link href="/#pricing">Check Packages & Pricing</Link>
+                    </Button>
+                  </div>
+                </div>
             </div>
           </div>
         </section>
@@ -370,9 +373,9 @@ export default function LandingPage() {
                   </li>
                 </ul>
                 <div className="pt-4">
-                   {/* ACTION REQUIRED: Ensure /booking route exists */}
-                   <Button asChild className="bg-green-600 hover:bg-green-700">
-                     <Link href="/booking">Book Your Session Now</Link>
+                  <Button asChild className="bg-green-600 hover:bg-green-700">
+                    {/* --- MODIFIED LINK --- */}
+                    <Link href="/#pricing">View Rental Options</Link>
                   </Button>
                 </div>
               </div>
@@ -381,8 +384,8 @@ export default function LandingPage() {
                 <div className="relative w-[280px] h-[500px] bg-black rounded-xl overflow-hidden border-4 border-gray-800 shadow-xl p-1">
                   <iframe
                     className="absolute top-0 left-0 w-full h-full rounded-lg"
-                    // ACTION REQUIRED: Verify this src is correct
-                    src="https://www.youtube.com/embed/FhzlDpDv3nM"
+                    // Using the correct video ID provided by user
+                    src={`https://www.youtube.com/embed/FhzlDpDv3nM`}
                     title="Seattle Ball Machine Rental Demo (Vertical)"
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -399,15 +402,15 @@ export default function LandingPage() {
         <section id="about" className="w-full py-12 md:py-24 lg:py-32 bg-white"> {/* Alternating background */}
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-6 text-center">
-               <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">About Me</h2>
-               <Image
-                   // ACTION REQUIRED: Ensure image exists at public/aboutme.png
-                  src="/aboutme.png"
-                  alt="Photo of the site owner"
-                  width={128}
-                  height={128}
-                  className="rounded-full object-cover border-4 border-white shadow-md"
-                />
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">About Me</h2>
+                <Image
+                    // ACTION REQUIRED: Ensure image exists at public/aboutme.png
+                    src="/aboutme.png"
+                    alt="Photo of the site owner"
+                    width={128}
+                    height={128}
+                    className="rounded-full object-cover border-4 border-white shadow-md"
+                  />
                 <div className="max-w-3xl mx-auto space-y-4">
                   <p className="text-gray-600 md:text-xl/relaxed">
                     When I started playing tennis in New York, a local spot had a ball machine for quick sessions before work. After moving to Seattle, finding time for practice became much harder, especially with a young family. That's when I purchased this Hydrogen Proton ball machine.
@@ -415,13 +418,13 @@ export default function LandingPage() {
                   <p className="text-gray-600 md:text-xl/relaxed font-medium">
                     Since I only use it occasionally, I'm making it available to the Seattle tennis community so others can benefit from consistent, quality practice. My hope is that it helps you improve your game just as it has helped mine!
                   </p>
+                </div>
               </div>
-            </div>
           </div>
         </section>
 
         {/* Pricing Section */}
-        <section id="pricing" className="w-full py-12 md:py-24 lg:py-32 bg-gray-50"> {/* Alternating background */}
+        <section id="pricing" className="w-full py-12 md:py-24 lg:py-32 bg-gray-50 scroll-mt-16"> {/* Added scroll-mt-16 for header offset */}
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
@@ -465,11 +468,14 @@ export default function LandingPage() {
                     </ul>
                   </div>
                 </CardContent>
+                {/* --- MODIFIED CARD FOOTER --- */}
                 <CardFooter>
-                   {/* ACTION REQUIRED: Ensure /booking route exists */}
-                   <Button asChild className="w-full bg-green-600 hover:bg-green-700">
-                     <Link href="/booking?plan=single">Book Single Session</Link>
-                   </Button>
+                  <Button asChild className="w-full bg-green-600 hover:bg-green-700">
+                    {/* Direct Stripe Link */}
+                    <Link href="https://buy.stripe.com/bIY17w7UF9wzaqc8wx" target="_blank" rel="noopener noreferrer">
+                      Purchase Single Session
+                    </Link>
+                  </Button>
                 </CardFooter>
               </Card>
               {/* 3-Pack Card */}
@@ -508,11 +514,14 @@ export default function LandingPage() {
                     </ul>
                   </div>
                 </CardContent>
+                 {/* --- MODIFIED CARD FOOTER --- */}
                 <CardFooter>
-                    {/* ACTION REQUIRED: Ensure /booking route exists */}
-                   <Button asChild className="w-full bg-green-600 hover:bg-green-700">
-                      <Link href="/booking?plan=3pack">Buy 3-Pack & Schedule Later</Link>
-                   </Button>
+                  <Button asChild className="w-full bg-green-600 hover:bg-green-700">
+                     {/* Direct Stripe Link */}
+                    <Link href="https://buy.stripe.com/fZe6rQ7UF8svgOA7sx" target="_blank" rel="noopener noreferrer">
+                      Purchase 3-Pack
+                    </Link>
+                  </Button>
                 </CardFooter>
               </Card>
               {/* 10-Pack Card */}
@@ -548,10 +557,13 @@ export default function LandingPage() {
                     </ul>
                   </div>
                 </CardContent>
+                {/* --- MODIFIED CARD FOOTER --- */}
                 <CardFooter>
-                  {/* ACTION REQUIRED: Ensure /booking route exists */}
                   <Button asChild className="w-full bg-green-600 hover:bg-green-700">
-                    <Link href="/booking?plan=10pack">Buy 10-Pack & Schedule Later</Link>
+                     {/* Direct Stripe Link */}
+                    <Link href="https://buy.stripe.com/eVa03sdeZaADaqcfZ4" target="_blank" rel="noopener noreferrer">
+                      Purchase 10-Pack
+                    </Link>
                   </Button>
                 </CardFooter>
               </Card>
@@ -577,7 +589,7 @@ export default function LandingPage() {
 
         {/* Testimonials Section */}
         <section className="w-full py-12 md:py-24 lg:py-32 bg-white"> {/* Alternating background */}
-           <div className="container px-4 md:px-6">
+            <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">What Our Customers Say</h2>
@@ -657,21 +669,21 @@ export default function LandingPage() {
 
         {/* CTA Section */}
         <section className="w-full py-12 md:py-24 lg:py-32 bg-green-600">
-           <div className="container px-4 md:px-6">
+            <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center text-white">
               <div className="space-y-2">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
                   Ready to Improve Your Game?
                 </h2>
                 <p className="mx-auto max-w-[700px] md:text-xl">
-                  Book your ball machine rental today and take your tennis to the next level.
+                  Choose your rental package below and take your tennis to the next level.
                 </p>
               </div>
               <div className="space-x-4">
-                 {/* ACTION REQUIRED: Ensure /booking route exists */}
-                 <Button asChild size="lg" className="bg-yellow-500 hover:bg-yellow-600 text-black font-bold">
-                    <Link href="/booking">Check Availability & Book Now</Link>
-                 </Button>
+                <Button asChild size="lg" className="bg-yellow-500 hover:bg-yellow-600 text-black font-bold">
+                  {/* --- MODIFIED LINK --- */}
+                  <Link href="/#pricing">View Pricing & Purchase</Link>
+                </Button>
               </div>
             </div>
           </div>
@@ -680,7 +692,7 @@ export default function LandingPage() {
 
       {/* Footer */}
       <footer className="w-full border-t bg-white py-6">
-         <div className="container flex flex-col items-center justify-between gap-4 md:flex-row px-4 md:px-6">
+          <div className="container flex flex-col items-center justify-between gap-4 md:flex-row px-4 md:px-6">
           <p className="text-sm text-gray-500">
             © {currentYear} Seattle Ball Machine Rental. All rights reserved.
           </p>
