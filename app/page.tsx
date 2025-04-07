@@ -1,10 +1,11 @@
-'use client';
+'use client'
 
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+// Added MapPin, Menu, and Timer icons
 import { AlertCircle, CheckCircle, ChevronRight, DollarSign, Gift, MapPin, Menu, Star, Users, Timer } from "lucide-react"
 
 export default function LandingPage() {
@@ -18,6 +19,7 @@ export default function LandingPage() {
         <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
           <div className="flex gap-6 md:gap-10">
             <Link href="/" className="flex items-center space-x-2">
+              {/* Adjusted text size slightly */}
               <span className="inline-block font-bold text-lg md:text-xl">Seattle Ball Machine</span>
             </Link>
           </div>
@@ -30,6 +32,7 @@ export default function LandingPage() {
               <Button asChild variant="ghost">
                 <Link href="#how-it-works">How It Works</Link>
               </Button>
+              {/* Added Pickup Link */}
               <Button asChild variant="ghost">
                 <Link href="#pickup">Pickup</Link>
               </Button>
@@ -40,7 +43,8 @@ export default function LandingPage() {
                 <Link href="#pricing">Pricing</Link>
               </Button>
               <Button asChild>
-                <Link href="/#pricing">Book Now</Link>
+                {/* All CTA buttons now link to the pricing section */}
+                <Link href="#pricing">Book Now</Link>
               </Button>
             </nav>
 
@@ -54,6 +58,7 @@ export default function LandingPage() {
                   </Button>
                 </SheetTrigger>
                 <SheetContent side="right" className="w-[240px] sm:w-[300px]">
+                  {/* Links inside mobile nav sheet */}
                   <nav className="flex flex-col gap-4 mt-8">
                     <Link
                       href="#features"
@@ -67,6 +72,7 @@ export default function LandingPage() {
                     >
                       How It Works
                     </Link>
+                    {/* Added Pickup Link */}
                     <Link
                       href="#pickup"
                       className="flex items-center py-2 text-lg font-medium border-b"
@@ -86,7 +92,8 @@ export default function LandingPage() {
                       Pricing
                     </Link>
                     <Button asChild className="mt-4">
-                      <Link href="/#pricing">Book Now</Link>
+                      {/* All CTA buttons now link to the pricing section */}
+                      <Link href="#pricing">Book Now</Link>
                     </Button>
                   </nav>
                 </SheetContent>
@@ -109,6 +116,7 @@ export default function LandingPage() {
         <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 relative">
           <div className="absolute inset-0 z-0">
             <Image
+              // ACTION REQUIRED: Ensure image exists at public/images/tennis-ball-hero.png
               src="/images/tennis-ball-hero.png"
               alt="Tennis ball on dark court background"
               fill
@@ -133,8 +141,9 @@ export default function LandingPage() {
               </p>
               <div className="space-x-4 pt-2">
                 <Button asChild size="lg" className="bg-yellow-500 hover:bg-yellow-600 text-black font-bold shadow-lg">
-                  <Link href="/#pricing">
-                    Check Availability & Book
+                  {/* Primary CTA now links to the pricing section */}
+                  <Link href="#pricing">
+                    Check Availability &amp; Book
                     <ChevronRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
@@ -148,7 +157,7 @@ export default function LandingPage() {
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Features & Benefits</h2>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Features &amp; Benefits</h2>
                 <p className="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                   The Hydrogen Proton ball machine offers professional-grade training for players of all levels
                 </p>
@@ -156,6 +165,7 @@ export default function LandingPage() {
             </div>
             <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
               <Image
+                // ACTION REQUIRED: Ensure image exists at public/action.png
                 src="/action.png"
                 width={500}
                 height={500}
@@ -215,34 +225,31 @@ export default function LandingPage() {
               </div>
             </div>
             <div className="mx-auto grid max-w-5xl items-start gap-6 py-12 md:grid-cols-3">
-              {/* Step 1 */}
               <div className="flex flex-col items-center space-y-4 text-center h-full">
                 <div className="flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
                   <span className="text-2xl font-bold text-green-600">1</span>
                 </div>
                 <div className="space-y-2">
-                  <h3 className="text-xl font-bold">Choose Your Package</h3>
-                  <p className="text-gray-500">Scroll down to the pricing section and select a single session or a multi-session pack.</p>
+                  <h3 className="text-xl font-bold">Select Your Time</h3>
+                  <p className="text-gray-500">Choose a single session or purchase a package for multiple rentals.</p>
                 </div>
               </div>
-              {/* Step 2 */}
               <div className="flex flex-col items-center space-y-4 text-center h-full">
                 <div className="flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
                   <span className="text-2xl font-bold text-green-600">2</span>
                 </div>
                 <div className="space-y-2">
-                  <h3 className="text-xl font-bold">Secure Payment</h3>
-                  <p className="text-gray-500">Click the purchase button to pay securely via Stripe. After payment, you'll see a confirmation and the scheduling link.</p>
+                  <h3 className="text-xl font-bold">Easy Payment</h3>
+                  <p className="text-gray-500">Secure online payment via Stripe with instant confirmation.</p>
                 </div>
               </div>
-              {/* Step 3 */}
               <div className="flex flex-col items-center space-y-4 text-center h-full">
                 <div className="flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
                   <span className="text-2xl font-bold text-green-600">3</span>
                 </div>
                 <div className="space-y-2">
-                  <h3 className="text-xl font-bold">Schedule & Play</h3>
-                  <p className="text-gray-500">Use the provided Calendly link to book your time slot. Then, pick up the machine in Queen Anne and enjoy your practice!</p>
+                  <h3 className="text-xl font-bold">Pick Up &amp; Play</h3>
+                  <p className="text-gray-500">Pick up the machine in Queen Anne, Seattle. Balls and basket included.</p>
                 </div>
               </div>
             </div>
@@ -252,66 +259,57 @@ export default function LandingPage() {
         {/* Pick Up Location Section */}
         <section id="pickup" className="w-full py-12 md:py-24 lg:py-32 bg-white">
           <div className="container px-4 md:px-6">
+            {/* Section Header */}
             <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
               <div className="space-y-2">
-                  <div className="inline-block rounded-lg bg-green-100 px-3 py-1 text-sm text-green-700">Pickup</div>
+                <div className="inline-block rounded-lg bg-green-100 px-3 py-1 text-sm text-green-700">Pickup</div>
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Convenient Queen Anne Pickup</h2>
                 <p className="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                   Easy access right in the neighborhood, close to local courts.
                 </p>
               </div>
             </div>
+            {/* Section Content Grid */}
             <div className="mx-auto grid max-w-5xl items-center gap-8 lg:grid-cols-2 lg:gap-12">
-                <div className="flex justify-center items-center">
-                  <Image
+              {/* Image Column */}
+              <div className="flex justify-center items-center">
+                <Image
+                  // ACTION REQUIRED: Place courts.png in your /public folder
                   src="/courts.png"
                   width={450}
                   height={550}
                   alt="Map showing pickup location in Queen Anne, Seattle near David Rodgers Park"
                   className="overflow-hidden rounded-xl object-contain shadow-lg border"
-                  />
-                </div>
+                />
+              </div>
+              {/* Text Column */}
               <div className="flex flex-col justify-center space-y-6">
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-2">
-                      <MapPin className="h-6 w-6 text-green-600 flex-shrink-0" />
-                      <h3 className="text-2xl font-bold">Location Details</h3>
-                    </div>
+                {/* Location Details */}
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2">
+                    <MapPin className="h-6 w-6 text-green-600 flex-shrink-0" />
+                    <h3 className="text-2xl font-bold">Location Details</h3>
+                  </div>
                   <p className="text-gray-600 text-lg leading-relaxed">
                     The general pickup area is located in upper Queen Anne, Seattle, near the corner of
-                    <span className="font-medium"> W McGraw St & 4th Ave W</span>.
+                    <span className="font-medium"> W McGraw St &amp; 4th Ave W</span>.
                   </p>
                   <p className="text-gray-600 text-lg leading-relaxed">
-                      You'll find us close to local landmarks like <span className="font-medium">Bar Miriam</span> and <span className="font-medium">Five Corners Hardware</span>.
+                    You'll find us close to local landmarks like <span className="font-medium">Bar Miriam</span> and <span className="font-medium">Five Corners Hardware</span>.
                   </p>
                   <p className="text-gray-600 text-lg leading-relaxed font-semibold text-green-800 bg-green-50 p-3 rounded-md border border-green-200">
-                      <AlertCircle className="inline-block h-5 w-5 mr-2 mb-1 text-green-700" />
-                      For privacy, the exact street address and detailed pickup instructions will be provided in your booking confirmation email after payment.
+                    <AlertCircle className="inline-block h-5 w-5 mr-2 mb-1 text-green-700" />
+                    For privacy, the exact street address and detailed pickup instructions will be provided in your booking confirmation email after payment.
                   </p>
                 </div>
 
-                  <div className="space-y-2 pt-2">
-                    <div className="flex items-center gap-2">
-                        <Timer className="h-6 w-6 text-green-600 flex-shrink-0" />
-                        <h4 className="text-xl font-bold">Nearby Courts</h4>
-                    </div>
-                    <p className="text-gray-600">
-                        <strong className="font-medium text-gray-800">< 5 min drive:</strong> David Rodgers Park, Observatory Courts
-                    </p>
-                    <p className="text-gray-600">
-                        <strong className="font-medium text-gray-800">< 10 min drive:</strong> Upper Woodland, Lower Woodland, Green Lake West, Gilman Playfield, Wallingford Playfield, Magnolia Playfield, Magnolia Park
-                    </p>
-                    <p className="text-gray-600">
-                        <strong className="font-medium text-gray-800">< 15 min drive:</strong> Rogers Park, Montlake Playfield, Volunteer Park
-                    </p>
-                  </div>
-
-                  <div className="pt-2">
-                    <Button asChild>
-                      <Link href="/#pricing">Check Packages & Pricing</Link>
-                    </Button>
-                  </div>
+                <div className="pt-2">
+                  <Button asChild>
+                    {/* Change link from /booking to pricing anchor */}
+                    <Link href="#pricing">Check Availability</Link>
+                  </Button>
                 </div>
+              </div>
             </div>
           </div>
         </section>
@@ -354,15 +352,18 @@ export default function LandingPage() {
                 </ul>
                 <div className="pt-4">
                   <Button asChild className="bg-green-600 hover:bg-green-700">
-                    <Link href="/#pricing">View Rental Options</Link>
+                    {/* Change link from /booking to pricing anchor */}
+                    <Link href="#pricing">Book Your Session Now</Link>
                   </Button>
                 </div>
               </div>
               <div className="flex justify-center">
+                {/* YouTube Short embed within the phone frame */}
                 <div className="relative w-[280px] h-[500px] bg-black rounded-xl overflow-hidden border-4 border-gray-800 shadow-xl p-1">
                   <iframe
                     className="absolute top-0 left-0 w-full h-full rounded-lg"
-                    src={`https://www.youtube.com/embed/FhzlDpDv3nM`}
+                    // ACTION REQUIRED: Verify this src is correct
+                    src="https://www.youtube.com/embed/FhzlDpDv3nM"
                     title="Seattle Ball Machine Rental Demo (Vertical)"
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -379,28 +380,29 @@ export default function LandingPage() {
         <section id="about" className="w-full py-12 md:py-24 lg:py-32 bg-white">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-6 text-center">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">About Me</h2>
-                <Image
-                    src="/aboutme.png"
-                    alt="Photo of the site owner"
-                    width={128}
-                    height={128}
-                    className="rounded-full object-cover border-4 border-white shadow-md"
-                  />
-                <div className="max-w-3xl mx-auto space-y-4">
-                  <p className="text-gray-600 md:text-xl/relaxed">
-                    When I started playing tennis in New York, a local spot had a ball machine for quick sessions before work. After moving to Seattle, finding time for practice became much harder, especially with a young family. That's when I purchased this Hydrogen Proton ball machine.
-                  </p>
-                  <p className="text-gray-600 md:text-xl/relaxed font-medium">
-                    Since I only use it occasionally, I'm making it available to the Seattle tennis community so others can benefit from consistent, quality practice. My hope is that it helps you improve your game just as it has helped mine!
-                  </p>
-                </div>
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">About Me</h2>
+              <Image
+                // ACTION REQUIRED: Ensure image exists at public/aboutme.png
+                src="/aboutme.png"
+                alt="Photo of the site owner"
+                width={128}
+                height={128}
+                className="rounded-full object-cover border-4 border-white shadow-md"
+              />
+              <div className="max-w-3xl mx-auto space-y-4">
+                <p className="text-gray-600 md:text-xl/relaxed">
+                  When I started playing tennis in New York, a local spot had a ball machine for quick sessions before work. After moving to Seattle, finding time for practice became much harder, especially with a young family. That's when I purchased this Hydrogen Proton ball machine.
+                </p>
+                <p className="text-gray-600 md:text-xl/relaxed font-medium">
+                  Since I only use it occasionally, I'm making it available to the Seattle tennis community so others can benefit from consistent, quality practice. My hope is that it helps you improve your game just as it has helped mine!
+                </p>
               </div>
+            </div>
           </div>
         </section>
 
         {/* Pricing Section */}
-        <section id="pricing" className="w-full py-12 md:py-24 lg:py-32 bg-gray-50 scroll-mt-16">
+        <section id="pricing" className="w-full py-12 md:py-24 lg:py-32 bg-gray-50">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
@@ -445,8 +447,8 @@ export default function LandingPage() {
                 </CardContent>
                 <CardFooter>
                   <Button asChild className="w-full bg-green-600 hover:bg-green-700">
-                    <Link href="https://buy.stripe.com/bIY17w7UF9wzaqc8wx" target="_blank" rel="noopener noreferrer">
-                      Purchase Single Session
+                    <Link href="https://buy.stripe.com/bIY17w7UF9wzaqc8wx" legacyBehavior>
+                      <a>Book Single Session</a>
                     </Link>
                   </Button>
                 </CardFooter>
@@ -489,8 +491,8 @@ export default function LandingPage() {
                 </CardContent>
                 <CardFooter>
                   <Button asChild className="w-full bg-green-600 hover:bg-green-700">
-                    <Link href="https://buy.stripe.com/fZe6rQ7UF8svgOA7sx" target="_blank" rel="noopener noreferrer">
-                      Purchase 3-Pack
+                    <Link href="https://buy.stripe.com/fZe6rQ7UF8svgOA7sx" legacyBehavior>
+                      <a>Buy 3-Pack &amp; Schedule Later</a>
                     </Link>
                   </Button>
                 </CardFooter>
@@ -530,125 +532,34 @@ export default function LandingPage() {
                 </CardContent>
                 <CardFooter>
                   <Button asChild className="w-full bg-green-600 hover:bg-green-700">
-                    <Link href="https://buy.stripe.com/eVa03sdeZaADaqcfZ4" target="_blank" rel="noopener noreferrer">
-                      Purchase 10-Pack
+                    <Link href="https://buy.stripe.com/eVa03sdeZaADaqcfZ4" legacyBehavior>
+                      <a>Buy 10-Pack &amp; Schedule Later</a>
                     </Link>
                   </Button>
                 </CardFooter>
               </Card>
             </div>
-            <div className="text-center text-gray-500 mt-4">All rentals include 75 balls & pickup basket</div>
-            <div className="max-w-3xl mx-auto mt-12 bg-green-50 border border-green-200 rounded-lg p-6">
-              <div className="flex flex-col md:flex-row items-center gap-4 text-center md:text-left">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-green-100">
-                  <AlertCircle className="h-6 w-6 text-green-600" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-bold text-green-800">Our No-Hassle Guarantee</h3>
-                  <p className="text-green-700">
-                    If something doesn't work with the machine or your plans change, we guarantee a full refund or free
-                    reschedule. No questions asked. We want your experience to be perfect.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Testimonials Section */}
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-white">
-            <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center justify-center space-y-4 text-center">
-              <div className="space-y-2">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">What Our Customers Say</h2>
-                <p className="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  Don't just take our word for it - hear from tennis players who've used our service
-                </p>
-              </div>
-            </div>
-            <div className="mx-auto grid max-w-5xl gap-6 py-12 md:grid-cols-2 lg:grid-cols-3">
-              <Card>
-                <CardContent className="pt-6">
-                  <div className="flex flex-col gap-4">
-                    <div className="flex gap-1">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-                      ))}
-                    </div>
-                    <p className="text-gray-500">
-                      "The ball machine was perfect for my practice sessions. Easy pickup and return process, and the
-                      machine worked flawlessly."
-                    </p>
-                    <div className="flex items-center gap-4">
-                      <div>
-                        <p className="font-medium">Sarah T.</p>
-                        <p className="text-sm text-gray-500">USTA 4.0 Player</p>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardContent className="pt-6">
-                  <div className="flex flex-col gap-4">
-                    <div className="flex gap-1">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-                      ))}
-                    </div>
-                    <p className="text-gray-500">
-                      "I bought the 10-pack and it's been a game changer for my training. The variety of drills you can
-                      set up is impressive."
-                    </p>
-                    <div className="flex items-center gap-4">
-                      <div>
-                        <p className="font-medium">Michael R.</p>
-                        <p className="text-sm text-gray-500">Club Player</p>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardContent className="pt-6">
-                  <div className="flex flex-col gap-4">
-                    <div className="flex gap-1">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-                      ))}
-                    </div>
-                    <p className="text-gray-500">
-                      "Great service! I was considering buying this machine and renting it first helped me make my
-                      decision. Highly recommend."
-                    </p>
-                    <div className="flex items-center gap-4">
-                      <div>
-                        <p className="font-medium">Jennifer L.</p>
-                        <p className="text-sm text-gray-500">Tennis Coach</p>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+            <div className="text-center text-gray-500 mt-4">
+              All rentals include 75 balls &amp; pickup basket. After successful payment, check your Stripe confirmation message for the Calendly link to book your session.
             </div>
           </div>
         </section>
 
         {/* CTA Section */}
         <section className="w-full py-12 md:py-24 lg:py-32 bg-green-600">
-            <div className="container px-4 md:px-6">
+          <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center text-white">
               <div className="space-y-2">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
                   Ready to Improve Your Game?
                 </h2>
                 <p className="mx-auto max-w-[700px] md:text-xl">
-                  Choose your rental package below and take your tennis to the next level.
+                  Book your ball machine rental today and take your tennis to the next level.
                 </p>
               </div>
               <div className="space-x-4">
                 <Button asChild size="lg" className="bg-yellow-500 hover:bg-yellow-600 text-black font-bold">
-                  <Link href="/#pricing">View Pricing & Purchase</Link>
+                  <Link href="#pricing">Check Availability &amp; Book Now</Link>
                 </Button>
               </div>
             </div>
@@ -658,7 +569,7 @@ export default function LandingPage() {
 
       {/* Footer */}
       <footer className="w-full border-t bg-white py-6">
-          <div className="container flex flex-col items-center justify-between gap-4 md:flex-row px-4 md:px-6">
+        <div className="container flex flex-col items-center justify-between gap-4 md:flex-row px-4 md:px-6">
           <p className="text-sm text-gray-500">
             © {currentYear} Seattle Ball Machine Rental. All rights reserved.
           </p>
@@ -676,4 +587,5 @@ export default function LandingPage() {
         </div>
       </footer>
     </div>
-  )
+  );
+}
