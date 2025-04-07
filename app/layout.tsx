@@ -1,10 +1,9 @@
-// app/layout.tsx
 import dynamic from "next/dynamic";
 import Script from "next/script";
 import "./globals.css";
 
 const Analytics = dynamic(
-  () => import("@vercel/analytics/react").then((mod) => mod.Analytics),
+  () => import("@vercel/analytics/react").then(mod => mod.Analytics),
   { ssr: false }
 );
 
@@ -17,7 +16,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
-        {/* Datafa.st Analytics Script */}
         <Script
           src="https://datafa.st/js/script.js"
           data-website-id="67f46250fc139202d6288041"
@@ -28,7 +26,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         {children}
-        {/* Dynamically loaded Vercel Analytics */}
         <Analytics />
       </body>
     </html>
