@@ -14,7 +14,7 @@ export default function TermsPage() {
       
       <div className="prose prose-green max-w-none">
         <h2>1. Rental Agreement</h2>
-        <p>By renting the Hydrogen Proton ball machine ("Equipment"), you agree to these Terms of Service. You must be at least 18 years old to rent the Equipment.</p>
+        <p>By renting the Hydrogen Proton ball machine ("Equipment"), a product of First Serve Seattle, owned by Simple Apps, LLC you agree to these Terms of Service. You must be at least 18 years old to rent the Equipment.</p>
         
         <h2>2. Rental Period</h2>
         <p>The rental period is for 2 hours per session, unless otherwise specified in your booking. There is a 15 minute grace period at the end of the rental. Late returns beyond this grace period will result in additional charges according to the following schedule:</p>

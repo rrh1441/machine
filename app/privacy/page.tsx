@@ -16,7 +16,7 @@ export default function PrivacyPage() {
         <p>Last Updated: April 6, 2025</p>
         
         <h2>1. Introduction</h2>
-        <p>Seattle Ball Machine Rental ("we," "our," or "us") respects your privacy and is committed to protecting your personal information. This Privacy Policy explains how we collect, use, and safeguard your information when you use our website and services.</p>
+        <p>Seattle Ball Machine Rental ("we," "our," or "us"), a product of First Serve Seattle, owned by Simple Apps, LLC respects your privacy and is committed to protecting your personal information. This Privacy Policy explains how we collect, use, and safeguard your information when you use our website and services.</p>
         
         <h2>2. Information We Collect</h2>
         <p>We may collect the following types of information:</p>
