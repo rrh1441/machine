@@ -1,19 +1,14 @@
 // app/layout.tsx
 import Script from "next/script";
 import "./globals.css";
-import ClientAnalytics from "./components/ClientAnalytics";
+import ClientAnalytics from "./components/ClientAnalytics"; // relative import
 
 export const metadata = {
   title: "Seattle Ball Machine Rental",
-  description:
-    "Elevate your tennis game with professional ball machine rentals in Queen Anne, Seattle.",
+  description: "Elevate your tennis game with professional ball machine rentals in Queen Anne, Seattle.",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
@@ -28,7 +23,6 @@ export default function RootLayout({
       </head>
       <body>
         {children}
-        {/* Client-only Vercel Analytics */}
         <ClientAnalytics />
       </body>
     </html>
