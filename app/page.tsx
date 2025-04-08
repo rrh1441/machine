@@ -1,3 +1,4 @@
+// app/page.tsx
 'use client'
 
 import Link from "next/link"
@@ -15,8 +16,13 @@ import {
   Menu,
   Star,
   Users,
-  Timer
+  Timer // Note: Timer icon isn't used in the current code, but keeping import just in case
 } from "lucide-react"
+
+// --- Added Imports for Lite YouTube Embed ---
+import LiteYouTubeEmbed from 'react-lite-youtube-embed';
+import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css';
+// --- End Added Imports ---
 
 export default function LandingPage() {
   // Get the current year for the footer
@@ -118,7 +124,7 @@ export default function LandingPage() {
         {/* Features Section */}
         <section id="features" className="w-full py-12 md:py-24 lg:py-32 bg-white">
           <div className="container px-4 md:px-6 text-center">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Features &amp; Benefits</h2>
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Features & Benefits</h2>
             <p className="mx-auto mt-4 max-w-[900px] text-gray-500 md:text-xl">
               The Hydrogen Proton ball machine offers professional-grade training for players of all levels.
             </p>
@@ -189,7 +195,7 @@ export default function LandingPage() {
                 <div className="flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
                   <span className="text-2xl font-bold text-green-600">3</span>
                 </div>
-                <h3 className="text-xl font-bold">Pick Up &amp; Play</h3>
+                <h3 className="text-xl font-bold">Pick Up & Play</h3>
                 <p className="text-gray-500">Collect the machine in Queen Anne, Seattle. Balls and basket included.</p>
               </div>
             </div>
@@ -223,7 +229,7 @@ export default function LandingPage() {
                     <h3 className="text-2xl font-bold">Location Details</h3>
                   </div>
                   <p className="mt-2 text-lg text-gray-600">
-                    The pickup area is located in upper Queen Anne, near <span className="font-medium">W McGraw St &amp; 4th Ave W</span>.
+                    The pickup area is located in upper Queen Anne, near <span className="font-medium">W McGraw St & 4th Ave W</span>.
                   </p>
                   <p className="mt-2 text-lg text-gray-600">
                     Look for landmarks like <span className="font-medium">Bar Miriam</span> and <span className="font-medium">Five Corners Hardware</span>.
@@ -280,19 +286,19 @@ export default function LandingPage() {
                   </Button>
                 </div>
               </div>
+
+              {/* --- YouTube Embed Updated --- */}
               <div className="flex justify-center">
                 <div className="relative w-[280px] h-[500px] bg-black rounded-xl overflow-hidden border-4 border-gray-800 shadow-xl p-1">
-                  <iframe
-                    className="absolute top-0 left-0 w-full h-full rounded-lg"
-                    src="https://www.youtube.com/embed/FhzlDpDv3nM"
-                    title="Seattle Ball Machine Rental Demo (Vertical)"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerPolicy="strict-origin-when-cross-origin"
-                    allowFullScreen
-                  ></iframe>
-                </div>
+                   <LiteYouTubeEmbed
+                     id="FhzlDpDv3nM" // Your YouTube Video ID
+                     title="Seattle Ball Machine Rental Demo (Vertical)"
+                     wrapperClass="yt-lite absolute top-0 left-0 w-full h-full rounded-lg" // Style the container
+                   />
+                 </div>
               </div>
+              {/* --- End YouTube Embed Updated --- */}
+
             </div>
           </div>
         </section>
@@ -460,7 +466,7 @@ export default function LandingPage() {
               </Card>
             </div>
             <p className="mt-4 text-center text-gray-500">
-              All rentals include 75 balls &amp; a pickup basket. After successful payment, your Stripe confirmation message will include the Calendly link for scheduling your session.
+              All rentals include 75 balls & a pickup basket. After successful payment, your Stripe confirmation message will include the Calendly link for scheduling your session.
             </p>
           </div>
         </section>
