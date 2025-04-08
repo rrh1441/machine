@@ -1,15 +1,12 @@
-import dynamic from "next/dynamic";
+"use client"; // Make the whole layout a Client Component
+
+import { Analytics } from "@vercel/analytics/react";
 import Script from "next/script";
 import "./globals.css";
 
-const Analytics = dynamic(
-  () => import("@vercel/analytics/react").then(mod => mod.Analytics),
-  { ssr: false }
-);
-
 export const metadata = {
   title: "Seattle Ball Machine Rental",
-  description: "Elevate your tennis game with professional ball machine rentals in Queen Anne, Seattle.",
+  description: "Elevate your tennis game with professional ball machine rentals.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
