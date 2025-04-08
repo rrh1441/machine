@@ -1,12 +1,11 @@
-"use client"; // Make the whole layout a Client Component
-
-import { Analytics } from "@vercel/analytics/react";
+// app/layout.tsx
 import Script from "next/script";
 import "./globals.css";
+import ClientAnalytics from "./components/ClientAnalytics"; // Make sure the path is correct
 
 export const metadata = {
   title: "Seattle Ball Machine Rental",
-  description: "Elevate your tennis game with professional ball machine rentals.",
+  description: "Elevate your tennis game with professional ball machine rentals in Queen Anne, Seattle.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -23,7 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         {children}
-        <Analytics />
+        <ClientAnalytics />
       </body>
     </html>
   );
