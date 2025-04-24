@@ -7,6 +7,12 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import {
+  Accordion, // <-- Added Accordion imports needed by the widget component if embedded (but not needed if imported)
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger
+} from "@/components/ui/accordion"
+import {
   AlertCircle,
   CheckCircle,
   ChevronRight,
@@ -16,13 +22,18 @@ import {
   Menu,
   Star,
   Users,
-  Timer // Note: Timer icon isn't used in the current code, but keeping import just in case
+  Clock // <-- Ensure Clock is imported if widget embedded, OK as is if importing
 } from "lucide-react"
 
 // --- Added Imports for Lite YouTube Embed ---
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css';
 // --- End Added Imports ---
+
+// --- Import the new component ---
+import { NearbyCourtsMapWidget } from "@/components/local/nearby-courts-map"; // Adjust path if needed
+// --- End Import ---
+
 
 export default function LandingPage() {
   // Get the current year for the footer
@@ -45,6 +56,10 @@ export default function LandingPage() {
             </Button>
             <Button asChild variant="ghost">
               <Link href="#pickup">Pickup</Link>
+            </Button>
+            {/* Add Link for Nearby Courts */}
+            <Button asChild variant="ghost">
+              <Link href="#nearby-courts">Nearby Courts</Link>
             </Button>
             <Button asChild variant="ghost">
               <Link href="#about">About</Link>
@@ -70,6 +85,8 @@ export default function LandingPage() {
                   <Link href="#features" className="flex items-center py-2 text-lg font-medium border-b">Features</Link>
                   <Link href="#how-it-works" className="flex items-center py-2 text-lg font-medium border-b">How It Works</Link>
                   <Link href="#pickup" className="flex items-center py-2 text-lg font-medium border-b">Pickup</Link>
+                  {/* Add Link for Nearby Courts (Mobile) */}
+                  <Link href="#nearby-courts" className="flex items-center py-2 text-lg font-medium border-b">Nearby Courts</Link>
                   <Link href="#about" className="flex items-center py-2 text-lg font-medium border-b">About</Link>
                   <Link href="#pricing" className="flex items-center py-2 text-lg font-medium border-b">Pricing</Link>
                   <Link href="#pricing" className="inline-flex mt-4 w-full items-center justify-center rounded-md bg-green-600 py-2 px-4 text-white font-bold hover:bg-green-700">
@@ -249,8 +266,17 @@ export default function LandingPage() {
           </div>
         </section>
 
+        {/* === START NEW NEARBY COURTS SECTION === */}
+        <section id="nearby-courts" className="w-full py-12 md:py-24 lg:py-32 bg-gray-50">
+          <div className="container px-4 md:px-6">
+             {/* Ensure you have created the component in components/local/nearby-courts-map.tsx */}
+            <NearbyCourtsMapWidget />
+          </div>
+        </section>
+        {/* === END NEW NEARBY COURTS SECTION === */}
+
         {/* Video Demonstration Section */}
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-50">
+        <section className="w-full py-12 md:py-24 lg:py-32 bg-white"> {/* Changed background back to white for consistency */}
           <div className="container px-4 md:px-6 text-center">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">See It In Action</h2>
             <p className="mx-auto mt-4 max-w-[900px] text-gray-500 md:text-xl">
