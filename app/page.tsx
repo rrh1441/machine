@@ -237,13 +237,14 @@ export default function LandingPage() {
                 Queen&nbsp;Anne&nbsp;Pickup&nbsp;&amp;&nbsp;Nearby&nbsp;Courts
               </h2>
               <p className="mx-auto mt-4 max-w-[900px] text-xl text-gray-500 md:text-xl">
-                Easily accessible in upper Queen Anne (Near W McGraw St & 4th Ave W.). Check
-                drive times below. Detailed pickup instructions will be provided in your booking
-                confirmation email.
+                Easily accessible in upper Queen Anne (near&nbsp;W McGraw St &amp; 4th Ave W).
+                Check drive times below. Detailed pickup instructions will be sent
+                in your booking confirmation email.
               </p>
             </div>
 
-              {/* Nearby courts accordion */}
+            {/* ▼ added wrapper — matches the two closing </div> tags below */}
+            <div className="mx-auto flex max-w-3xl flex-col gap-12">
               <NearbyCourtsMapWidget />
             </div>
           </div>
