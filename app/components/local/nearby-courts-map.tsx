@@ -95,7 +95,7 @@ export function NearbyCourtsMapWidget() {
       <CardHeader>
         <CardTitle>Nearby Courts by Drive Time</CardTitle>
         <CardDescription>
-          Approximate driving times from {originAddress}. Times may vary with traffic.
+          Approximate driving times from pickup location. Times may vary with traffic.
         </CardDescription>
       </CardHeader>
       <CardContent>

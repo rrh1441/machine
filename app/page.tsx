@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import {
-  Accordion, // <-- Added Accordion imports needed by the widget component if embedded (but not needed if imported)
+  Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger
@@ -22,7 +22,7 @@ import {
   Menu,
   Star,
   Users,
-  Clock // <-- Ensure Clock is imported if widget embedded, OK as is if importing
+  Clock
 } from "lucide-react"
 
 // --- Added Imports for Lite YouTube Embed ---
@@ -30,8 +30,8 @@ import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css';
 // --- End Added Imports ---
 
-// --- Import the new component ---
-import { NearbyCourtsMapWidget } from "./components/local/nearby-courts-map"; // Adjust path if needed
+// --- Import the map widget component ---
+import { NearbyCourtsMapWidget } from "@/components/local/nearby-courts-map"; // Adjust path if needed
 // --- End Import ---
 
 
@@ -55,12 +55,9 @@ export default function LandingPage() {
               <Link href="#how-it-works">How It Works</Link>
             </Button>
             <Button asChild variant="ghost">
-              <Link href="#pickup">Pickup</Link>
+              <Link href="#pickup">Pickup & Nearby</Link> {/* Updated Nav Link Text */}
             </Button>
-            {/* Add Link for Nearby Courts */}
-            <Button asChild variant="ghost">
-              <Link href="#nearby-courts">Nearby Courts</Link>
-            </Button>
+            {/* Removed separate Nearby Courts link */}
             <Button asChild variant="ghost">
               <Link href="#about">About</Link>
             </Button>
@@ -84,9 +81,8 @@ export default function LandingPage() {
                 <nav className="flex flex-col gap-4 mt-8">
                   <Link href="#features" className="flex items-center py-2 text-lg font-medium border-b">Features</Link>
                   <Link href="#how-it-works" className="flex items-center py-2 text-lg font-medium border-b">How It Works</Link>
-                  <Link href="#pickup" className="flex items-center py-2 text-lg font-medium border-b">Pickup</Link>
-                  {/* Add Link for Nearby Courts (Mobile) */}
-                  <Link href="#nearby-courts" className="flex items-center py-2 text-lg font-medium border-b">Nearby Courts</Link>
+                  <Link href="#pickup" className="flex items-center py-2 text-lg font-medium border-b">Pickup & Nearby</Link> {/* Updated Nav Link Text */}
+                  {/* Removed separate Nearby Courts link */}
                   <Link href="#about" className="flex items-center py-2 text-lg font-medium border-b">About</Link>
                   <Link href="#pricing" className="flex items-center py-2 text-lg font-medium border-b">Pricing</Link>
                   <Link href="#pricing" className="inline-flex mt-4 w-full items-center justify-center rounded-md bg-green-600 py-2 px-4 text-white font-bold hover:bg-green-700">
@@ -219,64 +215,52 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* Pick Up Location Section */}
+        {/* === MODIFIED Pickup Location & Nearby Courts Section === */}
         <section id="pickup" className="w-full py-12 md:py-24 lg:py-32 bg-white">
           <div className="container px-4 md:px-6">
+            {/* Pickup Location Header */}
             <div className="text-center mb-12">
-              <div className="inline-block rounded-lg bg-green-100 px-3 py-1 text-sm text-green-700">Pickup</div>
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl mt-2">Convenient Queen Anne Pickup</h2>
+              <div className="inline-block rounded-lg bg-green-100 px-3 py-1 text-sm text-green-700">Pickup & Nearby</div>
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl mt-2">Queen Anne Pickup & Nearby Courts</h2>
               <p className="mx-auto mt-4 max-w-[900px] text-gray-500 md:text-xl">
-                Easily accessible near local courts in upper Queen Anne.
+                Easily accessible near local courts in upper Queen Anne. Check drive times below.
               </p>
             </div>
-            <div className="mx-auto grid max-w-5xl gap-8 lg:grid-cols-2">
-              <div className="flex justify-center items-center">
-                <Image
-                  src="/courts.png"
-                  width={450}
-                  height={550}
-                  alt="Map showing pickup location"
-                  className="rounded-xl object-contain shadow-lg border"
-                />
+
+            {/* Single Column Layout */}
+            <div className="mx-auto max-w-3xl flex flex-col gap-12"> {/* Use max-w-3xl or similar for single column text width */}
+              {/* Original Pickup Text Details */}
+              <div>
+                <div className="flex items-center gap-2">
+                  <MapPin className="h-6 w-6 text-green-600" />
+                  <h3 className="text-2xl font-bold">Pickup Location Details</h3>
+                </div>
+                <p className="mt-2 text-lg text-gray-600">
+                  The pickup area is located in upper Queen Anne, near <span className="font-medium">W McGraw St & 4th Ave W</span>.
+                </p>
+                <p className="mt-2 text-lg text-gray-600">
+                  Look for landmarks like <span className="font-medium">Bar Miriam</span> and <span className="font-medium">Five Corners Hardware</span>.
+                </p>
+                <p className="mt-2 rounded-md border border-green-200 bg-green-50 p-3 text-lg font-semibold text-green-800">
+                  <AlertCircle className="inline-block h-5 w-5 mr-2 mb-1 text-green-700" />
+                  Detailed pickup instructions will be provided in your booking confirmation email.
+                </p>
+                {/* Removed Button from here */}
               </div>
-              <div className="flex flex-col justify-center space-y-6">
-                <div>
-                  <div className="flex items-center gap-2">
-                    <MapPin className="h-6 w-6 text-green-600" />
-                    <h3 className="text-2xl font-bold">Location Details</h3>
-                  </div>
-                  <p className="mt-2 text-lg text-gray-600">
-                    The pickup area is located in upper Queen Anne, near <span className="font-medium">W McGraw St & 4th Ave W</span>.
-                  </p>
-                  <p className="mt-2 text-lg text-gray-600">
-                    Look for landmarks like <span className="font-medium">Bar Miriam</span> and <span className="font-medium">Five Corners Hardware</span>.
-                  </p>
-                  <p className="mt-2 rounded-md border border-green-200 bg-green-50 p-3 text-lg font-semibold text-green-800">
-                    <AlertCircle className="inline-block h-5 w-5 mr-2 mb-1 text-green-700" />
-                    Detailed pickup instructions will be provided in your booking confirmation email.
-                  </p>
-                </div>
-                <div className="pt-2">
-                  <Button asChild>
-                    <Link href="#pricing">Book Now</Link>
-                  </Button>
-                </div>
+
+              {/* Nearby Courts Widget */}
+              <div>
+                {/* Ensure you have created the component in components/local/nearby-courts-map.tsx */}
+                <NearbyCourtsMapWidget />
               </div>
             </div>
           </div>
         </section>
+        {/* === END MODIFIED SECTION === */}
 
-        {/* === START NEW NEARBY COURTS SECTION === */}
-        <section id="nearby-courts" className="w-full py-12 md:py-24 lg:py-32 bg-gray-50">
-          <div className="container px-4 md:px-6">
-             {/* Ensure you have created the component in components/local/nearby-courts-map.tsx */}
-            <NearbyCourtsMapWidget />
-          </div>
-        </section>
-        {/* === END NEW NEARBY COURTS SECTION === */}
 
         {/* Video Demonstration Section */}
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-white"> {/* Changed background back to white for consistency */}
+        <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-50"> {/* Reverted background to gray-50 */}
           <div className="container px-4 md:px-6 text-center">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">See It In Action</h2>
             <p className="mx-auto mt-4 max-w-[900px] text-gray-500 md:text-xl">
