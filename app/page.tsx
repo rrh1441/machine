@@ -237,32 +237,11 @@ export default function LandingPage() {
                 Queen&nbsp;Anne&nbsp;Pickup&nbsp;&amp;&nbsp;Nearby&nbsp;Courts
               </h2>
               <p className="mx-auto mt-4 max-w-[900px] text-xl text-gray-500 md:text-xl">
-                Easily accessible near local courts in upper Queen Anne. Check
-                drive times below.
+                Easily accessible in upper Queen Anne (Near W McGraw St & 4th Ave W.). Check
+                drive times below. Detailed pickup instructions will be provided in your booking
+                confirmation email.
               </p>
             </div>
-
-            <div className="mx-auto flex max-w-3xl flex-col gap-12">
-              {/* Pickup text */}
-              <div>
-                <div className="flex items-center gap-2">
-                  <MapPin className="h-6 w-6 text-green-600" />
-                  <h3 className="text-2xl font-bold">Pickup Location Details</h3>
-                </div>
-                <p className="mt-2 text-lg text-gray-600">
-                  The pickup area is located in upper Queen Anne, near{' '}
-                  <span className="font-medium">W&nbsp;McGraw&nbsp;St&nbsp;&amp;&nbsp;4th&nbsp;Ave&nbsp;W</span>.
-                </p>
-                <p className="mt-2 text-lg text-gray-600">
-                  Look for landmarks like <span className="font-medium">Bar&nbsp;Miriam</span>{' '}
-                  and <span className="font-medium">Five&nbsp;Corners&nbsp;Hardware</span>.
-                </p>
-                <p className="mt-2 rounded-md border border-green-200 bg-green-50 p-3 text-lg font-semibold text-green-800">
-                  <AlertCircle className="mb-1 mr-2 inline-block h-5 w-5 text-green-700" />
-                  Detailed pickup instructions will be provided in your booking
-                  confirmation email.
-                </p>
-              </div>
 
               {/* Nearby courts accordion */}
               <NearbyCourtsMapWidget />
