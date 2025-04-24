@@ -30,8 +30,8 @@ import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css';
 // --- End Added Imports ---
 
-// --- Import the map widget component ---
-import { NearbyCourtsMapWidget } from "./components/local/nearby-courts-map"; // Adjust path if needed
+// --- Import the new component using CORRECTED RELATIVE PATH ---
+import { NearbyCourtsMapWidget } from './components/local/nearby-courts-map';
 // --- End Import ---
 
 
@@ -57,7 +57,6 @@ export default function LandingPage() {
             <Button asChild variant="ghost">
               <Link href="#pickup">Pickup & Nearby</Link> {/* Updated Nav Link Text */}
             </Button>
-            {/* Removed separate Nearby Courts link */}
             <Button asChild variant="ghost">
               <Link href="#about">About</Link>
             </Button>
@@ -77,19 +76,22 @@ export default function LandingPage() {
                   <span className="sr-only">Toggle menu</span>
                 </Button>
               </SheetTrigger>
+              {/* === Corrected Mobile SheetContent Structure === */}
               <SheetContent side="right" className="w-[240px] sm:w-[300px]">
                 <nav className="flex flex-col gap-4 mt-8">
+                  {/* Simple Nav Links */}
                   <Link href="#features" className="flex items-center py-2 text-lg font-medium border-b">Features</Link>
                   <Link href="#how-it-works" className="flex items-center py-2 text-lg font-medium border-b">How It Works</Link>
-                  <Link href="#pickup" className="flex items-center py-2 text-lg font-medium border-b">Pickup & Nearby</Link> {/* Updated Nav Link Text */}
-                  {/* Removed separate Nearby Courts link */}
+                  <Link href="#pickup" className="flex items-center py-2 text-lg font-medium border-b">Pickup & Nearby</Link>
                   <Link href="#about" className="flex items-center py-2 text-lg font-medium border-b">About</Link>
                   <Link href="#pricing" className="flex items-center py-2 text-lg font-medium border-b">Pricing</Link>
-                  <Link href="#pricing" className="inline-flex mt-4 w-full items-center justify-center rounded-md bg-green-600 py-2 px-4 text-white font-bold hover:bg-green-700">
-                    Book Now
-                  </Link>
                 </nav>
+                {/* Styled Book Now Link AFTER the nav */}
+                <Link href="#pricing" className="inline-flex mt-4 w-full items-center justify-center rounded-md bg-green-600 py-2 px-4 text-white font-bold hover:bg-green-700">
+                  Book Now
+                </Link>
               </SheetContent>
+              {/* === End Corrected Structure === */}
             </Sheet>
           </div>
         </div>
@@ -245,7 +247,6 @@ export default function LandingPage() {
                   <AlertCircle className="inline-block h-5 w-5 mr-2 mb-1 text-green-700" />
                   Detailed pickup instructions will be provided in your booking confirmation email.
                 </p>
-                {/* Removed Button from here */}
               </div>
 
               {/* Nearby Courts Widget */}
@@ -260,7 +261,7 @@ export default function LandingPage() {
 
 
         {/* Video Demonstration Section */}
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-50"> {/* Reverted background to gray-50 */}
+        <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-50">
           <div className="container px-4 md:px-6 text-center">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">See It In Action</h2>
             <p className="mx-auto mt-4 max-w-[900px] text-gray-500 md:text-xl">
