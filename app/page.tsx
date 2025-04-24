@@ -37,7 +37,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import LiteYouTubeEmbed from 'react-lite-youtube-embed'
 import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css'
 
-import { NearbyCourtsMapWidget } from '@/components/local/nearby-courts-map'
+import { NearbyCourtsMapWidget } from './components/local/nearby-courts-map'
 
 // ─────────────────────────────────────────────────────────────────────────────
 
