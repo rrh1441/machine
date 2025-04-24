@@ -31,7 +31,7 @@ import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css';
 // --- End Added Imports ---
 
 // --- Import the map widget component ---
-import { NearbyCourtsMapWidget } from "@/components/local/nearby-courts-map"; // Adjust path if needed
+import { NearbyCourtsMapWidget } from "./components/local/nearby-courts-map"; // Adjust path if needed
 // --- End Import ---
 
 
