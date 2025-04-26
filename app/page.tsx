@@ -243,9 +243,24 @@ export default function LandingPage() {
               </p>
             </div>
 
-            {/* ▼ added wrapper — matches the two closing </div> tags below */}
+            {/* ▼ wrapper */}
             <div className="mx-auto flex max-w-3xl flex-col gap-12">
               <NearbyCourtsMapWidget />
+
+              {/* New CTA button */}
+              <div className="flex justify-center">
+                <Button asChild className="bg-green-600 font-bold hover:bg-green-700">
+                  <Link
+                    href="https://firstserveseattle.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2"
+                  >
+                    <MapPin className="h-4 w-4" />
+                    See&nbsp;Today&rsquo;s&nbsp;Open&nbsp;Courts
+                  </Link>
+                </Button>
+              </div>
             </div>
           </div>
         </section>
