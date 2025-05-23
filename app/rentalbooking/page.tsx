@@ -65,8 +65,7 @@ export default function SuccessPage() {
                 Seattle,&nbsp;WA&nbsp;98119
               </p>
               <p className="max-w-[600px] text-gray-600">
-                Pickup instructions and gate code are provided in your scheduling
-                confirmation email. A mapping widget will appear here soon.
+                I will leave the machine and bucket of balls on the porch, please return them to the same spot!
               </p>
             </div>
           </div>
@@ -87,7 +86,7 @@ export default function SuccessPage() {
             <p className="mx-auto mt-4 max-w-[750px] text-gray-600 md:text-lg">
               All bookings are for <strong>2-hour</strong> sessions and include 75
               balls&nbsp;+ basket. Need to reschedule? Use the link in your email
-              up to&nbsp;12&nbsp;hours beforehand.
+              up to&nbsp;8&nbsp;hours beforehand. If it's last minute, please reach out and I will do my best to accomodate your changes.
             </p>
 
             {/* Calendly inline widget */}
@@ -118,7 +117,7 @@ export default function SuccessPage() {
               How&nbsp;It&nbsp;Works
             </h2>
             <p className="mx-auto mt-4 max-w-[750px] text-gray-600 md:text-lg">
-              A quick 3-minute walkthrough of pickup, setup&nbsp;&amp; return.
+              A quick 1-minute walkthrough of how the machine works. Recommend downloading the Proton Control App by Hydrogen Sports so you can easily manage your session!
             </p>
 
             {/* Video embed */}
