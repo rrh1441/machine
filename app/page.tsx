@@ -497,7 +497,7 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* ─────────────── CTA section ─────────────── */}
+        {/* ────────────── ─ CTA secti on ─────────────── */}
         <section className="w-full bg-green-600 py-12 md:py-24 lg:py-32">
           <div className="container px-4 text-center text-white md:px-6">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
