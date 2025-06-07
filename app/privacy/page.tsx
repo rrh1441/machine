@@ -68,7 +68,7 @@ export default function PrivacyPage() {
         <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new policy on this page.</p>
         
         <h2>10. Contact Us</h2>
-        <p>If you have any questions about this Privacy Policy, please contact us at privacy@seattleballmachine.com.</p>
+        <p>If you have any questions about this Privacy Policy, please contact us at support@firstserveseattle.com</p>
       </div>
       
       <div className="mt-8">
