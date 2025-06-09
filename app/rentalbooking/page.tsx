@@ -136,7 +136,7 @@ export default function SuccessPage() {
             <div className="mx-auto mt-10 w-full max-w-4xl">
               <div
                 className="calendly-inline-widget"
-                data-url="https://calendly.com/seattletennis/twohours_color=1ca04c"
+                data-url="https://calendly.com/seattletennis/twohours"
                 style={{ minWidth: '320px', height: '700px' }}
               />
             </div>
