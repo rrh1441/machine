@@ -104,8 +104,7 @@ export default function LandingPage() {
         <div className="container flex items-center justify-center gap-2 text-sm font-medium md:text-base">
           <Gift className="h-4 w-4" />
           <span>
-            Limited&nbsp;Time:&nbsp;Free can of Penn tennis balls with your first
-            session!
+            Limited&nbsp;Time:&nbsp;Free can of Penn tennis balls with purchase of 3 or 10 pack!
           </span>
         </div>
       </div>
@@ -380,7 +379,7 @@ export default function LandingPage() {
                       <li className="flex items-center gap-2">
                         <Gift className="h-4 w-4 text-yellow-500" />
                         <span className="font-medium">
-                          Free Penn tennis balls (first session)
+                          Free Penn tennis balls with purchase of 3 or 10 pack
                         </span>
                       </li>
                     </ul>
@@ -428,7 +427,7 @@ export default function LandingPage() {
                       <li className="flex items-center gap-2">
                         <Gift className="h-4 w-4 text-yellow-500" />
                         <span className="font-medium">
-                          Free Penn tennis balls (first session)
+                          Free Penn tennis balls with purchase of 3 or 10 pack
                         </span>
                       </li>
                     </ul>
@@ -473,7 +472,7 @@ export default function LandingPage() {
                       <li className="flex items-center gap-2">
                         <Gift className="h-4 w-4 text-yellow-500" />
                         <span className="font-medium">
-                          Free Penn tennis balls (first session)
+                          Free Penn tennis balls with purchase of 3 or 10 pack
                         </span>
                       </li>
                     </ul>
