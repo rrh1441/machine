@@ -119,6 +119,15 @@ export default function SuccessPage() {
           </div>
         </section>
 
+        {/* Maintenance banner */}
+        <section className="w-full bg-orange-100 py-4">
+          <div className="container px-4 text-center md:px-6">
+            <p className="text-orange-800 font-medium">
+              ⚠️ Ball machine will be unavailable from 6/16 to 6/25 because it's getting a tune up from the manufacturer
+            </p>
+          </div>
+        </section>
+
         {/* Booking calendar */}
         <section id="calendar" className="w-full bg-gray-50 py-12 md:py-20 lg:py-24">
           <div className="container px-4 text-center md:px-6">
