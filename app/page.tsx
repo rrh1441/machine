@@ -48,28 +48,28 @@ export default function LandingPage() {
     <div className="flex min-h-screen flex-col">
       {/* ───────────────────── NAV ───────────────────── */}
       <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur">
-        <div className="container flex h-16 items-center justify-between px-4">
+        <div className="container flex h-14 sm:h-16 items-center justify-between px-4">
           <Link href="/" className="flex items-center space-x-2">
-            <span className="inline-block text-lg font-bold md:text-xl">
+            <span className="inline-block text-base font-bold sm:text-lg md:text-xl">
               Seattle&nbsp;Ball&nbsp;Machine
             </span>
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden items-center space-x-2 md:flex">
-            <Button asChild variant="ghost"><Link href="#features">Features</Link></Button>
-            <Button asChild variant="ghost"><Link href="#how-it-works">How&nbsp;It&nbsp;Works</Link></Button>
-            <Button asChild variant="ghost"><Link href="#pickup">Pickup&nbsp;&amp;&nbsp;Nearby</Link></Button>
-            <Button asChild variant="ghost"><Link href="#about">About</Link></Button>
-            <Button asChild variant="ghost"><Link href="#pricing">Pricing</Link></Button>
-            <Button asChild><Link href="#pricing">Book&nbsp;Now</Link></Button>
+          <nav className="hidden items-center space-x-1 lg:space-x-2 md:flex">
+            <Button asChild variant="ghost" size="sm"><Link href="#features">Features</Link></Button>
+            <Button asChild variant="ghost" size="sm"><Link href="#how-it-works">How&nbsp;It&nbsp;Works</Link></Button>
+            <Button asChild variant="ghost" size="sm"><Link href="#pickup">Pickup&nbsp;&amp;&nbsp;Nearby</Link></Button>
+            <Button asChild variant="ghost" size="sm"><Link href="#about">About</Link></Button>
+            <Button asChild variant="ghost" size="sm"><Link href="#pricing">Pricing</Link></Button>
+            <Button asChild size="sm"><Link href="#pricing">Book&nbsp;Now</Link></Button>
           </nav>
 
           {/* Mobile nav */}
           <div className="md:hidden">
             <Sheet>
-              <SheetTrigger asChild><Button variant="ghost" size="icon"><Menu className="h-5 w-5" /><span className="sr-only">Toggle menu</span></Button></SheetTrigger>
-              <SheetContent side="right" className="w-[240px] sm:w-[300px]">
+              <SheetTrigger asChild><Button variant="ghost" size="icon"><Menu className="h-4 w-4" /><span className="sr-only">Toggle menu</span></Button></SheetTrigger>
+              <SheetContent side="right" className="w-[280px] sm:w-[320px]">
                 <nav className="mt-8 flex flex-col gap-4">
                   {[
                     ['#features', 'Features'],
@@ -81,18 +81,15 @@ export default function LandingPage() {
                     <Link
                       key={href}
                       href={href}
-                      className="flex items-center border-b py-2 text-lg font-medium"
+                      className="flex items-center border-b py-3 text-lg font-medium"
                     >
                       {label}
                     </Link>
                   ))}
                 </nav>
-                <a
-                  href="#pricing"
-                  className="mt-4 inline-flex w-full items-center justify-center rounded-md bg-green-600 py-2 px-4 font-bold text-white hover:bg-green-700"
-                >
-                  Book&nbsp;Now
-                </a>
+                <Button asChild className="mt-6 w-full bg-green-600 hover:bg-green-700">
+                  <Link href="#pricing">Book&nbsp;Now</Link>
+                </Button>
               </SheetContent>
             </Sheet>
           </div>
@@ -101,9 +98,9 @@ export default function LandingPage() {
 
       {/* ───────────── Promotion banner ───────────── */}
       <div className="bg-yellow-500 py-2 px-4 text-black">
-        <div className="container flex items-center justify-center gap-2 text-sm font-medium md:text-base">
-          <Gift className="h-4 w-4" />
-          <span>
+        <div className="container flex items-center justify-center gap-2 text-xs sm:text-sm font-medium md:text-base">
+          <Gift className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
+          <span className="text-center">
             Limited&nbsp;Time:&nbsp;Free can of Penn tennis balls with purchase of 3 or 10 pack!
           </span>
         </div>
@@ -111,9 +108,9 @@ export default function LandingPage() {
 
       {/* ───────────── Maintenance notice ───────────── */}
       <div className="bg-blue-50 py-2 px-4 text-blue-800 border-b border-blue-200">
-        <div className="container flex items-center justify-center gap-2 text-sm md:text-base">
-          <Clock className="h-4 w-4" />
-          <span>
+        <div className="container flex items-center justify-center gap-2 text-xs sm:text-sm md:text-base">
+          <Clock className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
+          <span className="text-center">
             Ball machine unavailable 6/24-6/30 for manufacturer tune-up
           </span>
         </div>

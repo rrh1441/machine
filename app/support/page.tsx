@@ -15,7 +15,7 @@ export default function SupportPage() {
 
       <h1 className="text-3xl font-bold tracking-tight mb-6">Support & FAQs</h1>
 
-      <div className="grid gap-8 md:grid-cols-2">
+      <div className="grid gap-8 lg:grid-cols-2">
         <div>
           <h2 className="text-xl font-semibold mb-4">Frequently Asked Questions</h2>
           <Accordion type="single" collapsible className="w-full">

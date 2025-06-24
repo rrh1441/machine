@@ -67,17 +67,17 @@ export default function SuccessPage() {
     <div className="flex min-h-screen flex-col">
       {/* ─────────── NAV ─────────── */}
       <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur">
-        <div className="container flex h-16 items-center justify-between px-4">
+        <div className="container flex h-14 sm:h-16 items-center justify-between px-4">
           <Link href="/" className="flex items-center space-x-2">
-            <span className="inline-block text-lg font-bold md:text-xl">
+            <span className="inline-block text-base font-bold sm:text-lg md:text-xl">
               Seattle&nbsp;Ball&nbsp;Machine
             </span>
           </Link>
           <nav className="hidden items-center space-x-2 md:flex">
-            <Button asChild variant="ghost">
+            <Button asChild variant="ghost" size="sm">
               <Link href="/">Home</Link>
             </Button>
-            <Button asChild>
+            <Button asChild size="sm">
               <Link href="#calendar">Schedule&nbsp;Now</Link>
             </Button>
           </nav>
@@ -122,7 +122,7 @@ export default function SuccessPage() {
         {/* Maintenance banner */}
         <section className="w-full bg-orange-100 py-4">
           <div className="container px-4 text-center md:px-6">
-            <p className="text-orange-800 font-medium">
+            <p className="text-orange-800 font-medium text-sm sm:text-base">
               ⚠️ Ball machine will be unavailable from 6/24 to 6/30 because it's getting a tune up from the manufacturer
             </p>
           </div>
