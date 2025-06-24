@@ -37,7 +37,7 @@ export default function MaintenancePopup() {
             Maintenance Notice
           </h3>
           <p className="text-gray-700 leading-relaxed">
-            Ball machine rentals will be unavailable from June 16-June 25. I am sending the machine back to the manufacture for a tune-up. Thank you for your understanding!
+            Ball machine rentals will be unavailable from June 24-June 30. I am sending the machine back to the manufacturer for a tune-up. Thank you for your understanding!
           </p>
         </div>
         
