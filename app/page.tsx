@@ -114,7 +114,7 @@ export default function LandingPage() {
         <div className="container flex items-center justify-center gap-2 text-sm md:text-base">
           <Clock className="h-4 w-4" />
           <span>
-            Ball machine unavailable 6/16-6/25 for manufacturer tune-up
+            Ball machine unavailable 6/24-6/30 for manufacturer tune-up
           </span>
         </div>
       </div>

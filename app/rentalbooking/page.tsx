@@ -123,7 +123,7 @@ export default function SuccessPage() {
         <section className="w-full bg-orange-100 py-4">
           <div className="container px-4 text-center md:px-6">
             <p className="text-orange-800 font-medium">
-              ⚠️ Ball machine will be unavailable from 6/16 to 6/25 because it's getting a tune up from the manufacturer
+              ⚠️ Ball machine will be unavailable from 6/24 to 6/30 because it's getting a tune up from the manufacturer
             </p>
           </div>
         </section>
