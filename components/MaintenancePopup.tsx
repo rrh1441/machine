@@ -7,11 +7,8 @@ export default function MaintenancePopup() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Check if user has already dismissed the popup
-    const isDismissed = localStorage.getItem('maintenance-popup-dismissed');
-    if (!isDismissed) {
-      setIsVisible(true);
-    }
+    // Maintenance is complete - popup disabled
+    setIsVisible(false);
   }, []);
 
   const handleClose = () => {

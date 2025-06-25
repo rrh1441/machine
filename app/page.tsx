@@ -15,7 +15,6 @@ import {
   Menu,
   Star,
   Users,
-  Clock,
 } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
@@ -106,15 +105,6 @@ export default function LandingPage() {
         </div>
       </div>
 
-      {/* ───────────── Maintenance notice ───────────── */}
-      <div className="bg-blue-50 py-2 px-4 text-blue-800 border-b border-blue-200">
-        <div className="container flex items-center justify-center gap-2 text-xs sm:text-sm md:text-base">
-          <Clock className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
-          <span className="text-center">
-            Ball machine unavailable 6/24-6/30 for manufacturer tune-up
-          </span>
-        </div>
-      </div>
 
       <main className="flex-1">
         {/* ───────────────── Hero ───────────────── */}
