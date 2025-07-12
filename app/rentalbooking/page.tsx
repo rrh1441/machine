@@ -10,6 +10,7 @@ import Script from 'next/script'
 import { v4 as uuidv4 } from 'uuid'
 import Cookies from 'js-cookie'
 import { MapPin, Mail, Phone } from 'lucide-react'
+import { usePostHog } from 'posthog-js/react'
 
 import {
   Dialog,
@@ -36,6 +37,7 @@ const COOKIE_NAME = 'sbm_browser_id'
 
 export default function SuccessPage() {
   const currentYear = new Date().getFullYear()
+  const posthog = usePostHog()
 
   const [open, setOpen] = useState(false)
   const [submitting, setSubmitting] = useState(false)
@@ -47,8 +49,12 @@ export default function SuccessPage() {
       id = uuidv4()
       Cookies.set(COOKIE_NAME, id, { sameSite: 'lax', expires: 365 })
     }
+    
+    // Track successful payment page view
+    posthog.capture('payment_success_page_viewed')
+    
     setOpen(true)
-  }, [])
+  }, [posthog])
 
   async function handleSelect(
     source: 'search_engine' | 'friend' | 'first_serve_seattle',
@@ -57,6 +63,10 @@ export default function SuccessPage() {
     setSubmitting(true)
 
     const browser_id = Cookies.get(COOKIE_NAME) as string
+    
+    // Track referral source selection
+    posthog.capture('referral_source_selected', { source })
+    
     await supabase.from('referral_sources').insert({ source, browser_id })
 
     setSubmitting(false)
@@ -118,6 +128,7 @@ export default function SuccessPage() {
             </div>
           </div>
         </section>
+
 
 
         {/* Booking calendar */}
@@ -192,13 +203,24 @@ export default function SuccessPage() {
                 <a
                   href="mailto:support@firstserveseattle.com"
                   className="hover:underline"
+                  onClick={() => posthog.capture('contact_method_clicked', { 
+                    method: 'email',
+                    contact: 'support@firstserveseattle.com'
+                  })}
                 >
                   support@firstserveseattle.com
                 </a>
               </p>
               <p className="flex items-center gap-2 text-lg font-medium">
                 <Phone className="h-5 w-5 text-green-600" />
-                <a href="tel:+12532529577" className="hover:underline">
+                <a 
+                  href="tel:+12532529577" 
+                  className="hover:underline"
+                  onClick={() => posthog.capture('contact_method_clicked', { 
+                    method: 'phone',
+                    contact: '(253) 252-9577'
+                  })}
+                >
                   (253)&nbsp;252-9577
                 </a>
               </p>

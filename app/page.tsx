@@ -16,6 +16,7 @@ import {
   Star,
   Users,
 } from 'lucide-react'
+import { usePostHog } from 'posthog-js/react'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -42,6 +43,7 @@ import { NearbyCourtsMapWidget } from './components/local/nearby-courts-map'
 
 export default function LandingPage() {
   const currentYear = new Date().getFullYear()
+  const posthog = usePostHog()
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -61,7 +63,13 @@ export default function LandingPage() {
             <Button asChild variant="ghost" size="sm"><Link href="#pickup">Pickup&nbsp;&amp;&nbsp;Nearby</Link></Button>
             <Button asChild variant="ghost" size="sm"><Link href="#about">About</Link></Button>
             <Button asChild variant="ghost" size="sm"><Link href="#pricing">Pricing</Link></Button>
-            <Button asChild size="sm"><Link href="#pricing">Book&nbsp;Now</Link></Button>
+            <Button 
+              asChild 
+              size="sm"
+              onClick={() => posthog.capture('nav_book_now_clicked')}
+            >
+              <Link href="#pricing">Book&nbsp;Now</Link>
+            </Button>
           </nav>
 
           {/* Mobile nav */}
@@ -86,7 +94,11 @@ export default function LandingPage() {
                     </Link>
                   ))}
                 </nav>
-                <Button asChild className="mt-6 w-full bg-green-600 hover:bg-green-700">
+                <Button 
+                  asChild 
+                  className="mt-6 w-full bg-green-600 hover:bg-green-700"
+                  onClick={() => posthog.capture('mobile_nav_book_now_clicked')}
+                >
                   <Link href="#pricing">Book&nbsp;Now</Link>
                 </Button>
               </SheetContent>
@@ -130,7 +142,14 @@ export default function LandingPage() {
               Perfect your strokes with solo practice sessions on your schedule.
             </p>
             <div className="mt-4 space-x-4">
-              <Button asChild size="lg" className="bg-yellow-500 font-bold text-black shadow-lg hover:bg-yellow-600"><Link href="#pricing">Book&nbsp;Now</Link></Button>
+              <Button 
+                asChild 
+                size="lg" 
+                className="bg-yellow-500 font-bold text-black shadow-lg hover:bg-yellow-600"
+                onClick={() => posthog.capture('hero_book_now_clicked')}
+              >
+                <Link href="#pricing">Book&nbsp;Now</Link>
+              </Button>
             </div>
           </div>
         </section>
@@ -245,7 +264,14 @@ export default function LandingPage() {
 
               {/* New CTA button */}
               <div className="flex justify-center">
-                <Button asChild className="bg-green-600 font-bold hover:bg-green-700">
+                <Button 
+                  asChild 
+                  className="bg-green-600 font-bold hover:bg-green-700"
+                  onClick={() => posthog.capture('external_link_clicked', { 
+                    url: 'https://firstserveseattle.com',
+                    link_text: 'See Today\'s Open Courts'
+                  })}
+                >
                   <Link
                     href="https://firstserveseattle.com"
                     target="_blank"
@@ -293,7 +319,13 @@ export default function LandingPage() {
                   ))}
                 </ul>
                 <div className="mt-4">
-                  <Button asChild className="bg-green-600 hover:bg-green-700"><Link href="#pricing">Book&nbsp;Your&nbsp;Session&nbsp;Now</Link></Button>
+                  <Button 
+                    asChild 
+                    className="bg-green-600 hover:bg-green-700"
+                    onClick={() => posthog.capture('video_section_book_now_clicked')}
+                  >
+                    <Link href="#pricing">Book&nbsp;Your&nbsp;Session&nbsp;Now</Link>
+                  </Button>
                 </div>
               </div>
 
@@ -386,6 +418,10 @@ export default function LandingPage() {
                   <a
                     href="https://buy.stripe.com/bIY17w7UF9wzaqc8wx"
                     className="inline-flex w-full items-center justify-center rounded-md bg-green-600 py-2 px-4 font-bold text-white hover:bg-green-700"
+                    onClick={() => posthog.capture('stripe_checkout_clicked', {
+                      package_type: 'single_session',
+                      price: '$40'
+                    })}
                   >
                     Book&nbsp;Single&nbsp;Session
                   </a>
@@ -434,6 +470,10 @@ export default function LandingPage() {
                   <a
                     href="https://buy.stripe.com/fZe6rQ7UF8svgOA7sx"
                     className="inline-flex w-full items-center justify-center rounded-md bg-green-600 py-2 px-4 font-bold text-white hover:bg-green-700"
+                    onClick={() => posthog.capture('stripe_checkout_clicked', {
+                      package_type: '3_pack',
+                      price: '$105'
+                    })}
                   >
                     Buy&nbsp;3-Pack
                   </a>
@@ -479,6 +519,10 @@ export default function LandingPage() {
                   <a
                     href="https://buy.stripe.com/eVa03sdeZaADaqcfZ4"
                     className="inline-flex w-full items-center justify-center rounded-md bg-green-600 py-2 px-4 font-bold text-white hover:bg-green-700"
+                    onClick={() => posthog.capture('stripe_checkout_clicked', {
+                      package_type: '10_pack',
+                      price: '$300'
+                    })}
                   >
                     Buy&nbsp;10-Pack
                   </a>
@@ -503,7 +547,14 @@ export default function LandingPage() {
               Book your ball machine rental today and elevate your tennis practice.
             </p>
             <div className="mt-6">
-              <Button asChild size="lg" className="bg-yellow-500 font-bold text-black hover:bg-yellow-600"><Link href="#pricing">Book&nbsp;Now</Link></Button>
+              <Button 
+                asChild 
+                size="lg" 
+                className="bg-yellow-500 font-bold text-black hover:bg-yellow-600"
+                onClick={() => posthog.capture('cta_section_book_now_clicked')}
+              >
+                <Link href="#pricing">Book&nbsp;Now</Link>
+              </Button>
             </div>
           </div>
         </section>

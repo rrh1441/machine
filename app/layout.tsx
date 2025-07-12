@@ -3,6 +3,7 @@ import Script from "next/script";
 import "./globals.css";
 import ClientAnalytics from "./components/ClientAnalytics"; // relative import
 import MaintenancePopup from "../components/MaintenancePopup";
+import { PostHogProvider } from "../components/PostHogProvider";
 
 export const metadata = {
   title: "Seattle Ball Machine Rental",
@@ -23,9 +24,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
-        <MaintenancePopup />
-        {children}
-        <ClientAnalytics />
+        <PostHogProvider>
+          <MaintenancePopup />
+          {children}
+          <ClientAnalytics />
+        </PostHogProvider>
       </body>
     </html>
   );
