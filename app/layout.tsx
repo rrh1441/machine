@@ -4,7 +4,6 @@ import "./globals.css";
 import ClientAnalytics from "./components/ClientAnalytics"; // relative import
 import MaintenancePopup from "../components/MaintenancePopup";
 import { PostHogProvider } from "../components/PostHogProvider";
-import { PostHogDebug } from "../components/PostHogDebug";
 
 export const metadata = {
   title: "Seattle Ball Machine Rental",
@@ -29,7 +28,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <MaintenancePopup />
           {children}
           <ClientAnalytics />
-          <PostHogDebug />
         </PostHogProvider>
       </body>
     </html>
