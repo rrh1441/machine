@@ -4,6 +4,7 @@
 // -----------------------------------------------------------------------------
 'use client'
 
+import { useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import {
@@ -44,6 +45,17 @@ import { NearbyCourtsMapWidget } from './components/local/nearby-courts-map'
 export default function LandingPage() {
   const currentYear = new Date().getFullYear()
   const posthog = usePostHog()
+
+  // Test PostHog on page load
+  useEffect(() => {
+    if (posthog) {
+      console.log('PostHog instance available:', posthog)
+      posthog.capture('landing_page_viewed', {
+        timestamp: new Date().toISOString(),
+        test_event: true
+      })
+    }
+  }, [posthog])
 
   return (
     <div className="flex min-h-screen flex-col">
