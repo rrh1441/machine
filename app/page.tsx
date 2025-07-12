@@ -405,12 +405,6 @@ export default function LandingPage() {
                           <span>{item}</span>
                         </li>
                       ))}
-                      <li className="flex items-center gap-2">
-                        <Gift className="h-4 w-4 text-yellow-500" />
-                        <span className="font-medium">
-                          Free Penn tennis balls with purchase of 3 or 10 pack
-                        </span>
-                      </li>
                     </ul>
                   </div>
                 </CardContent>
@@ -460,7 +454,7 @@ export default function LandingPage() {
                       <li className="flex items-center gap-2">
                         <Gift className="h-4 w-4 text-yellow-500" />
                         <span className="font-medium">
-                          Free Penn tennis balls with purchase of 3 or 10 pack
+                          Free Penn tennis balls
                         </span>
                       </li>
                     </ul>
@@ -509,7 +503,7 @@ export default function LandingPage() {
                       <li className="flex items-center gap-2">
                         <Gift className="h-4 w-4 text-yellow-500" />
                         <span className="font-medium">
-                          Free Penn tennis balls with purchase of 3 or 10 pack
+                          Free Penn tennis balls
                         </span>
                       </li>
                     </ul>
