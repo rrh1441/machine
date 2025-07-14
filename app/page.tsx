@@ -17,7 +17,7 @@ import {
   Star,
   Users,
 } from 'lucide-react'
-import { usePostHog } from 'posthog-js/react'
+import { track } from '@vercel/analytics'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -44,18 +44,14 @@ import { NearbyCourtsMapWidget } from './components/local/nearby-courts-map'
 
 export default function LandingPage() {
   const currentYear = new Date().getFullYear()
-  const posthog = usePostHog()
 
-  // Test PostHog on page load
+  // Track page view
   useEffect(() => {
-    if (posthog) {
-      console.log('PostHog instance available:', posthog)
-      posthog.capture('landing_page_viewed', {
-        timestamp: new Date().toISOString(),
-        test_event: true
-      })
-    }
-  }, [posthog])
+    track('landing_page_viewed', {
+      timestamp: new Date().toISOString(),
+      page: 'home'
+    })
+  }, [])
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -78,7 +74,7 @@ export default function LandingPage() {
             <Button 
               asChild 
               size="sm"
-              onClick={() => posthog.capture('nav_book_now_clicked')}
+              onClick={() => track('nav_book_now_clicked')}
             >
               <Link href="#pricing">Book&nbsp;Now</Link>
             </Button>
@@ -109,7 +105,7 @@ export default function LandingPage() {
                 <Button 
                   asChild 
                   className="mt-6 w-full bg-green-600 hover:bg-green-700"
-                  onClick={() => posthog.capture('mobile_nav_book_now_clicked')}
+                  onClick={() => track('mobile_nav_book_now_clicked')}
                 >
                   <Link href="#pricing">Book&nbsp;Now</Link>
                 </Button>
@@ -158,7 +154,7 @@ export default function LandingPage() {
                 asChild 
                 size="lg" 
                 className="bg-yellow-500 font-bold text-black shadow-lg hover:bg-yellow-600"
-                onClick={() => posthog.capture('hero_book_now_clicked')}
+                onClick={() => track('hero_book_now_clicked')}
               >
                 <Link href="#pricing">Book&nbsp;Now</Link>
               </Button>
@@ -279,7 +275,7 @@ export default function LandingPage() {
                 <Button 
                   asChild 
                   className="bg-green-600 font-bold hover:bg-green-700"
-                  onClick={() => posthog.capture('external_link_clicked', { 
+                  onClick={() => track('external_link_clicked', { 
                     url: 'https://firstserveseattle.com',
                     link_text: 'See Today\'s Open Courts'
                   })}
@@ -334,7 +330,7 @@ export default function LandingPage() {
                   <Button 
                     asChild 
                     className="bg-green-600 hover:bg-green-700"
-                    onClick={() => posthog.capture('video_section_book_now_clicked')}
+                    onClick={() => track('video_section_book_now_clicked')}
                   >
                     <Link href="#pricing">Book&nbsp;Your&nbsp;Session&nbsp;Now</Link>
                   </Button>
@@ -424,7 +420,7 @@ export default function LandingPage() {
                   <a
                     href="https://buy.stripe.com/bIY17w7UF9wzaqc8wx"
                     className="inline-flex w-full items-center justify-center rounded-md bg-green-600 py-2 px-4 font-bold text-white hover:bg-green-700"
-                    onClick={() => posthog.capture('stripe_checkout_clicked', {
+                    onClick={() => track('stripe_checkout_clicked', {
                       package_type: 'single_session',
                       price: '$40'
                     })}
@@ -476,7 +472,7 @@ export default function LandingPage() {
                   <a
                     href="https://buy.stripe.com/fZe6rQ7UF8svgOA7sx"
                     className="inline-flex w-full items-center justify-center rounded-md bg-green-600 py-2 px-4 font-bold text-white hover:bg-green-700"
-                    onClick={() => posthog.capture('stripe_checkout_clicked', {
+                    onClick={() => track('stripe_checkout_clicked', {
                       package_type: '3_pack',
                       price: '$105'
                     })}
@@ -525,7 +521,7 @@ export default function LandingPage() {
                   <a
                     href="https://buy.stripe.com/eVa03sdeZaADaqcfZ4"
                     className="inline-flex w-full items-center justify-center rounded-md bg-green-600 py-2 px-4 font-bold text-white hover:bg-green-700"
-                    onClick={() => posthog.capture('stripe_checkout_clicked', {
+                    onClick={() => track('stripe_checkout_clicked', {
                       package_type: '10_pack',
                       price: '$300'
                     })}
@@ -557,7 +553,7 @@ export default function LandingPage() {
                 asChild 
                 size="lg" 
                 className="bg-yellow-500 font-bold text-black hover:bg-yellow-600"
-                onClick={() => posthog.capture('cta_section_book_now_clicked')}
+                onClick={() => track('cta_section_book_now_clicked')}
               >
                 <Link href="#pricing">Book&nbsp;Now</Link>
               </Button>
