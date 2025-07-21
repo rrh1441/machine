@@ -132,10 +132,11 @@ export default function LandingPage() {
           <div className="absolute inset-0 z-0">
             <Image
               src="/images/tennis-ball-hero.png"
-              alt="Tennis ball on dark court background"
+              alt="Professional tennis ball machine on Queen Anne court for rental"
               fill
               className="object-cover"
               priority
+              sizes="100vw"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-green-950/30 to-green-900/20" />
           </div>
@@ -144,7 +145,7 @@ export default function LandingPage() {
               Elevate&nbsp;Your&nbsp;Tennis&nbsp;Game
             </h1>
             <p className="mx-auto mt-4 max-w-[700px] text-xl text-white text-shadow-md md:text-2xl">
-              Rent a Professional Ball Machine in Queen Anne, Seattle
+              Seattle tennis ball machine rental in Queen Anne, Seattle
             </p>
             <p className="mx-auto mt-2 max-w-[700px] text-white text-shadow-sm md:text-xl">
               Perfect your strokes with solo practice sessions on your schedule.
@@ -169,15 +170,15 @@ export default function LandingPage() {
               Features&nbsp;&amp;&nbsp;Benefits
             </h2>
             <p className="mx-auto mt-4 max-w-[900px] text-gray-500 md:text-xl">
-              The Hydrogen Proton ball machine offers professional-grade training
-              for players of all levels.
+              The Hydrogen Proton ball machine Seattle offers professional-grade training
+              for Queen Anne tennis practice and players of all levels.
             </p>
             <div className="mx-auto mt-12 grid max-w-5xl gap-6 lg:grid-cols-2">
               <Image
                 src="/action.png"
                 width={500}
                 height={500}
-                alt="Ball machine in action"
+                alt="Hydrogen Proton ball machine in action on Seattle tennis court"
                 className="aspect-square overflow-hidden rounded-xl object-cover"
               />
               <ul className="flex flex-col justify-center space-y-6">
@@ -260,7 +261,7 @@ export default function LandingPage() {
                 Queen&nbsp;Anne&nbsp;Pickup&nbsp;&amp;&nbsp;Nearby&nbsp;Courts
               </h2>
               <p className="mx-auto mt-4 max-w-[900px] text-xl text-gray-500 md:text-xl">
-                Easily accessible in upper Queen Anne (near&nbsp;W McGraw St &amp; 4th Ave W).
+                Our Seattle tennis ball machine rental is easily accessible in upper Queen Anne (near&nbsp;W McGraw St &amp; 4th Ave W).
                 Check drive times below. Detailed pickup instructions will be sent
                 in your booking confirmation email.
               </p>
@@ -359,7 +360,7 @@ export default function LandingPage() {
             <div className="mt-6 flex flex-col items-center space-y-4">
               <Image
                 src="/aboutme.png"
-                alt="Site owner"
+                alt="Seattle Ball Machine Rental owner and tennis enthusiast"
                 width={128}
                 height={128}
                 className="rounded-full object-cover border-4 border-white shadow-md"
