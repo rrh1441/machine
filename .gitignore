@@ -25,3 +25,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Scripts with tokens - DO NOT COMMIT
+create-calendly-webhook.sh
+setup-calendly-webhook.js
+test-webhook.sh
