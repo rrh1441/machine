@@ -6,8 +6,11 @@ import { resend } from '@/lib/resend/client'
 import { emailTemplates } from '@/lib/emails/templates'
 
 export async function POST(req: NextRequest) {
+  console.log('Stripe webhook received')
+  
   // Check if Stripe is configured
   if (!stripe || !process.env.STRIPE_WEBHOOK_SECRET) {
+    console.error('Stripe not configured - missing stripe client or webhook secret')
     return NextResponse.json(
       { error: 'Stripe not configured' },
       { status: 503 }
@@ -16,6 +19,7 @@ export async function POST(req: NextRequest) {
 
   const body = await req.text()
   const signature = headers().get('stripe-signature')!
+  console.log('Webhook signature present:', !!signature)
 
   let event
 
@@ -32,12 +36,17 @@ export async function POST(req: NextRequest) {
     )
   }
 
+  console.log('Webhook event type:', event.type)
+  
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object as any
+    console.log('Session ID:', session.id)
+    console.log('Customer email:', session.customer_email)
+    console.log('Metadata:', session.metadata)
 
     // Check if Supabase is configured
     if (!supabaseAdmin) {
-      console.log('Supabase not configured, skipping database operations')
+      console.error('Supabase not configured, skipping database operations')
       return NextResponse.json({ received: true })
     }
 
