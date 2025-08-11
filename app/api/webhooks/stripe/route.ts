@@ -44,6 +44,35 @@ export async function POST(req: NextRequest) {
     console.log('Customer email:', session.customer_email || session.customer_details?.email)
     console.log('Metadata:', session.metadata)
     
+    // First Serve Seattle price IDs to ignore
+    const firstServeSeattlePriceIds = [
+      'price_1Qbm96KSaqiJUYkj7SWySbjU', // FSS Monthly
+      'price_1QowMRKSaqiJUYkjgeqLADm4', // FSS Annual
+    ]
+    
+    // Retrieve session with line items to check what was purchased
+    const sessionWithLineItems = await stripe.checkout.sessions.retrieve(
+      session.id,
+      { expand: ['line_items'] }
+    )
+    
+    // Check if this is a First Serve Seattle transaction
+    let isFirstServeSeattle = false
+    if (sessionWithLineItems.line_items) {
+      for (const item of sessionWithLineItems.line_items.data) {
+        if (item.price?.id && firstServeSeattlePriceIds.includes(item.price.id)) {
+          isFirstServeSeattle = true
+          console.log('Detected First Serve Seattle transaction, skipping...')
+          break
+        }
+      }
+    }
+    
+    // Skip if this is a First Serve Seattle transaction
+    if (isFirstServeSeattle) {
+      return NextResponse.json({ received: true })
+    }
+    
     // Use customer_details.email if customer_email is null
     const customerEmail = session.customer_email || session.customer_details?.email
     if (!customerEmail) {
@@ -57,11 +86,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ received: true })
     }
 
-    // Retrieve the session with line items to check for SwingStick
-    const sessionWithLineItems = await stripe.checkout.sessions.retrieve(
-      session.id,
-      { expand: ['line_items'] }
-    )
+    // Use the already retrieved session with line items
 
     // Check if SwingStick was purchased
     let includesSwingStick = false
