@@ -3,6 +3,11 @@ import { supabaseAdmin } from '@/lib/supabase/server'
 import { resend } from '@/lib/resend/client'
 
 export async function GET() {
+  // Check if Supabase is configured
+  if (!supabaseAdmin) {
+    return NextResponse.json({ error: 'Supabase not configured' }, { status: 503 })
+  }
+
   // Get bookings for tomorrow
   const tomorrow = new Date()
   tomorrow.setDate(tomorrow.getDate() + 1)

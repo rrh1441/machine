@@ -5,6 +5,14 @@ import { supabaseAdmin } from '@/lib/supabase/server'
 import { resend } from '@/lib/resend/client'
 
 export async function POST(req: NextRequest) {
+  // Check if Stripe is configured
+  if (!stripe || !process.env.STRIPE_WEBHOOK_SECRET) {
+    return NextResponse.json(
+      { error: 'Stripe not configured' },
+      { status: 503 }
+    )
+  }
+
   const body = await req.text()
   const signature = headers().get('stripe-signature')!
 
@@ -14,7 +22,7 @@ export async function POST(req: NextRequest) {
     event = stripe.webhooks.constructEvent(
       body,
       signature,
-      process.env.STRIPE_WEBHOOK_SECRET!
+      process.env.STRIPE_WEBHOOK_SECRET
     )
   } catch (err) {
     return NextResponse.json(
@@ -25,6 +33,12 @@ export async function POST(req: NextRequest) {
 
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object
+
+    // Check if Supabase is configured
+    if (!supabaseAdmin) {
+      console.log('Supabase not configured, skipping database operations')
+      return NextResponse.json({ received: true })
+    }
 
     // Create or update customer
     const { data: customer, error: customerError } = await supabaseAdmin

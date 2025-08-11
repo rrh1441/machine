@@ -5,11 +5,19 @@ import { supabaseAdmin } from '@/lib/supabase/server'
 import { resend } from '@/lib/resend/client'
 
 export async function POST(req: NextRequest) {
+  // Check if Calendly is configured
+  if (!process.env.CALENDLY_WEBHOOK_SIGNING_KEY) {
+    return NextResponse.json(
+      { error: 'Calendly not configured' },
+      { status: 503 }
+    )
+  }
+
   const body = await req.text()
   const signature = headers().get('calendly-webhook-signature')!
   
   // Verify webhook signature
-  const hmac = crypto.createHmac('sha256', process.env.CALENDLY_WEBHOOK_SIGNING_KEY!)
+  const hmac = crypto.createHmac('sha256', process.env.CALENDLY_WEBHOOK_SIGNING_KEY)
   hmac.update(body)
   const expectedSignature = hmac.digest('base64')
   
@@ -18,6 +26,12 @@ export async function POST(req: NextRequest) {
   }
 
   const event = JSON.parse(body)
+
+  // Check if Supabase is configured
+  if (!supabaseAdmin) {
+    console.log('Supabase not configured, skipping database operations')
+    return NextResponse.json({ received: true })
+  }
 
   // Store webhook event
   await supabaseAdmin
