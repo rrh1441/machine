@@ -2,571 +2,968 @@ export const emailTemplates = {
   purchaseConfirmation: (sessions: number, swingStick = false) => ({
     subject: "Your Seattle Ball Machine Rental is Confirmed! 🎾",
     html: `
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <meta charset="utf-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Purchase Confirmation</title>
-        </head>
-        <body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #f8fafc; line-height: 1.6;">
-          <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-            
-            <!-- Header -->
-            <div style="background: linear-gradient(135deg, #059669 0%, #047857 100%); padding: 48px 32px; text-align: left;">
-              <h1 style="color: #ffffff; margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -0.025em;">
-                Seattle Ball Machine
-              </h1>
-              <p style="color: rgba(255, 255, 255, 0.9); margin: 8px 0 0 0; font-size: 16px; font-weight: 400;">
-                Tennis Training Made Simple
-              </p>
-            </div>
-            
-            <!-- Success Status -->
-            <div style="padding: 40px 32px 0; text-align: left;">
-              <div style="display: inline-flex; align-items: center; background-color: #d1fae5; color: #065f46; padding: 12px 20px; border-radius: 50px; font-size: 15px; font-weight: 600; margin-bottom: 24px;">
-                <span style="margin-right: 8px; font-size: 16px;">✓</span>
-                Payment Successful
-              </div>
-              <h2 style="color: #111827; font-size: 28px; font-weight: 700; margin: 0; letter-spacing: -0.025em;">
-                Thank You for Your Purchase!
-              </h2>
-            </div>
-            
-            <!-- Package Details -->
-            <div style="padding: 32px;">
-              <div style="background-color: #f9fafb; border-radius: 12px; padding: 32px; margin-bottom: 32px; border: 1px solid #e5e7eb;">
-                <h3 style="color: #374151; font-size: 18px; font-weight: 600; margin: 0 0 20px 0;">
-                  Your Package Details
-                </h3>
-                <div style="space-y: 12px;">
-                  <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #e5e7eb;">
-                    <span style="color: #6b7280; font-size: 15px;">Sessions</span>
-                    <span style="color: #111827; font-size: 15px; font-weight: 600;">${sessions} Session${sessions > 1 ? "s" : ""}</span>
-                  </div>
-                  ${
-                    swingStick
-                      ? `
-                  <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #e5e7eb;">
-                    <span style="color: #6b7280; font-size: 15px;">Add-on</span>
-                    <span style="color: #111827; font-size: 15px; font-weight: 600;">SwingStick Phone Mount</span>
-                  </div>
-                  `
-                      : ""
-                  }
-                  <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #e5e7eb;">
-                    <span style="color: #6b7280; font-size: 15px;">Duration</span>
-                    <span style="color: #111827; font-size: 15px; font-weight: 600;">2 hours each</span>
-                  </div>
-                  <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0;">
-                    <span style="color: #6b7280; font-size: 15px;">Equipment</span>
-                    <span style="color: #111827; font-size: 15px; font-weight: 600;">65 balls + basket</span>
-                  </div>
-                </div>
-              </div>
-              
-              <!-- CTA Button -->
-              <div style="text-align: left; margin: 40px 0;">
-                <a href="${process.env.NEXT_PUBLIC_URL}/rentalbooking#calendar" 
-                   style="display: inline-block; background-color: #059669; color: #ffffff; padding: 16px 32px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 16px; transition: background-color 0.2s; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-                  Schedule Your First Session
-                </a>
-              </div>
-            </div>
-            
-            <!-- Pickup Information -->
-            <div style="background-color: #f8fafc; padding: 32px; border-top: 1px solid #e5e7eb;">
-              <div style="max-width: 400px; text-align: left;">
-                <div style="background-color: #ffffff; border-radius: 12px; padding: 24px; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);">
-                  <div style="margin-bottom: 16px;">
-                    <h3 style="color: #111827; font-size: 18px; font-weight: 600; margin: 0; display: flex; align-items: center; gap: 8px;">
-                      <span style="font-size: 24px;">📍</span>
-                      Pickup Location
-                    </h3>
-                  </div>
-                  <div style="color: #374151; font-size: 15px; line-height: 1.6;">
-                    <div style="font-weight: 600; margin-bottom: 4px;">2116 4th Avenue West</div>
-                    <div style="font-weight: 600; margin-bottom: 12px;">Seattle, WA 98119</div>
-                    <div style="color: #6b7280; font-size: 14px; font-style: italic;">
-                      Equipment will be ready on the porch
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Help Section -->
-            <div style="padding: 32px; background-color: #fffbeb; border-top: 1px solid #fde68a;">
-              <div style="text-align: left; max-width: 400px;">
-                <h4 style="color: #92400e; font-size: 16px; font-weight: 600; margin: 0 0 12px 0;">
-                  Need Help Getting Started?
-                </h4>
-                <p style="color: #b45309; font-size: 14px; margin: 0 0 16px 0;">
-                  Watch our setup video or contact us anytime
-                </p>
-                <a href="${process.env.NEXT_PUBLIC_URL}/rentalbooking#how-it-works" 
-                   style="color: #92400e; text-decoration: underline; font-weight: 600; font-size: 14px;">
-                  View Setup Guide →
-                </a>
-              </div>
-            </div>
-            
-            <!-- Footer -->
-            <div style="background-color: #111827; padding: 32px; text-align: left;">
-              <div style="margin-bottom: 20px;">
-                <p style="color: #d1d5db; font-size: 16px; font-weight: 600; margin: 0 0 8px 0;">
-                  Questions? We're here to help!
-                </p>
-                <div style="color: #9ca3af; font-size: 14px;">
-                  <div style="margin-bottom: 4px;">
-                    <a href="mailto:support@firstserveseattle.com" style="color: #60a5fa; text-decoration: none;">
-                      support@firstserveseattle.com
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Purchase Confirmation</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f8fafc;">
+  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f8fafc;">
+    <tr>
+      <td align="center">
+        <table border="0" cellpadding="0" cellspacing="0" width="600" style="background-color: #ffffff;">
+          
+          <!-- Header -->
+          <tr>
+            <td bgcolor="#059669" style="padding: 40px 30px;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td style="color: #ffffff; font-size: 28px; font-weight: bold;">
+                    Seattle Ball Machine
+                  </td>
+                </tr>
+                <tr>
+                  <td style="color: #ffffff; font-size: 16px; padding-top: 10px;">
+                    Tennis Training Made Simple
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          
+          <!-- Success Status -->
+          <tr>
+            <td style="padding: 40px 30px 0 30px;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td>
+                    <table border="0" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td bgcolor="#d1fae5" style="padding: 10px 20px; border-radius: 20px; color: #065f46; font-weight: bold;">
+                          ✓ Payment Successful
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 20px; color: #111827; font-size: 24px; font-weight: bold;">
+                    Thank You for Your Purchase!
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          
+          <!-- Package Details -->
+          <tr>
+            <td style="padding: 30px;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f9fafb; border: 1px solid #e5e7eb;">
+                <tr>
+                  <td style="padding: 30px;">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                      <tr>
+                        <td style="color: #374151; font-size: 18px; font-weight: bold; padding-bottom: 20px;">
+                          Your Package Details
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                            <tr>
+                              <td style="color: #6b7280; padding: 10px 0; border-bottom: 1px solid #e5e7eb;">Sessions</td>
+                              <td align="right" style="color: #111827; font-weight: bold; padding: 10px 0; border-bottom: 1px solid #e5e7eb;">${sessions} Session${sessions > 1 ? "s" : ""}</td>
+                            </tr>
+                            ${swingStick ? `
+                            <tr>
+                              <td style="color: #6b7280; padding: 10px 0; border-bottom: 1px solid #e5e7eb;">Add-on</td>
+                              <td align="right" style="color: #111827; font-weight: bold; padding: 10px 0; border-bottom: 1px solid #e5e7eb;">SwingStick Phone Mount</td>
+                            </tr>
+                            ` : ""}
+                            <tr>
+                              <td style="color: #6b7280; padding: 10px 0; border-bottom: 1px solid #e5e7eb;">Duration</td>
+                              <td align="right" style="color: #111827; font-weight: bold; padding: 10px 0; border-bottom: 1px solid #e5e7eb;">2 hours each</td>
+                            </tr>
+                            <tr>
+                              <td style="color: #6b7280; padding: 10px 0;">Equipment</td>
+                              <td align="right" style="color: #111827; font-weight: bold; padding: 10px 0;">65 balls + basket</td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          
+          <!-- CTA Button -->
+          <tr>
+            <td style="padding: 0 30px 30px 30px;">
+              <table border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td bgcolor="#059669" style="border-radius: 8px;">
+                    <a href="${process.env.NEXT_PUBLIC_URL}/rentalbooking#calendar" style="display: block; padding: 15px 30px; color: #ffffff; text-decoration: none; font-weight: bold; font-size: 16px;">
+                      Schedule Your First Session
                     </a>
-                  </div>
-                  <div>
-                    <a href="tel:+12532529577" style="color: #60a5fa; text-decoration: none;">
-                      (253) 252-9577
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          
+          <!-- Pickup Information -->
+          <tr>
+            <td bgcolor="#f8fafc" style="padding: 30px; border-top: 1px solid #e5e7eb;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td>
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff" style="border: 1px solid #e5e7eb;">
+                      <tr>
+                        <td style="padding: 20px;">
+                          <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                            <tr>
+                              <td style="color: #111827; font-size: 18px; font-weight: bold; padding-bottom: 15px;">
+                                📍 Pickup Location
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="color: #374151; font-weight: bold;">
+                                2116 4th Avenue West
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="color: #374151; font-weight: bold; padding-bottom: 10px;">
+                                Seattle, WA 98119
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="color: #6b7280; font-size: 14px; font-style: italic;">
+                                Equipment will be ready on the porch
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          
+          <!-- Help Section -->
+          <tr>
+            <td bgcolor="#fffbeb" style="padding: 30px; border-top: 1px solid #fde68a;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td style="color: #92400e; font-size: 16px; font-weight: bold; padding-bottom: 10px;">
+                    Need Help Getting Started?
+                  </td>
+                </tr>
+                <tr>
+                  <td style="color: #b45309; font-size: 14px; padding-bottom: 15px;">
+                    Watch our setup video or contact us anytime
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <a href="${process.env.NEXT_PUBLIC_URL}/rentalbooking#how-it-works" style="color: #92400e; font-weight: bold; font-size: 14px;">
+                      View Setup Guide →
                     </a>
-                  </div>
-                </div>
-              </div>
-              <div style="border-top: 1px solid #374151; padding-top: 20px;">
-                <p style="color: #6b7280; font-size: 12px; margin: 0;">
-                  © ${new Date().getFullYear()} Seattle Ball Machine. All rights reserved.
-                </p>
-              </div>
-            </div>
-          </div>
-        </body>
-      </html>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          
+          <!-- Footer -->
+          <tr>
+            <td bgcolor="#111827" style="padding: 30px;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td style="color: #d1d5db; font-size: 16px; font-weight: bold; padding-bottom: 10px;">
+                    Questions? We're here to help!
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding-bottom: 20px;">
+                    <table border="0" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="color: #9ca3af; font-size: 14px;">
+                          <a href="mailto:support@firstserveseattle.com" style="color: #60a5fa; text-decoration: none;">
+                            support@firstserveseattle.com
+                          </a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="color: #9ca3af; font-size: 14px; padding-top: 5px;">
+                          <a href="tel:+12532529577" style="color: #60a5fa; text-decoration: none;">
+                            (253) 252-9577
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="border-top: 1px solid #374151; padding-top: 20px; color: #6b7280; font-size: 12px;">
+                    © ${new Date().getFullYear()} Seattle Ball Machine. All rights reserved.
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
     `,
   }),
 
   bookingConfirmation: (date: Date, sessionsRemaining: number, rescheduleUrl?: string, cancelUrl?: string) => ({
     subject: "Booking Confirmed - Seattle Ball Machine 🎾",
     html: `
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <meta charset="utf-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Booking Confirmation</title>
-        </head>
-        <body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #f8fafc; line-height: 1.6;">
-          <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-            
-            <!-- Header -->
-            <div style="background: linear-gradient(135deg, #059669 0%, #047857 100%); padding: 48px 32px; text-align: left;">
-              <h1 style="color: #ffffff; margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -0.025em;">
-                Seattle Ball Machine
-              </h1>
-              <p style="color: rgba(255, 255, 255, 0.9); margin: 8px 0 0 0; font-size: 16px; font-weight: 400;">
-                Tennis Training Made Simple
-              </p>
-            </div>
-            
-            <!-- Success Status -->
-            <div style="padding: 40px 32px 0; text-align: left;">
-              <div style="display: inline-flex; align-items: center; background-color: #d1fae5; color: #065f46; padding: 12px 20px; border-radius: 50px; font-size: 15px; font-weight: 600; margin-bottom: 24px;">
-                <span style="margin-right: 8px; font-size: 16px;">✓</span>
-                Booking Confirmed
-              </div>
-              <h2 style="color: #111827; font-size: 28px; font-weight: 700; margin: 0; letter-spacing: -0.025em;">
-                See You Soon!
-              </h2>
-            </div>
-            
-            <!-- Booking Details -->
-            <div style="padding: 32px;">
-              <div style="background-color: #f9fafb; border-radius: 12px; padding: 32px; margin-bottom: 32px; border: 1px solid #e5e7eb; text-align: left;">
-                <h3 style="color: #374151; font-size: 18px; font-weight: 600; margin: 0 0 24px 0;">
-                  📅 Your Session
-                </h3>
-                <div style="margin-bottom: 16px;">
-                  <div style="color: #111827; font-size: 24px; font-weight: 700; margin-bottom: 4px;">
-                    ${date.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}
-                  </div>
-                  <div style="color: #059669; font-size: 20px; font-weight: 600;">
-                    ${date.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })}
-                  </div>
-                </div>
-                <div style="color: #6b7280; font-size: 14px;">
-                  2 hours • 65 balls + basket included
-                </div>
-              </div>
-              
-              <!-- Sessions Remaining -->
-              <div style="text-align: left; background-color: #fffbeb; border-radius: 8px; padding: 16px; margin: 24px 0; border: 1px solid #fde68a;">
-                <p style="color: #92400e; font-size: 14px; font-weight: 600; margin: 0;">
-                  ${sessionsRemaining} session${sessionsRemaining !== 1 ? "s" : ""} remaining after this booking
-                </p>
-              </div>
-              
-              <!-- Action Buttons -->
-              ${
-                rescheduleUrl || cancelUrl
-                  ? `
-              <div style="text-align: left; margin: 32px 0;">
-                ${
-                  rescheduleUrl
-                    ? `
-                <a href="${rescheduleUrl}" 
-                   style="display: inline-block; background-color: #3b82f6; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 14px; margin: 0 8px 8px 0;">
-                  Reschedule
-                </a>
-                `
-                    : ""
-                }
-                ${
-                  cancelUrl
-                    ? `
-                <a href="${cancelUrl}" 
-                   style="display: inline-block; background-color: #ffffff; color: #ef4444; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 14px; border: 1px solid #ef4444; margin: 0 8px 8px 0;">
-                  Cancel Booking
-                </a>
-                `
-                    : ""
-                }
-              </div>
-              `
-                  : ""
-              }
-            </div>
-            
-            <!-- Pickup Information -->
-            <div style="background-color: #f8fafc; padding: 32px; border-top: 1px solid #e5e7eb;">
-              <div style="max-width: 400px; text-align: left;">
-                <div style="background-color: #ffffff; border-radius: 12px; padding: 24px; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);">
-                  <div style="margin-bottom: 16px;">
-                    <h3 style="color: #111827; font-size: 18px; font-weight: 600; margin: 0; display: flex; align-items: center; gap: 8px;">
-                      <span style="font-size: 24px;">📍</span>
-                      Pickup Location
-                    </h3>
-                  </div>
-                  <div style="color: #374151; font-size: 15px; line-height: 1.6;">
-                    <div style="font-weight: 600; margin-bottom: 4px;">2116 4th Avenue West</div>
-                    <div style="font-weight: 600; margin-bottom: 12px;">Seattle, WA 98119</div>
-                    <div style="color: #6b7280; font-size: 14px; font-style: italic;">
-                      Equipment will be ready on the porch
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Footer -->
-            <div style="background-color: #111827; padding: 32px; text-align: left;">
-              <div style="margin-bottom: 20px;">
-                <p style="color: #d1d5db; font-size: 16px; font-weight: 600; margin: 0 0 8px 0;">
-                  Questions? We're here to help!
-                </p>
-                <div style="color: #9ca3af; font-size: 14px;">
-                  <div style="margin-bottom: 4px;">
-                    <a href="mailto:support@firstserveseattle.com" style="color: #60a5fa; text-decoration: none;">
-                      support@firstserveseattle.com
-                    </a>
-                  </div>
-                  <div>
-                    <a href="tel:+12532529577" style="color: #60a5fa; text-decoration: none;">
-                      (253) 252-9577
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div style="border-top: 1px solid #374151; padding-top: 20px;">
-                <p style="color: #6b7280; font-size: 12px; margin: 0;">
-                  © ${new Date().getFullYear()} Seattle Ball Machine. All rights reserved.
-                </p>
-              </div>
-            </div>
-          </div>
-        </body>
-      </html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Booking Confirmation</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f8fafc;">
+  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f8fafc;">
+    <tr>
+      <td align="center">
+        <table border="0" cellpadding="0" cellspacing="0" width="600" style="background-color: #ffffff;">
+          
+          <!-- Header -->
+          <tr>
+            <td bgcolor="#059669" style="padding: 40px 30px;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td style="color: #ffffff; font-size: 28px; font-weight: bold;">
+                    Seattle Ball Machine
+                  </td>
+                </tr>
+                <tr>
+                  <td style="color: #ffffff; font-size: 16px; padding-top: 10px;">
+                    Tennis Training Made Simple
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          
+          <!-- Success Status -->
+          <tr>
+            <td style="padding: 40px 30px 0 30px;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td>
+                    <table border="0" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td bgcolor="#d1fae5" style="padding: 10px 20px; border-radius: 20px; color: #065f46; font-weight: bold;">
+                          ✓ Booking Confirmed
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 20px; color: #111827; font-size: 24px; font-weight: bold;">
+                    See You Soon!
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          
+          <!-- Booking Details -->
+          <tr>
+            <td style="padding: 30px;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f9fafb; border: 1px solid #e5e7eb;">
+                <tr>
+                  <td style="padding: 30px;">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                      <tr>
+                        <td style="color: #374151; font-size: 18px; font-weight: bold; padding-bottom: 20px;">
+                          📅 Your Session
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="color: #111827; font-size: 22px; font-weight: bold; padding-bottom: 5px;">
+                          ${date.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="color: #059669; font-size: 20px; font-weight: bold; padding-bottom: 15px;">
+                          ${date.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="color: #6b7280; font-size: 14px;">
+                          2 hours • 65 balls + basket included
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          
+          <!-- Sessions Remaining -->
+          <tr>
+            <td style="padding: 0 30px 30px 30px;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#fffbeb" style="border: 1px solid #fde68a;">
+                <tr>
+                  <td style="padding: 15px; color: #92400e; font-size: 14px; font-weight: bold;">
+                    ${sessionsRemaining} session${sessionsRemaining !== 1 ? "s" : ""} remaining after this booking
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          
+          <!-- Action Buttons -->
+          ${
+            rescheduleUrl || cancelUrl
+              ? `
+          <tr>
+            <td style="padding: 0 30px 30px 30px;">
+              <table border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                  ${
+                    rescheduleUrl
+                      ? `
+                  <td style="padding-right: 10px;">
+                    <table border="0" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td bgcolor="#3b82f6" style="border-radius: 6px;">
+                          <a href="${rescheduleUrl}" style="display: block; padding: 12px 24px; color: #ffffff; text-decoration: none; font-weight: bold; font-size: 14px;">
+                            Reschedule
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  `
+                      : ""
+                  }
+                  ${
+                    cancelUrl
+                      ? `
+                  <td>
+                    <table border="0" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td bgcolor="#ffffff" style="border: 1px solid #ef4444; border-radius: 6px;">
+                          <a href="${cancelUrl}" style="display: block; padding: 12px 24px; color: #ef4444; text-decoration: none; font-weight: bold; font-size: 14px;">
+                            Cancel Booking
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  `
+                      : ""
+                  }
+                </tr>
+              </table>
+            </td>
+          </tr>
+          `
+              : ""
+          }
+          
+          <!-- Pickup Information -->
+          <tr>
+            <td bgcolor="#f8fafc" style="padding: 30px; border-top: 1px solid #e5e7eb;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td>
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff" style="border: 1px solid #e5e7eb;">
+                      <tr>
+                        <td style="padding: 20px;">
+                          <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                            <tr>
+                              <td style="color: #111827; font-size: 18px; font-weight: bold; padding-bottom: 15px;">
+                                📍 Pickup Location
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="color: #374151; font-weight: bold;">
+                                2116 4th Avenue West
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="color: #374151; font-weight: bold; padding-bottom: 10px;">
+                                Seattle, WA 98119
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="color: #6b7280; font-size: 14px; font-style: italic;">
+                                Equipment will be ready on the porch
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          
+          <!-- Footer -->
+          <tr>
+            <td bgcolor="#111827" style="padding: 30px;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td style="color: #d1d5db; font-size: 16px; font-weight: bold; padding-bottom: 10px;">
+                    Questions? We're here to help!
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding-bottom: 20px;">
+                    <table border="0" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="color: #9ca3af; font-size: 14px;">
+                          <a href="mailto:support@firstserveseattle.com" style="color: #60a5fa; text-decoration: none;">
+                            support@firstserveseattle.com
+                          </a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="color: #9ca3af; font-size: 14px; padding-top: 5px;">
+                          <a href="tel:+12532529577" style="color: #60a5fa; text-decoration: none;">
+                            (253) 252-9577
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="border-top: 1px solid #374151; padding-top: 20px; color: #6b7280; font-size: 12px;">
+                    © ${new Date().getFullYear()} Seattle Ball Machine. All rights reserved.
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
     `,
   }),
 
   bookingReminder: (date: Date, time: string) => ({
     subject: "Reminder: Your ball machine rental is tomorrow! 🎾",
     html: `
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <meta charset="utf-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Booking Reminder</title>
-        </head>
-        <body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #f8fafc; line-height: 1.6;">
-          <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-            
-            <!-- Header -->
-            <div style="background: linear-gradient(135deg, #059669 0%, #047857 100%); padding: 48px 32px; text-align: left;">
-              <h1 style="color: #ffffff; margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -0.025em;">
-                Seattle Ball Machine
-              </h1>
-              <p style="color: rgba(255, 255, 255, 0.9); margin: 8px 0 0 0; font-size: 16px; font-weight: 400;">
-                Tennis Training Made Simple
-              </p>
-            </div>
-            
-            <!-- Reminder Badge -->
-            <div style="padding: 40px 32px 0; text-align: left;">
-              <div style="display: inline-flex; align-items: center; background-color: #fef3c7; color: #92400e; padding: 12px 20px; border-radius: 50px; font-size: 15px; font-weight: 600; margin-bottom: 24px;">
-                <span style="margin-right: 8px; font-size: 16px;">⏰</span>
-                Tomorrow's Session
-              </div>
-              <h2 style="color: #111827; font-size: 28px; font-weight: 700; margin: 0; letter-spacing: -0.025em;">
-                See You Tomorrow!
-              </h2>
-            </div>
-            
-            <!-- Session Details -->
-            <div style="padding: 32px;">
-              <div style="background-color: #f9fafb; border-radius: 12px; padding: 32px; margin-bottom: 32px; border: 1px solid #e5e7eb; text-align: left;">
-                <div style="margin-bottom: 16px;">
-                  <div style="color: #111827; font-size: 24px; font-weight: 700; margin-bottom: 4px;">
-                    ${date.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}
-                  </div>
-                  <div style="color: #059669; font-size: 20px; font-weight: 600;">
-                    ${time}
-                  </div>
-                </div>
-              </div>
-              
-              <!-- Pickup Location -->
-              <div style="background-color: #ffffff; border: 2px solid #059669; border-radius: 12px; padding: 24px; margin-bottom: 24px; text-align: left;">
-                <div style="margin-bottom: 16px;">
-                  <h3 style="color: #111827; font-size: 18px; font-weight: 600; margin: 0; display: flex; align-items: center; gap: 8px;">
-                    <span style="font-size: 24px;">📍</span>
-                    Pickup Location
-                  </h3>
-                </div>
-                <div style="color: #374151; font-size: 15px; line-height: 1.6;">
-                  <div style="font-weight: 700; font-size: 16px; margin-bottom: 4px;">2116 4th Avenue West</div>
-                  <div style="font-weight: 700; font-size: 16px; margin-bottom: 12px;">Seattle, WA 98119</div>
-                  <div style="color: #6b7280; font-size: 14px; font-style: italic;">
-                    Equipment will be ready on the porch
-                  </div>
-                </div>
-              </div>
-              
-              <!-- Tips -->
-              <div style="background-color: #d1fae5; border-radius: 8px; padding: 20px; margin: 20px 0;">
-                <h4 style="color: #065f46; font-size: 16px; font-weight: 600; margin: 0 0 12px 0;">
-                  💡 Quick Reminders
-                </h4>
-                <ul style="color: #047857; font-size: 14px; margin: 0; padding-left: 20px; line-height: 1.6;">
-                  <li>Download the Proton Control app for easy machine control</li>
-                  <li>Return equipment to the same porch location</li>
-                  <li>65 balls and basket are included</li>
-                </ul>
-              </div>
-            </div>
-            
-            <!-- Footer -->
-            <div style="background-color: #111827; padding: 32px; text-align: left;">
-              <div style="margin-bottom: 20px;">
-                <p style="color: #d1d5db; font-size: 16px; font-weight: 600; margin: 0 0 8px 0;">
-                  Questions? We're here to help!
-                </p>
-                <div style="color: #9ca3af; font-size: 14px;">
-                  <div style="margin-bottom: 4px;">
-                    <a href="mailto:support@firstserveseattle.com" style="color: #60a5fa; text-decoration: none;">
-                      support@firstserveseattle.com
-                    </a>
-                  </div>
-                  <div>
-                    <a href="tel:+12532529577" style="color: #60a5fa; text-decoration: none;">
-                      (253) 252-9577
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div style="border-top: 1px solid #374151; padding-top: 20px;">
-                <p style="color: #6b7280; font-size: 12px; margin: 0;">
-                  © ${new Date().getFullYear()} Seattle Ball Machine. All rights reserved.
-                </p>
-              </div>
-            </div>
-          </div>
-        </body>
-      </html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Booking Reminder</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f8fafc;">
+  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f8fafc;">
+    <tr>
+      <td align="center">
+        <table border="0" cellpadding="0" cellspacing="0" width="600" style="background-color: #ffffff;">
+          
+          <!-- Header -->
+          <tr>
+            <td bgcolor="#059669" style="padding: 40px 30px;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td style="color: #ffffff; font-size: 28px; font-weight: bold;">
+                    Seattle Ball Machine
+                  </td>
+                </tr>
+                <tr>
+                  <td style="color: #ffffff; font-size: 16px; padding-top: 10px;">
+                    Tennis Training Made Simple
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          
+          <!-- Reminder Status -->
+          <tr>
+            <td style="padding: 40px 30px 0 30px;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td>
+                    <table border="0" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td bgcolor="#fef3c7" style="padding: 10px 20px; border-radius: 20px; color: #92400e; font-weight: bold;">
+                          ⏰ Tomorrow's Session
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 20px; color: #111827; font-size: 24px; font-weight: bold;">
+                    See You Tomorrow!
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          
+          <!-- Session Details -->
+          <tr>
+            <td style="padding: 30px;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f9fafb; border: 1px solid #e5e7eb;">
+                <tr>
+                  <td style="padding: 30px;">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                      <tr>
+                        <td style="color: #111827; font-size: 22px; font-weight: bold; padding-bottom: 5px;">
+                          ${date.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="color: #059669; font-size: 20px; font-weight: bold;">
+                          ${time}
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          
+          <!-- Pickup Location -->
+          <tr>
+            <td style="padding: 0 30px 30px 30px;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff" style="border: 2px solid #059669;">
+                <tr>
+                  <td style="padding: 20px;">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                      <tr>
+                        <td style="color: #111827; font-size: 18px; font-weight: bold; padding-bottom: 15px;">
+                          📍 Pickup Location
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="color: #374151; font-weight: bold;">
+                          2116 4th Avenue West
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="color: #374151; font-weight: bold; padding-bottom: 10px;">
+                          Seattle, WA 98119
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="color: #6b7280; font-size: 14px; font-style: italic;">
+                          Equipment will be ready on the porch
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          
+          <!-- Tips Section -->
+          <tr>
+            <td style="padding: 0 30px 30px 30px;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#d1fae5" style="border: 1px solid #86efac;">
+                <tr>
+                  <td style="padding: 20px;">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                      <tr>
+                        <td style="color: #065f46; font-size: 16px; font-weight: bold; padding-bottom: 12px;">
+                          💡 Quick Reminders
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="color: #047857; font-size: 14px; padding-bottom: 5px;">
+                          • Download the Proton Control app for easy machine control
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="color: #047857; font-size: 14px; padding-bottom: 5px;">
+                          • Return equipment to the same porch location
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="color: #047857; font-size: 14px;">
+                          • 65 balls and basket are included
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          
+          <!-- Footer -->
+          <tr>
+            <td bgcolor="#111827" style="padding: 30px;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td style="color: #d1d5db; font-size: 16px; font-weight: bold; padding-bottom: 10px;">
+                    Questions? We're here to help!
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding-bottom: 20px;">
+                    <table border="0" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="color: #9ca3af; font-size: 14px;">
+                          <a href="mailto:support@firstserveseattle.com" style="color: #60a5fa; text-decoration: none;">
+                            support@firstserveseattle.com
+                          </a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="color: #9ca3af; font-size: 14px; padding-top: 5px;">
+                          <a href="tel:+12532529577" style="color: #60a5fa; text-decoration: none;">
+                            (253) 252-9577
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="border-top: 1px solid #374151; padding-top: 20px; color: #6b7280; font-size: 12px;">
+                    © ${new Date().getFullYear()} Seattle Ball Machine. All rights reserved.
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
     `,
   }),
 
   bookingCancelled: () => ({
     subject: "Booking Cancelled - Seattle Ball Machine",
     html: `
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <meta charset="utf-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Booking Cancelled</title>
-        </head>
-        <body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #f8fafc; line-height: 1.6;">
-          <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-            
-            <!-- Header -->
-            <div style="background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%); padding: 48px 32px; text-align: left;">
-              <h1 style="color: #ffffff; margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -0.025em;">
-                Seattle Ball Machine
-              </h1>
-              <p style="color: rgba(255, 255, 255, 0.9); margin: 8px 0 0 0; font-size: 16px; font-weight: 400;">
-                Tennis Training Made Simple
-              </p>
-            </div>
-            
-            <!-- Cancelled Badge -->
-            <div style="padding: 40px 32px 0; text-align: left;">
-              <div style="display: inline-flex; align-items: center; background-color: #fee2e2; color: #991b1b; padding: 12px 20px; border-radius: 50px; font-size: 15px; font-weight: 600; margin-bottom: 24px;">
-                Booking Cancelled
-              </div>
-              <h2 style="color: #111827; font-size: 28px; font-weight: 700; margin: 0; letter-spacing: -0.025em;">
-                Your Booking Has Been Cancelled
-              </h2>
-            </div>
-            
-            <!-- Main Content -->
-            <div style="padding: 32px;">
-              <div style="background-color: #d1fae5; border-radius: 12px; padding: 24px; margin: 24px 0; text-align: left;">
-                <p style="color: #065f46; font-size: 16px; font-weight: 600; margin: 0;">
-                  ✓ Your session credit has been restored
-                </p>
-              </div>
-              
-              <p style="color: #6b7280; font-size: 16px; line-height: 1.6; text-align: left; margin: 24px 0;">
-                No worries! You can book another session anytime using your available credits.
-              </p>
-              
-              <!-- CTA Button -->
-              <div style="text-align: left; margin: 32px 0;">
-                <a href="${process.env.NEXT_PUBLIC_URL}/rentalbooking#calendar" 
-                   style="display: inline-block; background-color: #059669; color: #ffffff; padding: 16px 32px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 16px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-                  Book Another Session
-                </a>
-              </div>
-            </div>
-            
-            <!-- Footer -->
-            <div style="background-color: #111827; padding: 32px; text-align: left;">
-              <div style="margin-bottom: 20px;">
-                <p style="color: #d1d5db; font-size: 16px; font-weight: 600; margin: 0 0 8px 0;">
-                  Questions? We're here to help!
-                </p>
-                <div style="color: #9ca3af; font-size: 14px;">
-                  <div style="margin-bottom: 4px;">
-                    <a href="mailto:support@firstserveseattle.com" style="color: #60a5fa; text-decoration: none;">
-                      support@firstserveseattle.com
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Booking Cancelled</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f8fafc;">
+  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f8fafc;">
+    <tr>
+      <td align="center">
+        <table border="0" cellpadding="0" cellspacing="0" width="600" style="background-color: #ffffff;">
+          
+          <!-- Header -->
+          <tr>
+            <td bgcolor="#6b7280" style="padding: 40px 30px;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td style="color: #ffffff; font-size: 28px; font-weight: bold;">
+                    Seattle Ball Machine
+                  </td>
+                </tr>
+                <tr>
+                  <td style="color: #ffffff; font-size: 16px; padding-top: 10px;">
+                    Tennis Training Made Simple
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          
+          <!-- Cancelled Status -->
+          <tr>
+            <td style="padding: 40px 30px 0 30px;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td>
+                    <table border="0" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td bgcolor="#fee2e2" style="padding: 10px 20px; border-radius: 20px; color: #991b1b; font-weight: bold;">
+                          Booking Cancelled
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 20px; color: #111827; font-size: 24px; font-weight: bold;">
+                    Your Booking Has Been Cancelled
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          
+          <!-- Main Content -->
+          <tr>
+            <td style="padding: 30px;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td>
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#d1fae5" style="border: 1px solid #86efac;">
+                      <tr>
+                        <td style="padding: 20px; color: #065f46; font-size: 16px; font-weight: bold;">
+                          ✓ Your session credit has been restored
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 20px; padding-bottom: 20px; color: #6b7280; font-size: 16px;">
+                    No worries! You can book another session anytime using your available credits.
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          
+          <!-- CTA Button -->
+          <tr>
+            <td style="padding: 0 30px 30px 30px;">
+              <table border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td bgcolor="#059669" style="border-radius: 8px;">
+                    <a href="${process.env.NEXT_PUBLIC_URL}/rentalbooking#calendar" style="display: block; padding: 15px 30px; color: #ffffff; text-decoration: none; font-weight: bold; font-size: 16px;">
+                      Book Another Session
                     </a>
-                  </div>
-                  <div>
-                    <a href="tel:+12532529577" style="color: #60a5fa; text-decoration: none;">
-                      (253) 252-9577
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div style="border-top: 1px solid #374151; padding-top: 20px;">
-                <p style="color: #6b7280; font-size: 12px; margin: 0;">
-                  © ${new Date().getFullYear()} Seattle Ball Machine. All rights reserved.
-                </p>
-              </div>
-            </div>
-          </div>
-        </body>
-      </html>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          
+          <!-- Footer -->
+          <tr>
+            <td bgcolor="#111827" style="padding: 30px;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td style="color: #d1d5db; font-size: 16px; font-weight: bold; padding-bottom: 10px;">
+                    Questions? We're here to help!
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding-bottom: 20px;">
+                    <table border="0" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="color: #9ca3af; font-size: 14px;">
+                          <a href="mailto:support@firstserveseattle.com" style="color: #60a5fa; text-decoration: none;">
+                            support@firstserveseattle.com
+                          </a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="color: #9ca3af; font-size: 14px; padding-top: 5px;">
+                          <a href="tel:+12532529577" style="color: #60a5fa; text-decoration: none;">
+                            (253) 252-9577
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="border-top: 1px solid #374151; padding-top: 20px; color: #6b7280; font-size: 12px;">
+                    © ${new Date().getFullYear()} Seattle Ball Machine. All rights reserved.
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
     `,
   }),
 
   noSessionsWarning: () => ({
     subject: "⚠️ No Sessions Available - Action Required",
     html: `
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <meta charset="utf-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>No Sessions Available</title>
-        </head>
-        <body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #f8fafc; line-height: 1.6;">
-          <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-            
-            <!-- Header -->
-            <div style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); padding: 48px 32px; text-align: left;">
-              <h1 style="color: #ffffff; margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -0.025em;">
-                Seattle Ball Machine
-              </h1>
-              <p style="color: rgba(255, 255, 255, 0.9); margin: 8px 0 0 0; font-size: 16px; font-weight: 400;">
-                Action Required
-              </p>
-            </div>
-            
-            <!-- Warning Badge -->
-            <div style="padding: 40px 32px 0; text-align: left;">
-              <div style="display: inline-flex; align-items: center; background-color: #fee2e2; color: #991b1b; padding: 12px 20px; border-radius: 50px; font-size: 15px; font-weight: 600; margin-bottom: 24px;">
-                <span style="margin-right: 8px; font-size: 16px;">⚠️</span>
-                No Sessions Available
-              </div>
-              <h2 style="color: #111827; font-size: 28px; font-weight: 700; margin: 0; letter-spacing: -0.025em;">
-                Your Booking is at Risk
-              </h2>
-            </div>
-            
-            <!-- Main Content -->
-            <div style="padding: 32px;">
-              <div style="background-color: #fee2e2; border-radius: 12px; padding: 24px; margin: 24px 0; text-align: left; border: 1px solid #fecaca;">
-                <p style="color: #991b1b; font-size: 16px; font-weight: 600; margin: 0;">
-                  You've booked a session but have no credits remaining.
-                </p>
-              </div>
-              
-              <p style="color: #6b7280; font-size: 16px; line-height: 1.6; text-align: left; margin: 24px 0;">
-                To secure your booking, please purchase additional sessions immediately.
-              </p>
-              
-              <!-- CTA Button -->
-              <div style="text-align: left; margin: 32px 0;">
-                <a href="${process.env.NEXT_PUBLIC_URL}/#pricing" 
-                   style="display: inline-block; background-color: #ef4444; color: #ffffff; padding: 16px 32px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 16px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-                  Purchase Sessions Now
-                </a>
-              </div>
-              
-              <div style="background-color: #fef3c7; border-radius: 8px; padding: 16px; text-align: left; border: 1px solid #fde68a;">
-                <p style="color: #92400e; font-size: 14px; margin: 0;">
-                  Your booking may be automatically cancelled if payment is not received.
-                </p>
-              </div>
-            </div>
-            
-            <!-- Footer -->
-            <div style="background-color: #111827; padding: 32px; text-align: left;">
-              <div style="margin-bottom: 20px;">
-                <p style="color: #d1d5db; font-size: 16px; font-weight: 600; margin: 0 0 8px 0;">
-                  Questions? We're here to help!
-                </p>
-                <div style="color: #9ca3af; font-size: 14px;">
-                  <div style="margin-bottom: 4px;">
-                    <a href="mailto:support@firstserveseattle.com" style="color: #60a5fa; text-decoration: none;">
-                      support@firstserveseattle.com
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>No Sessions Available</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f8fafc;">
+  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f8fafc;">
+    <tr>
+      <td align="center">
+        <table border="0" cellpadding="0" cellspacing="0" width="600" style="background-color: #ffffff;">
+          
+          <!-- Header -->
+          <tr>
+            <td bgcolor="#ef4444" style="padding: 40px 30px;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td style="color: #ffffff; font-size: 28px; font-weight: bold;">
+                    Seattle Ball Machine
+                  </td>
+                </tr>
+                <tr>
+                  <td style="color: #ffffff; font-size: 16px; padding-top: 10px;">
+                    Action Required
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          
+          <!-- Warning Status -->
+          <tr>
+            <td style="padding: 40px 30px 0 30px;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td>
+                    <table border="0" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td bgcolor="#fee2e2" style="padding: 10px 20px; border-radius: 20px; color: #991b1b; font-weight: bold;">
+                          ⚠️ No Sessions Available
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 20px; color: #111827; font-size: 24px; font-weight: bold;">
+                    Your Booking is at Risk
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          
+          <!-- Main Content -->
+          <tr>
+            <td style="padding: 30px;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td>
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#fee2e2" style="border: 1px solid #fecaca;">
+                      <tr>
+                        <td style="padding: 20px; color: #991b1b; font-size: 16px; font-weight: bold;">
+                          You've booked a session but have no credits remaining.
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 20px; padding-bottom: 20px; color: #6b7280; font-size: 16px;">
+                    To secure your booking, please purchase additional sessions immediately.
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          
+          <!-- CTA Button -->
+          <tr>
+            <td style="padding: 0 30px 30px 30px;">
+              <table border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td bgcolor="#ef4444" style="border-radius: 8px;">
+                    <a href="${process.env.NEXT_PUBLIC_URL}/#pricing" style="display: block; padding: 15px 30px; color: #ffffff; text-decoration: none; font-weight: bold; font-size: 16px;">
+                      Purchase Sessions Now
                     </a>
-                  </div>
-                  <div>
-                    <a href="tel:+12532529577" style="color: #60a5fa; text-decoration: none;">
-                      (253) 252-9577
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div style="border-top: 1px solid #374151; padding-top: 20px;">
-                <p style="color: #6b7280; font-size: 12px; margin: 0;">
-                  © ${new Date().getFullYear()} Seattle Ball Machine. All rights reserved.
-                </p>
-              </div>
-            </div>
-          </div>
-        </body>
-      </html>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          
+          <!-- Warning Box -->
+          <tr>
+            <td style="padding: 0 30px 30px 30px;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#fef3c7" style="border: 1px solid #fde68a;">
+                <tr>
+                  <td style="padding: 15px; color: #92400e; font-size: 14px;">
+                    Your booking may be automatically cancelled if payment is not received.
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          
+          <!-- Footer -->
+          <tr>
+            <td bgcolor="#111827" style="padding: 30px;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td style="color: #d1d5db; font-size: 16px; font-weight: bold; padding-bottom: 10px;">
+                    Questions? We're here to help!
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding-bottom: 20px;">
+                    <table border="0" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="color: #9ca3af; font-size: 14px;">
+                          <a href="mailto:support@firstserveseattle.com" style="color: #60a5fa; text-decoration: none;">
+                            support@firstserveseattle.com
+                          </a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="color: #9ca3af; font-size: 14px; padding-top: 5px;">
+                          <a href="tel:+12532529577" style="color: #60a5fa; text-decoration: none;">
+                            (253) 252-9577
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="border-top: 1px solid #374151; padding-top: 20px; color: #6b7280; font-size: 12px;">
+                    © ${new Date().getFullYear()} Seattle Ball Machine. All rights reserved.
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
     `,
   }),
 }
