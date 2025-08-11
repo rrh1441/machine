@@ -546,58 +546,56 @@ export default function LandingPage() {
               scheduling your session.
             </p>
             
-            {/* SwingStick Add-on Section */}
+            {/* SwingStick Add-on Information */}
             <div className="mx-auto mt-16 max-w-4xl">
-              <div className="rounded-lg border-2 border-yellow-500 bg-yellow-50 p-8">
+              <div className="rounded-lg border-2 border-green-200 bg-green-50 p-4 sm:p-6 md:p-8">
                 <div className="flex flex-col items-center gap-6 md:flex-row">
-                  <div className="relative h-48 w-48 flex-shrink-0 overflow-hidden rounded-lg">
+                  <div className="relative h-48 w-48 flex-shrink-0 overflow-hidden rounded-lg bg-gray-100">
                     <Image
                       src="/swingstick.JPG"
-                      alt="SwingStick Vision training tool for tennis"
+                      alt="SwingStick training tool for tennis"
                       fill
                       className="object-cover"
+                      sizes="(max-width: 768px) 192px, 192px"
                     />
                   </div>
                   <div className="flex-1 text-left">
-                    <div className="mb-2 inline-block rounded-full bg-yellow-500 px-3 py-1 text-xs font-bold text-black">
-                      NEW ADD-ON
+                    <div className="mb-2 inline-block rounded-full bg-green-600 px-3 py-1 text-xs font-bold text-white">
+                      RECOMMENDED ADD-ON
                     </div>
-                    <h3 className="text-2xl font-bold">SwingStick for SwingStick Vision</h3>
+                    <h3 className="text-2xl font-bold">SwingStick for SwingVision</h3>
                     <p className="mt-2 text-gray-600">
-                      Enhance your practice with the SwingStick training tool! Perfect for improving your swing mechanics and timing.
+                      The SwingStick is a lightweight sensor that attaches to your racquet handle to enhance shot tracking accuracy with the SwingVision app. Get detailed analytics on your swing speed, spin rate, and shot placement.
                     </p>
-                    <div className="mt-4 flex items-center gap-2">
-                      <AlertCircle className="h-5 w-5 text-yellow-600" />
-                      <p className="text-sm font-medium text-gray-700">
-                        Requires machine rental. Download the SwingStick Vision app separately (free trials available).
-                      </p>
+                    <div className="mt-4">
+                      <h4 className="font-semibold text-gray-800">What you get:</h4>
+                      <ul className="mt-2 space-y-1 text-sm text-gray-600">
+                        <li className="flex items-start gap-2">
+                          <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
+                          <span>Enhanced motion tracking for more accurate shot data</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
+                          <span>Works with SwingVision app (iOS only, free 2hr/month tier available)</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
+                          <span>Easy to attach and remove from any racquet</span>
+                        </li>
+                      </ul>
                     </div>
-                    <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-center">
+                    <div className="mt-4 flex items-center gap-2">
                       <div className="flex items-baseline gap-1">
-                        <span className="text-3xl font-bold">$10</span>
+                        <span className="text-2xl font-bold">$10</span>
                         <span className="text-gray-500">/rental</span>
                       </div>
-                      <p className="text-sm text-gray-600">
-                        Adjustable quantity - rent multiple SwingSticks for extended sessions
-                      </p>
-                    </div>
-                    <div className="mt-6">
-                      <a
-                        href="https://buy.stripe.com/14AeVefoRezl4WJa1G2Ry09"
-                        className="inline-flex items-center justify-center rounded-md bg-yellow-500 py-2 px-6 font-bold text-black hover:bg-yellow-600"
-                        onClick={() => track('stripe_checkout_clicked', {
-                          package_type: 'swingstick_addon',
-                          price: '$10'
-                        })}
-                      >
-                        Add&nbsp;SwingStick&nbsp;to&nbsp;Order
-                      </a>
+                      <span className="text-sm text-gray-600">• Available at checkout</span>
                     </div>
                   </div>
                 </div>
               </div>
               <p className="mt-4 text-center text-sm text-gray-500">
-                Note: SwingStick rental is only available with a machine rental. Quantity can be adjusted during checkout.
+                SwingStick can be added at checkout.
               </p>
             </div>
           </div>
