@@ -179,7 +179,7 @@ export default function SuccessPage() {
                   <span className="text-gray-500">/rental</span>
                 </div>
                 <a
-                  href="https://buy.stripe.com/14AeVefoRezl4WJa1G2Ry09"
+                  href="https://buy.stripe.com/fZueVf4Sygor51o0AjgIo03"
                   className="inline-flex items-center justify-center rounded-md bg-yellow-500 py-3 px-4 sm:px-8 text-base sm:text-lg font-bold text-black hover:bg-yellow-600 transition-colors"
                   onClick={() => track('swingstick_upsell_clicked', {
                     location: 'rentalbooking_page',

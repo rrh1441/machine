@@ -427,7 +427,7 @@ export default function LandingPage() {
                 </CardContent>
                 <CardFooter>
                   <a
-                    href="https://buy.stripe.com/bIY17w7UF9wzaqc8wx"
+                    href="https://buy.stripe.com/dRm7sN3Ou7RVgK696PgIo00?client_reference_id=single&metadata[package_type]=single&metadata[sessions_count]=1"
                     className="inline-flex w-full items-center justify-center rounded-md bg-green-600 py-2 px-4 font-bold text-white hover:bg-green-700"
                     onClick={() => track('stripe_checkout_clicked', {
                       package_type: 'single_session',
@@ -479,7 +479,7 @@ export default function LandingPage() {
                 </CardContent>
                 <CardFooter>
                   <a
-                    href="https://buy.stripe.com/fZe6rQ7UF8svgOA7sx"
+                    href="https://buy.stripe.com/fZubJ3bgWfkn0L8cj1gIo01?client_reference_id=3_pack&metadata[package_type]=3_pack&metadata[sessions_count]=3"
                     className="inline-flex w-full items-center justify-center rounded-md bg-green-600 py-2 px-4 font-bold text-white hover:bg-green-700"
                     onClick={() => track('stripe_checkout_clicked', {
                       package_type: '3_pack',
@@ -528,7 +528,7 @@ export default function LandingPage() {
                 </CardContent>
                 <CardFooter>
                   <a
-                    href="https://buy.stripe.com/eVa03sdeZaADaqcfZ4"
+                    href="https://buy.stripe.com/6oU3cxfxc5JN8dA82LgIo02?client_reference_id=10_pack&metadata[package_type]=10_pack&metadata[sessions_count]=10"
                     className="inline-flex w-full items-center justify-center rounded-md bg-green-600 py-2 px-4 font-bold text-white hover:bg-green-700"
                     onClick={() => track('stripe_checkout_clicked', {
                       package_type: '10_pack',
