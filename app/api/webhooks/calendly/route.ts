@@ -54,17 +54,19 @@ export async function POST(req: NextRequest) {
     const totalSessions = credits?.reduce((sum, c) => sum + c.sessions_remaining, 0) || 0
 
     if (totalSessions === 0) {
-      // Send warning email
-      await resend.emails.send({
-        from: 'Seattle Ball Machine <noreply@seattleballmachine.com>',
-        to: email,
-        subject: 'No Sessions Available - Booking at Risk',
-        html: `
-          <h1>Warning: No Sessions Available</h1>
-          <p>You've booked a session but have no credits remaining.</p>
-          <p>Please purchase additional sessions to avoid cancellation.</p>
-        `
-      })
+      // Send warning email if Resend is configured
+      if (resend) {
+        await resend.emails.send({
+          from: 'Seattle Ball Machine <noreply@seattleballmachine.com>',
+          to: email,
+          subject: 'No Sessions Available - Booking at Risk',
+          html: `
+            <h1>Warning: No Sessions Available</h1>
+            <p>You've booked a session but have no credits remaining.</p>
+            <p>Please purchase additional sessions to avoid cancellation.</p>
+          `
+        })
+      }
       return NextResponse.json({ error: 'No sessions available' }, { status: 400 })
     }
 
@@ -115,21 +117,23 @@ export async function POST(req: NextRequest) {
         })
     }
 
-    // Send confirmation email
-    await resend.emails.send({
-      from: 'Seattle Ball Machine <noreply@seattleballmachine.com>',
-      to: email,
-      subject: 'Booking Confirmed - Seattle Ball Machine',
-      html: `
-        <h1>Your booking is confirmed!</h1>
-        <p>Date: ${bookingDate.toLocaleDateString()}</p>
-        <p>Time: ${bookingDate.toLocaleTimeString()}</p>
-        <p>Sessions remaining: ${totalSessions - 1}</p>
-        <h2>Pickup Location</h2>
-        <p>2116 4th Avenue West<br>Seattle, WA 98119</p>
-        <p>Need to change your booking? <a href="${invitee.reschedule_url}">Reschedule</a> or <a href="${invitee.cancel_url}">Cancel</a></p>
-      `
-    })
+    // Send confirmation email if Resend is configured
+    if (resend) {
+      await resend.emails.send({
+        from: 'Seattle Ball Machine <noreply@seattleballmachine.com>',
+        to: email,
+        subject: 'Booking Confirmed - Seattle Ball Machine',
+        html: `
+          <h1>Your booking is confirmed!</h1>
+          <p>Date: ${bookingDate.toLocaleDateString()}</p>
+          <p>Time: ${bookingDate.toLocaleTimeString()}</p>
+          <p>Sessions remaining: ${totalSessions - 1}</p>
+          <h2>Pickup Location</h2>
+          <p>2116 4th Avenue West<br>Seattle, WA 98119</p>
+          <p>Need to change your booking? <a href="${invitee.reschedule_url}">Reschedule</a> or <a href="${invitee.cancel_url}">Cancel</a></p>
+        `
+      })
+    }
   }
 
   if (event.event === 'invitee.canceled') {
@@ -168,17 +172,19 @@ export async function POST(req: NextRequest) {
         }
       }
 
-      // Send cancellation email
-      await resend.emails.send({
-        from: 'Seattle Ball Machine <noreply@seattleballmachine.com>',
-        to: invitee.email,
-        subject: 'Booking Cancelled - Seattle Ball Machine',
-        html: `
-          <h1>Your booking has been cancelled</h1>
-          <p>Your session credit has been restored.</p>
-          <p>Ready to book again? <a href="${process.env.NEXT_PUBLIC_URL}/rentalbooking">Schedule a new session</a></p>
-        `
-      })
+      // Send cancellation email if Resend is configured
+      if (resend) {
+        await resend.emails.send({
+          from: 'Seattle Ball Machine <noreply@seattleballmachine.com>',
+          to: invitee.email,
+          subject: 'Booking Cancelled - Seattle Ball Machine',
+          html: `
+            <h1>Your booking has been cancelled</h1>
+            <p>Your session credit has been restored.</p>
+            <p>Ready to book again? <a href="${process.env.NEXT_PUBLIC_URL}/rentalbooking">Schedule a new session</a></p>
+          `
+        })
+      }
     }
   }
 
