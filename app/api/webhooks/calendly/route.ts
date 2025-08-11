@@ -1,0 +1,186 @@
+import { NextRequest, NextResponse } from 'next/server'
+import { headers } from 'next/headers'
+import crypto from 'crypto'
+import { supabaseAdmin } from '@/lib/supabase/server'
+import { resend } from '@/lib/resend/client'
+
+export async function POST(req: NextRequest) {
+  const body = await req.text()
+  const signature = headers().get('calendly-webhook-signature')!
+  
+  // Verify webhook signature
+  const hmac = crypto.createHmac('sha256', process.env.CALENDLY_WEBHOOK_SIGNING_KEY!)
+  hmac.update(body)
+  const expectedSignature = hmac.digest('base64')
+  
+  if (signature !== `v1=${expectedSignature}`) {
+    return NextResponse.json({ error: 'Invalid signature' }, { status: 401 })
+  }
+
+  const event = JSON.parse(body)
+
+  // Store webhook event
+  await supabaseAdmin
+    .from('calendly_webhooks')
+    .insert({
+      event_id: event.event,
+      event_type: event.event,
+      payload: event,
+    })
+
+  if (event.event === 'invitee.created') {
+    const invitee = event.payload
+    const email = invitee.email
+
+    // Find customer
+    const { data: customer } = await supabaseAdmin
+      .from('customers')
+      .select('id')
+      .eq('email', email)
+      .single()
+
+    if (!customer) {
+      console.error('Customer not found:', email)
+      return NextResponse.json({ error: 'Customer not found' }, { status: 404 })
+    }
+
+    // Check available sessions
+    const { data: credits } = await supabaseAdmin
+      .from('session_credits')
+      .select('sessions_remaining')
+      .eq('customer_id', customer.id)
+      .gt('sessions_remaining', 0)
+
+    const totalSessions = credits?.reduce((sum, c) => sum + c.sessions_remaining, 0) || 0
+
+    if (totalSessions === 0) {
+      // Send warning email
+      await resend.emails.send({
+        from: 'Seattle Ball Machine <noreply@seattleballmachine.com>',
+        to: email,
+        subject: 'No Sessions Available - Booking at Risk',
+        html: `
+          <h1>Warning: No Sessions Available</h1>
+          <p>You've booked a session but have no credits remaining.</p>
+          <p>Please purchase additional sessions to avoid cancellation.</p>
+        `
+      })
+      return NextResponse.json({ error: 'No sessions available' }, { status: 400 })
+    }
+
+    // Create booking
+    const bookingDate = new Date(invitee.event.start_time)
+    const { data: booking, error: bookingError } = await supabaseAdmin
+      .from('bookings')
+      .insert({
+        customer_id: customer.id,
+        calendly_event_id: invitee.event.uuid,
+        calendly_invitee_id: invitee.uuid,
+        booking_date: bookingDate.toISOString().split('T')[0],
+        booking_time: bookingDate.toTimeString().split(' ')[0],
+        booking_datetime: bookingDate.toISOString(),
+        calendly_cancel_url: invitee.cancel_url,
+        calendly_reschedule_url: invitee.reschedule_url,
+      })
+      .select()
+      .single()
+
+    if (bookingError) {
+      console.error('Booking creation error:', bookingError)
+      return NextResponse.json({ error: 'Database error' }, { status: 500 })
+    }
+
+    // Deduct session
+    const { data: oldestCredit } = await supabaseAdmin
+      .from('session_credits')
+      .select('id, sessions_remaining')
+      .eq('customer_id', customer.id)
+      .gt('sessions_remaining', 0)
+      .order('created_at', { ascending: true })
+      .limit(1)
+      .single()
+
+    if (oldestCredit) {
+      await supabaseAdmin
+        .from('session_credits')
+        .update({ sessions_remaining: oldestCredit.sessions_remaining - 1 })
+        .eq('id', oldestCredit.id)
+
+      await supabaseAdmin
+        .from('session_usage')
+        .insert({
+          booking_id: booking.id,
+          session_credit_id: oldestCredit.id,
+          sessions_used: 1,
+        })
+    }
+
+    // Send confirmation email
+    await resend.emails.send({
+      from: 'Seattle Ball Machine <noreply@seattleballmachine.com>',
+      to: email,
+      subject: 'Booking Confirmed - Seattle Ball Machine',
+      html: `
+        <h1>Your booking is confirmed!</h1>
+        <p>Date: ${bookingDate.toLocaleDateString()}</p>
+        <p>Time: ${bookingDate.toLocaleTimeString()}</p>
+        <p>Sessions remaining: ${totalSessions - 1}</p>
+        <h2>Pickup Location</h2>
+        <p>2116 4th Avenue West<br>Seattle, WA 98119</p>
+        <p>Need to change your booking? <a href="${invitee.reschedule_url}">Reschedule</a> or <a href="${invitee.cancel_url}">Cancel</a></p>
+      `
+    })
+  }
+
+  if (event.event === 'invitee.canceled') {
+    const invitee = event.payload
+
+    // Find and cancel booking
+    const { data: booking } = await supabaseAdmin
+      .from('bookings')
+      .update({ status: 'cancelled' })
+      .eq('calendly_invitee_id', invitee.uuid)
+      .select()
+      .single()
+
+    if (booking) {
+      // Refund session
+      const { data: usage } = await supabaseAdmin
+        .from('session_usage')
+        .select('session_credit_id')
+        .eq('booking_id', booking.id)
+        .single()
+
+      if (usage) {
+        const { data: credit } = await supabaseAdmin
+          .from('session_credits')
+          .select('sessions_remaining')
+          .eq('id', usage.session_credit_id)
+          .single()
+
+        if (credit) {
+          await supabaseAdmin
+            .from('session_credits')
+            .update({ 
+              sessions_remaining: credit.sessions_remaining + 1
+            })
+            .eq('id', usage.session_credit_id)
+        }
+      }
+
+      // Send cancellation email
+      await resend.emails.send({
+        from: 'Seattle Ball Machine <noreply@seattleballmachine.com>',
+        to: invitee.email,
+        subject: 'Booking Cancelled - Seattle Ball Machine',
+        html: `
+          <h1>Your booking has been cancelled</h1>
+          <p>Your session credit has been restored.</p>
+          <p>Ready to book again? <a href="${process.env.NEXT_PUBLIC_URL}/rentalbooking">Schedule a new session</a></p>
+        `
+      })
+    }
+  }
+
+  return NextResponse.json({ received: true })
+}
