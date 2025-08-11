@@ -43,8 +43,17 @@ export async function POST(req: NextRequest) {
     console.log('Session ID:', session.id)
     console.log('Customer email:', session.customer_email || session.customer_details?.email)
     console.log('Metadata:', session.metadata)
+    console.log('Mode:', session.mode)
+    console.log('Subscription ID:', session.subscription)
     
-    // First Serve Seattle price IDs to ignore
+    // CRITICAL: Ball Machine only handles one-time payments, NOT subscriptions
+    // First Serve Seattle uses subscriptions, Ball Machine uses one-time payments
+    if (session.mode === 'subscription' || session.subscription) {
+      console.log('Skipping subscription checkout - Ball Machine only handles one-time payments')
+      return NextResponse.json({ received: true })
+    }
+    
+    // Additional safety check: First Serve Seattle price IDs to ignore
     const firstServeSeattlePriceIds = [
       'price_1Qbm96KSaqiJUYkj7SWySbjU', // FSS Monthly
       'price_1QowMRKSaqiJUYkjgeqLADm4', // FSS Annual
@@ -62,8 +71,13 @@ export async function POST(req: NextRequest) {
       for (const item of sessionWithLineItems.line_items.data) {
         if (item.price?.id && firstServeSeattlePriceIds.includes(item.price.id)) {
           isFirstServeSeattle = true
-          console.log('Detected First Serve Seattle transaction, skipping...')
+          console.log('Detected First Serve Seattle transaction by price ID, skipping...')
           break
+        }
+        // Also check if it's a recurring price (subscription)
+        if (item.price?.recurring) {
+          console.log('Detected subscription item, skipping...')
+          return NextResponse.json({ received: true })
         }
       }
     }
