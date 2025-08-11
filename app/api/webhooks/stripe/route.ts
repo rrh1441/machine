@@ -32,12 +32,34 @@ export async function POST(req: NextRequest) {
   }
 
   if (event.type === 'checkout.session.completed') {
-    const session = event.data.object
+    const session = event.data.object as any
 
     // Check if Supabase is configured
     if (!supabaseAdmin) {
       console.log('Supabase not configured, skipping database operations')
       return NextResponse.json({ received: true })
+    }
+
+    // Retrieve the session with line items to check for SwingStick
+    const sessionWithLineItems = await stripe.checkout.sessions.retrieve(
+      session.id,
+      { expand: ['line_items'] }
+    )
+
+    // Check if SwingStick was purchased
+    let includesSwingStick = false
+    let swingStickQuantity = 0
+    
+    if (sessionWithLineItems.line_items) {
+      for (const item of sessionWithLineItems.line_items.data) {
+        // Check if this is a SwingStick product by product ID or name
+        if (item.price?.product === process.env.STRIPE_PRODUCT_SWINGSTICK ||
+            item.description?.toLowerCase().includes('swing') ||
+            item.description?.toLowerCase().includes('stick')) {
+          includesSwingStick = true
+          swingStickQuantity += item.quantity || 0
+        }
+      }
     }
 
     // Create or update customer
@@ -69,8 +91,8 @@ export async function POST(req: NextRequest) {
         package_type: session.metadata?.package_type || 'single',
         sessions_purchased: parseInt(session.metadata?.sessions_count || '1'),
         amount_paid: session.amount_total,
-        includes_swingstick: false, // TODO: Check line items for SwingStick
-        swingstick_quantity: 0,
+        includes_swingstick: includesSwingStick,
+        swingstick_quantity: swingStickQuantity,
       })
       .select()
       .single()
