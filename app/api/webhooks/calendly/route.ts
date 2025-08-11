@@ -6,20 +6,30 @@ import { resend } from '@/lib/resend/client'
 import { emailTemplates } from '@/lib/emails/templates'
 
 export async function POST(req: NextRequest) {
-  // Check if Calendly is configured
-  if (!process.env.CALENDLY_WEBHOOK_SIGNING_KEY) {
-    return NextResponse.json(
-      { error: 'Calendly not configured' },
-      { status: 503 }
-    )
-  }
-
   const body = await req.text()
-  const signature = headers().get('calendly-webhook-signature')!
+  const signature = headers().get('calendly-webhook-signature')
   
-  // Skip signature verification for now (Calendly doesn't return signing key)
-  // TODO: Implement proper verification once we have the signing key
-  console.log('Calendly webhook received - signature verification skipped')
+  // Calendly signature verification (optional but recommended)
+  // Note: The signing_key should be provided when creating the webhook subscription
+  // If you don't have it, you can still process webhooks but with reduced security
+  if (process.env.CALENDLY_WEBHOOK_SIGNING_KEY && process.env.CALENDLY_WEBHOOK_SIGNING_KEY !== 'temporarily_disabled') {
+    if (!signature) {
+      console.error('No Calendly signature header found')
+      return NextResponse.json({ error: 'No signature' }, { status: 401 })
+    }
+    
+    const hmac = crypto.createHmac('sha256', process.env.CALENDLY_WEBHOOK_SIGNING_KEY)
+    hmac.update(body)
+    const expectedSignature = hmac.digest('base64')
+    
+    if (signature !== `v1=${expectedSignature}`) {
+      console.error('Invalid Calendly webhook signature')
+      return NextResponse.json({ error: 'Invalid signature' }, { status: 401 })
+    }
+    console.log('Calendly webhook signature verified')
+  } else {
+    console.log('Calendly webhook received - signature verification disabled')
+  }
 
   const event = JSON.parse(body)
 
