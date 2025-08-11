@@ -117,11 +117,19 @@ export default function LandingPage() {
 
       {/* ───────────── Promotion banner ───────────── */}
       <div className="bg-yellow-500 py-2 px-4 text-black">
-        <div className="container flex items-center justify-center gap-2 text-xs sm:text-sm font-medium md:text-base">
-          <Gift className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
-          <span className="text-center">
-            Limited&nbsp;Time:&nbsp;Free can of Penn tennis balls with purchase of 3 or 10 pack!
-          </span>
+        <div className="container flex flex-col items-center justify-center gap-1 text-xs sm:text-sm font-medium md:text-base">
+          <div className="flex items-center gap-2">
+            <Gift className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
+            <span className="text-center">
+              Limited&nbsp;Time:&nbsp;Free can of Penn tennis balls with purchase of 3 or 10 pack!
+            </span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Star className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
+            <span className="text-center">
+              NEW:&nbsp;SwingStick rental now available as add-on!
+            </span>
+          </div>
         </div>
       </div>
 
@@ -406,7 +414,7 @@ export default function LandingPage() {
                     <ul className="grid gap-2">
                       {[
                         '2 Hours of play time',
-                        '75 balls included',
+                        '65 balls included',
                         'Pickup basket included',
                       ].map((item) => (
                         <li key={item} className="flex items-center gap-2">
@@ -452,7 +460,7 @@ export default function LandingPage() {
                     <ul className="grid gap-2">
                       {[
                         '3 sessions of 2 hours each',
-                        '75 balls included each session',
+                        '65 balls included each session',
                         'Flexible scheduling',
                       ].map((item) => (
                         <li key={item} className="flex items-center gap-2">
@@ -501,7 +509,7 @@ export default function LandingPage() {
                     <ul className="grid gap-2">
                       {[
                         '10 sessions of 2 hours each',
-                        '75 balls included each session',
+                        '65 balls included each session',
                         'Best value for regular players',
                       ].map((item) => (
                         <li key={item} className="flex items-center gap-2">
@@ -533,10 +541,65 @@ export default function LandingPage() {
               </Card>
             </div>
             <p className="mt-4 text-center text-gray-500">
-              All rentals include 75 balls &amp; a pickup basket. After successful
+              All rentals include 65 balls &amp; a pickup basket. After successful
               payment, your Stripe confirmation will include the Calendly link for
               scheduling your session.
             </p>
+            
+            {/* SwingStick Add-on Section */}
+            <div className="mx-auto mt-16 max-w-4xl">
+              <div className="rounded-lg border-2 border-yellow-500 bg-yellow-50 p-8">
+                <div className="flex flex-col items-center gap-6 md:flex-row">
+                  <div className="relative h-48 w-48 flex-shrink-0 overflow-hidden rounded-lg">
+                    <Image
+                      src="/swingstick.JPG"
+                      alt="SwingStick Vision training tool for tennis"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="flex-1 text-left">
+                    <div className="mb-2 inline-block rounded-full bg-yellow-500 px-3 py-1 text-xs font-bold text-black">
+                      NEW ADD-ON
+                    </div>
+                    <h3 className="text-2xl font-bold">SwingStick for SwingStick Vision</h3>
+                    <p className="mt-2 text-gray-600">
+                      Enhance your practice with the SwingStick training tool! Perfect for improving your swing mechanics and timing.
+                    </p>
+                    <div className="mt-4 flex items-center gap-2">
+                      <AlertCircle className="h-5 w-5 text-yellow-600" />
+                      <p className="text-sm font-medium text-gray-700">
+                        Requires machine rental. Download the SwingStick Vision app separately (free trials available).
+                      </p>
+                    </div>
+                    <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-center">
+                      <div className="flex items-baseline gap-1">
+                        <span className="text-3xl font-bold">$10</span>
+                        <span className="text-gray-500">/rental</span>
+                      </div>
+                      <p className="text-sm text-gray-600">
+                        Adjustable quantity - rent multiple SwingSticks for extended sessions
+                      </p>
+                    </div>
+                    <div className="mt-6">
+                      <a
+                        href="https://buy.stripe.com/14AeVefoRezl4WJa1G2Ry09"
+                        className="inline-flex items-center justify-center rounded-md bg-yellow-500 py-2 px-6 font-bold text-black hover:bg-yellow-600"
+                        onClick={() => track('stripe_checkout_clicked', {
+                          package_type: 'swingstick_addon',
+                          price: '$10'
+                        })}
+                      >
+                        Add&nbsp;SwingStick&nbsp;to&nbsp;Order
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p className="mt-4 text-center text-sm text-gray-500">
+                Note: SwingStick rental is only available with a machine rental. Quantity can be adjusted during checkout.
+              </p>
+            </div>
           </div>
         </section>
 

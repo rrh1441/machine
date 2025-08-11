@@ -28,7 +28,7 @@ export default function TermsPage() {
         <p>Any delayed return of more than an hour is subject to the maximum $400 fee.</p>
         
         <h2>3. Tennis Balls and Equipment</h2>
-        <p>Rentals come with 75 tennis balls and a pickup basket. You will be responsible for a $2 per ball fee for any lost balls. Please return all equipment in the same condition as received.</p>
+        <p>Rentals come with 65 tennis balls and a pickup basket. You will be responsible for a $2 per ball fee for any lost balls. Please return all equipment in the same condition as received.</p>
         
         <h2>4. Condition of Equipment</h2>
         <p>You are responsible for inspecting the Equipment upon pickup. By accepting the Equipment, you acknowledge it is in good working condition. You agree to return the Equipment in the same condition, normal wear and tear excepted.</p>

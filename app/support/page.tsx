@@ -38,7 +38,7 @@ export default function SupportPage() {
             <AccordionItem value="item-3">
               <AccordionTrigger>How many tennis balls are included?</AccordionTrigger>
               <AccordionContent>
-                Each rental includes 75 tennis balls and a pickup basket. The balls are regularly
+                Each rental includes 65 tennis balls and a pickup basket. The balls are regularly
                 replaced to ensure quality practice sessions.
               </AccordionContent>
             </AccordionItem>

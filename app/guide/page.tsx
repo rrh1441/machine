@@ -5,9 +5,10 @@
 'use client'
 
 import Link from 'next/link'
-import { MapPin, PlayCircle, Mail, Phone } from 'lucide-react'
+import { MapPin, PlayCircle, Mail, Phone, Menu } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 
 export default function BookingGuidePage() {
   const currentYear = new Date().getFullYear()
@@ -30,6 +31,34 @@ export default function BookingGuidePage() {
               <Link href="/#pricing">Book&nbsp;Another</Link>
             </Button>
           </nav>
+          
+          {/* Mobile nav */}
+          <div className="md:hidden">
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon">
+                  <Menu className="h-5 w-5" />
+                  <span className="sr-only">Toggle menu</span>
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-[280px] sm:w-[320px]">
+                <nav className="mt-8 flex flex-col gap-4">
+                  <Link
+                    href="/"
+                    className="flex items-center border-b py-3 text-lg font-medium"
+                  >
+                    Home
+                  </Link>
+                  <Link
+                    href="/#pricing"
+                    className="flex items-center border-b py-3 text-lg font-medium"
+                  >
+                    Book Another
+                  </Link>
+                </nav>
+              </SheetContent>
+            </Sheet>
+          </div>
         </div>
       </header>
 

@@ -9,7 +9,7 @@ import Link from 'next/link'
 import Script from 'next/script'
 import { v4 as uuidv4 } from 'uuid'
 import Cookies from 'js-cookie'
-import { MapPin, Mail, Phone } from 'lucide-react'
+import { MapPin, Mail, Phone, Menu } from 'lucide-react'
 import { track } from '@vercel/analytics'
 
 import {
@@ -19,6 +19,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 
@@ -90,6 +91,34 @@ export default function SuccessPage() {
               <Link href="#calendar">Schedule&nbsp;Now</Link>
             </Button>
           </nav>
+          
+          {/* Mobile nav */}
+          <div className="md:hidden">
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon">
+                  <Menu className="h-5 w-5" />
+                  <span className="sr-only">Toggle menu</span>
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-[280px] sm:w-[320px]">
+                <nav className="mt-8 flex flex-col gap-4">
+                  <Link
+                    href="/"
+                    className="flex items-center border-b py-3 text-lg font-medium"
+                  >
+                    Home
+                  </Link>
+                  <Link
+                    href="#calendar"
+                    className="flex items-center border-b py-3 text-lg font-medium"
+                  >
+                    Schedule Now
+                  </Link>
+                </nav>
+              </SheetContent>
+            </Sheet>
+          </div>
         </div>
       </header>
 
@@ -130,6 +159,43 @@ export default function SuccessPage() {
 
 
 
+        {/* SwingStick Upsell */}
+        <section className="w-full bg-yellow-50 py-12 md:py-16">
+          <div className="container px-4 text-center md:px-6">
+            <div className="mx-auto max-w-3xl rounded-lg border-2 border-yellow-400 bg-white p-4 sm:p-6 md:p-8 shadow-lg">
+              <div className="mb-2 inline-block rounded-full bg-yellow-400 px-3 py-1 text-xs font-bold text-black">
+                NEW ADD-ON
+              </div>
+              <h2 className="text-2xl font-bold sm:text-3xl">
+                Enhance Your Practice with SwingStick!
+              </h2>
+              <p className="mx-auto mt-4 max-w-[600px] text-gray-600 md:text-lg">
+                Add the SwingStick to your rental for advanced shot tracking with the SwingVision app.
+                Perfect for analyzing your form and improving your game!
+              </p>
+              <div className="mt-6 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+                <div className="flex items-baseline gap-1">
+                  <span className="text-3xl font-bold">$10</span>
+                  <span className="text-gray-500">/rental</span>
+                </div>
+                <a
+                  href="https://buy.stripe.com/14AeVefoRezl4WJa1G2Ry09"
+                  className="inline-flex items-center justify-center rounded-md bg-yellow-500 py-3 px-4 sm:px-8 text-base sm:text-lg font-bold text-black hover:bg-yellow-600 transition-colors"
+                  onClick={() => track('swingstick_upsell_clicked', {
+                    location: 'rentalbooking_page',
+                    price: '$10'
+                  })}
+                >
+                  Add&nbsp;SwingStick&nbsp;to&nbsp;My&nbsp;Rental
+                </a>
+              </div>
+              <p className="mt-4 text-sm text-gray-500">
+                SwingVision app required (iOS only) - Free tier includes 2 recording hours/month
+              </p>
+            </div>
+          </div>
+        </section>
+
         {/* Booking calendar */}
         <section id="calendar" className="w-full bg-gray-50 py-12 md:py-20 lg:py-24">
           <div className="container px-4 text-center md:px-6">
@@ -141,7 +207,7 @@ export default function SuccessPage() {
             </h2>
             <p className="mx-auto mt-4 max-w-[750px] text-gray-600 md:text-lg">
               All bookings are for <strong>2-hour</strong> sessions and include
-              75&nbsp;balls&nbsp;+ basket.
+              65&nbsp;balls&nbsp;+ basket.
             </p>
 
             <div className="mx-auto mt-10 w-full max-w-4xl">

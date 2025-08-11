@@ -7,7 +7,7 @@ import { Analytics } from '@vercel/analytics/react';
 
 export const metadata = {
   title: "Seattle Tennis Ball Machine Rental – Queen Anne Pickup",
-  description: "Professional Hydrogen Proton ball machine rental in Queen Anne, Seattle. 2-hour sessions • 75 balls included • book online. Perfect your strokes with solo practice.",
+  description: "Professional Hydrogen Proton ball machine rental in Queen Anne, Seattle. 2-hour sessions • 65 balls included • book online. Perfect your strokes with solo practice.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -53,7 +53,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     },
                     "price": "40",
                     "priceCurrency": "USD",
-                    "description": "2 hours of ball machine rental with 75 balls"
+                    "description": "2 hours of ball machine rental with 65 balls"
                   },
                   {
                     "@type": "Offer",
@@ -63,7 +63,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     },
                     "price": "105",
                     "priceCurrency": "USD",
-                    "description": "Three 2-hour sessions with 75 balls each"
+                    "description": "Three 2-hour sessions with 65 balls each"
                   },
                   {
                     "@type": "Offer",
@@ -73,7 +73,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     },
                     "price": "300",
                     "priceCurrency": "USD",
-                    "description": "Ten 2-hour sessions with 75 balls each"
+                    "description": "Ten 2-hour sessions with 65 balls each"
                   }
                 ]
               }
