@@ -3,6 +3,7 @@ import { headers } from 'next/headers'
 import { stripe } from '@/lib/stripe/client'
 import { supabaseAdmin } from '@/lib/supabase/server'
 import { resend } from '@/lib/resend/client'
+import { emailTemplates } from '@/lib/emails/templates'
 
 export async function POST(req: NextRequest) {
   // Check if Stripe is configured
@@ -119,18 +120,15 @@ export async function POST(req: NextRequest) {
 
     // Send confirmation email if Resend is configured
     if (resend) {
+      const emailContent = emailTemplates.purchaseConfirmation(
+        parseInt(session.metadata?.sessions_count || '1'),
+        includesSwingStick
+      )
+      
       await resend.emails.send({
         from: 'Seattle Ball Machine <noreply@seattleballmachine.com>',
         to: session.customer_email!,
-        subject: 'Your Seattle Ball Machine Rental is Confirmed!',
-        html: `
-          <h1>Thank you for your purchase!</h1>
-          <p>You've purchased ${session.metadata?.sessions_count} session(s).</p>
-          <p><a href="${process.env.NEXT_PUBLIC_URL}/rentalbooking">Click here to schedule your first session</a></p>
-          <h2>Pickup Location</h2>
-          <p>2116 4th Avenue West<br>Seattle, WA 98119</p>
-          <p>Questions? Reply to this email or call (253) 252-9577</p>
-        `
+        ...emailContent
       })
     }
   }

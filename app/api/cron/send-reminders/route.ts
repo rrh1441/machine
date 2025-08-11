@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabase/server'
 import { resend } from '@/lib/resend/client'
+import { emailTemplates } from '@/lib/emails/templates'
 
 export async function GET() {
   // Check if Supabase is configured
@@ -21,15 +22,15 @@ export async function GET() {
   for (const booking of bookings || []) {
     // Send reminder email if Resend is configured
     if (resend) {
+      const emailContent = emailTemplates.bookingReminder(
+        new Date(booking.booking_datetime),
+        booking.booking_time
+      )
+      
       await resend.emails.send({
         from: 'Seattle Ball Machine <noreply@seattleballmachine.com>',
         to: booking.customers.email,
-        subject: 'Reminder: Your ball machine rental is tomorrow!',
-        html: `
-          <h1>See you tomorrow!</h1>
-          <p>Your rental is scheduled for ${booking.booking_time}</p>
-          <p>Pickup: 2116 4th Avenue West, Seattle, WA 98119</p>
-        `
+        ...emailContent
       })
 
       await supabaseAdmin
