@@ -6,8 +6,14 @@ import { resend } from '@/lib/resend/client'
 import { emailTemplates } from '@/lib/emails/templates'
 
 export async function POST(req: NextRequest) {
+  console.log('=== Calendly Webhook Received ===')
+  console.log('Timestamp:', new Date().toISOString())
+  
   const body = await req.text()
   const signature = headers().get('calendly-webhook-signature')
+  
+  console.log('Signature present:', !!signature)
+  console.log('Signing key configured:', !!process.env.CALENDLY_WEBHOOK_SIGNING_KEY)
   
   // Calendly signature verification (optional but recommended)
   // Note: The signing_key should be provided when creating the webhook subscription
@@ -24,6 +30,8 @@ export async function POST(req: NextRequest) {
     
     if (signature !== `v1=${expectedSignature}`) {
       console.error('Invalid Calendly webhook signature')
+      console.error('Expected:', `v1=${expectedSignature}`)
+      console.error('Received:', signature)
       return NextResponse.json({ error: 'Invalid signature' }, { status: 401 })
     }
     console.log('Calendly webhook signature verified')
@@ -32,6 +40,8 @@ export async function POST(req: NextRequest) {
   }
 
   const event = JSON.parse(body)
+  console.log('Event type:', event.event)
+  console.log('Event payload email:', event.payload?.email || 'not found')
 
   // Check if Supabase is configured
   if (!supabaseAdmin) {
@@ -49,31 +59,41 @@ export async function POST(req: NextRequest) {
     })
 
   if (event.event === 'invitee.created') {
+    console.log('Processing invitee.created event')
     const invitee = event.payload
     const email = invitee.email
+    console.log('Looking for customer with email:', email)
 
     // Find customer
-    const { data: customer } = await supabaseAdmin
+    const { data: customer, error: customerError } = await supabaseAdmin
       .from('customers')
       .select('id')
       .eq('email', email)
       .single()
 
-    if (!customer) {
+    if (customerError || !customer) {
       console.error('Customer not found:', email)
+      console.error('Error details:', customerError)
       return NextResponse.json({ error: 'Customer not found' }, { status: 404 })
     }
+    
+    console.log('Found customer:', customer.id)
 
     // Check available sessions
-    const { data: credits } = await supabaseAdmin
+    const { data: credits, error: creditsError } = await supabaseAdmin
       .from('session_credits')
       .select('sessions_remaining')
       .eq('customer_id', customer.id)
       .gt('sessions_remaining', 0)
 
+    console.log('Credits query result:', credits)
+    console.log('Credits query error:', creditsError)
+
     const totalSessions = credits?.reduce((sum, c) => sum + c.sessions_remaining, 0) || 0
+    console.log('Total sessions available:', totalSessions)
 
     if (totalSessions === 0) {
+      console.log('No sessions available for customer')
       // Send warning email if Resend is configured
       if (resend) {
         const emailContent = emailTemplates.noSessionsWarning()
@@ -110,7 +130,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Deduct session
-    const { data: oldestCredit } = await supabaseAdmin
+    const { data: oldestCredit, error: creditFetchError } = await supabaseAdmin
       .from('session_credits')
       .select('id, sessions_remaining')
       .eq('customer_id', customer.id)
@@ -119,19 +139,29 @@ export async function POST(req: NextRequest) {
       .limit(1)
       .single()
 
+    console.log('Oldest credit found:', oldestCredit)
+    console.log('Credit fetch error:', creditFetchError)
+
     if (oldestCredit) {
-      await supabaseAdmin
+      const { error: updateError } = await supabaseAdmin
         .from('session_credits')
         .update({ sessions_remaining: oldestCredit.sessions_remaining - 1 })
         .eq('id', oldestCredit.id)
+      
+      console.log('Credit update error:', updateError)
+      console.log('Deducted 1 session from credit:', oldestCredit.id)
 
-      await supabaseAdmin
+      const { error: usageError } = await supabaseAdmin
         .from('session_usage')
         .insert({
           booking_id: booking.id,
           session_credit_id: oldestCredit.id,
           sessions_used: 1,
         })
+      
+      console.log('Session usage tracking error:', usageError)
+    } else {
+      console.error('Could not find credit to deduct!')
     }
 
     // Send confirmation email if Resend is configured
