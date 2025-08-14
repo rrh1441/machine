@@ -61,6 +61,10 @@ export async function POST(req: NextRequest) {
   if (event.event === 'invitee.created') {
     console.log('Processing invitee.created event')
     const invitee = event.payload
+    
+    // Log the full payload structure to debug
+    console.log('Full invitee payload:', JSON.stringify(invitee, null, 2))
+    
     const email = invitee.email
     console.log('Looking for customer with email:', email)
 
@@ -108,18 +112,34 @@ export async function POST(req: NextRequest) {
     }
 
     // Create booking
-    const bookingDate = new Date(invitee.event.start_time)
+    console.log('Invitee event data:', JSON.stringify(invitee.event))
+    console.log('Start time raw value:', invitee.event?.start_time)
+    
+    // Handle different possible date formats from Calendly
+    const startTime = invitee.event?.start_time || invitee.scheduled_event?.start_time
+    if (!startTime) {
+      console.error('No start time found in event data')
+      return NextResponse.json({ error: 'No start time in event' }, { status: 400 })
+    }
+    
+    const bookingDate = new Date(startTime)
+    if (isNaN(bookingDate.getTime())) {
+      console.error('Invalid date format:', startTime)
+      return NextResponse.json({ error: 'Invalid date format' }, { status: 400 })
+    }
+    
+    console.log('Parsed booking date:', bookingDate.toISOString())
     const { data: booking, error: bookingError } = await supabaseAdmin
       .from('bookings')
       .insert({
         customer_id: customer.id,
-        calendly_event_id: invitee.event.uuid,
-        calendly_invitee_id: invitee.uuid,
+        calendly_event_id: invitee.event?.uuid || invitee.scheduled_event?.uri || null,
+        calendly_invitee_id: invitee.uri || invitee.uuid || null,
         booking_date: bookingDate.toISOString().split('T')[0],
         booking_time: bookingDate.toTimeString().split(' ')[0],
         booking_datetime: bookingDate.toISOString(),
-        calendly_cancel_url: invitee.cancel_url,
-        calendly_reschedule_url: invitee.reschedule_url,
+        calendly_cancel_url: invitee.cancel_url || null,
+        calendly_reschedule_url: invitee.reschedule_url || null,
       })
       .select()
       .single()
