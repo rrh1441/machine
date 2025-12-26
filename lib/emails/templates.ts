@@ -114,7 +114,7 @@ export const emailTemplates = {
               </table>
             </td>
           </tr>
-          
+
           <!-- Pickup Information -->
           <tr>
             <td bgcolor="#f8fafc" style="padding: 30px; border-top: 1px solid #e5e7eb;">
@@ -154,7 +154,32 @@ export const emailTemplates = {
               </table>
             </td>
           </tr>
-          
+
+          <!-- Help Section -->
+          <tr>
+            <td bgcolor="#d1fae5" style="padding: 30px; border-top: 1px solid #86efac;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td style="color: #065f46; font-size: 18px; font-weight: bold; padding-bottom: 10px;">
+                    Need Help Getting Started?
+                  </td>
+                </tr>
+                <tr>
+                  <td style="color: #047857; font-size: 16px; padding-bottom: 15px;">
+                    Watch our setup video or contact us anytime
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <a href="${process.env.NEXT_PUBLIC_URL}/rentalbooking#how-it-works" style="color: #065f46; font-weight: bold; font-size: 16px;">
+                      View Setup Guide →
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
           <!-- Footer -->
           <tr>
             <td bgcolor="#111827" style="padding: 30px;">
