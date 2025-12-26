@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { headers } from 'next/headers'
 import { stripe } from '@/lib/stripe/client'
 import { supabaseAdmin } from '@/lib/supabase/server'
-import { resend } from '@/lib/resend/client'
+import { gmail as resend } from '@/lib/gmail/email-service'
 import { emailTemplates } from '@/lib/emails/templates'
 
 export async function POST(req: NextRequest) {
