@@ -1,6 +1,6 @@
 export const emailTemplates = {
   purchaseConfirmation: (sessions: number, swingStick = false) => ({
-    subject: "Your Seattle Ball Machine Rental is Confirmed! 🎾",
+    subject: "Your Seattle Ball Machine Rental is Confirmed!",
     html: `
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -9,7 +9,7 @@ export const emailTemplates = {
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Purchase Confirmation</title>
 </head>
-<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f8fafc;">
+<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f8fafc; -webkit-text-size-adjust: 100%;">
   <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f8fafc;">
     <tr>
       <td align="center">
@@ -25,7 +25,7 @@ export const emailTemplates = {
                   </td>
                 </tr>
                 <tr>
-                  <td style="color: #ffffff; font-size: 16px; padding-top: 10px;">
+                  <td style="color: #ffffff; font-size: 18px; padding-top: 10px;">
                     Tennis Training Made Simple
                   </td>
                 </tr>
@@ -106,7 +106,7 @@ export const emailTemplates = {
               <table border="0" cellpadding="0" cellspacing="0">
                 <tr>
                   <td bgcolor="#059669" style="border-radius: 8px;">
-                    <a href="${process.env.NEXT_PUBLIC_URL}/rentalbooking#calendar" style="display: block; padding: 15px 30px; color: #ffffff; text-decoration: none; font-weight: bold; font-size: 16px;">
+                    <a href="${process.env.NEXT_PUBLIC_URL}/rentalbooking#calendar" style="display: block; padding: 15px 30px; color: #ffffff; text-decoration: none; font-weight: bold; font-size: 18px;">
                       Schedule Your First Session
                     </a>
                   </td>
@@ -141,7 +141,7 @@ export const emailTemplates = {
                               </td>
                             </tr>
                             <tr>
-                              <td style="color: #6b7280; font-size: 14px; font-style: italic;">
+                              <td style="color: #6b7280; font-size: 16px; font-style: italic;">
                                 Equipment will be ready on the porch
                               </td>
                             </tr>
@@ -160,18 +160,18 @@ export const emailTemplates = {
             <td bgcolor="#fffbeb" style="padding: 30px; border-top: 1px solid #fde68a;">
               <table border="0" cellpadding="0" cellspacing="0" width="100%">
                 <tr>
-                  <td style="color: #92400e; font-size: 16px; font-weight: bold; padding-bottom: 10px;">
+                  <td style="color: #92400e; font-size: 18px; font-weight: bold; padding-bottom: 10px;">
                     Need Help Getting Started?
                   </td>
                 </tr>
                 <tr>
-                  <td style="color: #b45309; font-size: 14px; padding-bottom: 15px;">
+                  <td style="color: #b45309; font-size: 16px; padding-bottom: 15px;">
                     Watch our setup video or contact us anytime
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    <a href="${process.env.NEXT_PUBLIC_URL}/rentalbooking#how-it-works" style="color: #92400e; font-weight: bold; font-size: 14px;">
+                    <a href="${process.env.NEXT_PUBLIC_URL}/rentalbooking#how-it-works" style="color: #92400e; font-weight: bold; font-size: 16px;">
                       View Setup Guide →
                     </a>
                   </td>
@@ -185,7 +185,7 @@ export const emailTemplates = {
             <td bgcolor="#111827" style="padding: 30px;">
               <table border="0" cellpadding="0" cellspacing="0" width="100%">
                 <tr>
-                  <td style="color: #d1d5db; font-size: 16px; font-weight: bold; padding-bottom: 10px;">
+                  <td style="color: #d1d5db; font-size: 18px; font-weight: bold; padding-bottom: 10px;">
                     Questions? We're here to help!
                   </td>
                 </tr>
@@ -193,15 +193,15 @@ export const emailTemplates = {
                   <td style="padding-bottom: 20px;">
                     <table border="0" cellpadding="0" cellspacing="0">
                       <tr>
-                        <td style="color: #9ca3af; font-size: 14px;">
-                          <a href="mailto:support@firstserveseattle.com" style="color: #60a5fa; text-decoration: none;">
+                        <td style="color: #9ca3af; font-size: 16px;">
+                          <a href="mailto:support@firstserveseattle.com" style="color: #86efac; text-decoration: none;">
                             support@firstserveseattle.com
                           </a>
                         </td>
                       </tr>
                       <tr>
-                        <td style="color: #9ca3af; font-size: 14px; padding-top: 5px;">
-                          <a href="tel:+12532529577" style="color: #60a5fa; text-decoration: none;">
+                        <td style="color: #9ca3af; font-size: 16px; padding-top: 5px;">
+                          <a href="tel:+12532529577" style="color: #86efac; text-decoration: none;">
                             (253) 252-9577
                           </a>
                         </td>
@@ -210,7 +210,7 @@ export const emailTemplates = {
                   </td>
                 </tr>
                 <tr>
-                  <td style="border-top: 1px solid #374151; padding-top: 20px; color: #6b7280; font-size: 12px;">
+                  <td style="border-top: 1px solid #374151; padding-top: 20px; color: #6b7280; font-size: 14px;">
                     © ${new Date().getFullYear()} Seattle Ball Machine. All rights reserved.
                   </td>
                 </tr>
@@ -228,7 +228,7 @@ export const emailTemplates = {
   }),
 
   bookingConfirmation: (date: Date, sessionsRemaining: number, rescheduleUrl?: string, cancelUrl?: string) => ({
-    subject: "Booking Confirmed - Seattle Ball Machine 🎾",
+    subject: "Booking Confirmed - Seattle Ball Machine",
     html: `
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -237,7 +237,7 @@ export const emailTemplates = {
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Booking Confirmation</title>
 </head>
-<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f8fafc;">
+<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f8fafc; -webkit-text-size-adjust: 100%;">
   <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f8fafc;">
     <tr>
       <td align="center">
@@ -253,7 +253,7 @@ export const emailTemplates = {
                   </td>
                 </tr>
                 <tr>
-                  <td style="color: #ffffff; font-size: 16px; padding-top: 10px;">
+                  <td style="color: #ffffff; font-size: 18px; padding-top: 10px;">
                     Tennis Training Made Simple
                   </td>
                 </tr>
@@ -308,7 +308,7 @@ export const emailTemplates = {
                         </td>
                       </tr>
                       <tr>
-                        <td style="color: #6b7280; font-size: 14px;">
+                        <td style="color: #6b7280; font-size: 16px;">
                           2 hours • 65 balls + basket included
                         </td>
                       </tr>
@@ -324,7 +324,7 @@ export const emailTemplates = {
             <td style="padding: 0 30px 30px 30px;">
               <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#fffbeb" style="border: 1px solid #fde68a;">
                 <tr>
-                  <td style="padding: 15px; color: #92400e; font-size: 14px; font-weight: bold;">
+                  <td style="padding: 15px; color: #92400e; font-size: 16px; font-weight: bold;">
                     ${sessionsRemaining} session${sessionsRemaining !== 1 ? "s" : ""} remaining after this booking
                   </td>
                 </tr>
@@ -347,7 +347,7 @@ export const emailTemplates = {
                     <table border="0" cellpadding="0" cellspacing="0">
                       <tr>
                         <td bgcolor="#3b82f6" style="border-radius: 6px;">
-                          <a href="${rescheduleUrl}" style="display: block; padding: 12px 24px; color: #ffffff; text-decoration: none; font-weight: bold; font-size: 14px;">
+                          <a href="${rescheduleUrl}" style="display: block; padding: 12px 24px; color: #ffffff; text-decoration: none; font-weight: bold; font-size: 16px;">
                             Reschedule
                           </a>
                         </td>
@@ -364,7 +364,7 @@ export const emailTemplates = {
                     <table border="0" cellpadding="0" cellspacing="0">
                       <tr>
                         <td bgcolor="#ffffff" style="border: 1px solid #ef4444; border-radius: 6px;">
-                          <a href="${cancelUrl}" style="display: block; padding: 12px 24px; color: #ef4444; text-decoration: none; font-weight: bold; font-size: 14px;">
+                          <a href="${cancelUrl}" style="display: block; padding: 12px 24px; color: #ef4444; text-decoration: none; font-weight: bold; font-size: 16px;">
                             Cancel Booking
                           </a>
                         </td>
@@ -408,7 +408,7 @@ export const emailTemplates = {
                               </td>
                             </tr>
                             <tr>
-                              <td style="color: #6b7280; font-size: 14px; font-style: italic;">
+                              <td style="color: #6b7280; font-size: 16px; font-style: italic;">
                                 Equipment will be ready on the porch
                               </td>
                             </tr>
@@ -427,7 +427,7 @@ export const emailTemplates = {
             <td bgcolor="#111827" style="padding: 30px;">
               <table border="0" cellpadding="0" cellspacing="0" width="100%">
                 <tr>
-                  <td style="color: #d1d5db; font-size: 16px; font-weight: bold; padding-bottom: 10px;">
+                  <td style="color: #d1d5db; font-size: 18px; font-weight: bold; padding-bottom: 10px;">
                     Questions? We're here to help!
                   </td>
                 </tr>
@@ -435,15 +435,15 @@ export const emailTemplates = {
                   <td style="padding-bottom: 20px;">
                     <table border="0" cellpadding="0" cellspacing="0">
                       <tr>
-                        <td style="color: #9ca3af; font-size: 14px;">
-                          <a href="mailto:support@firstserveseattle.com" style="color: #60a5fa; text-decoration: none;">
+                        <td style="color: #9ca3af; font-size: 16px;">
+                          <a href="mailto:support@firstserveseattle.com" style="color: #86efac; text-decoration: none;">
                             support@firstserveseattle.com
                           </a>
                         </td>
                       </tr>
                       <tr>
-                        <td style="color: #9ca3af; font-size: 14px; padding-top: 5px;">
-                          <a href="tel:+12532529577" style="color: #60a5fa; text-decoration: none;">
+                        <td style="color: #9ca3af; font-size: 16px; padding-top: 5px;">
+                          <a href="tel:+12532529577" style="color: #86efac; text-decoration: none;">
                             (253) 252-9577
                           </a>
                         </td>
@@ -452,7 +452,7 @@ export const emailTemplates = {
                   </td>
                 </tr>
                 <tr>
-                  <td style="border-top: 1px solid #374151; padding-top: 20px; color: #6b7280; font-size: 12px;">
+                  <td style="border-top: 1px solid #374151; padding-top: 20px; color: #6b7280; font-size: 14px;">
                     © ${new Date().getFullYear()} Seattle Ball Machine. All rights reserved.
                   </td>
                 </tr>
@@ -470,7 +470,7 @@ export const emailTemplates = {
   }),
 
   bookingReminder: (date: Date, time: string) => ({
-    subject: "Reminder: Your ball machine rental is tomorrow! 🎾",
+    subject: "Reminder: Your ball machine rental is tomorrow!",
     html: `
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -479,7 +479,7 @@ export const emailTemplates = {
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Booking Reminder</title>
 </head>
-<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f8fafc;">
+<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f8fafc; -webkit-text-size-adjust: 100%;">
   <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f8fafc;">
     <tr>
       <td align="center">
@@ -495,7 +495,7 @@ export const emailTemplates = {
                   </td>
                 </tr>
                 <tr>
-                  <td style="color: #ffffff; font-size: 16px; padding-top: 10px;">
+                  <td style="color: #ffffff; font-size: 18px; padding-top: 10px;">
                     Tennis Training Made Simple
                   </td>
                 </tr>
@@ -574,7 +574,7 @@ export const emailTemplates = {
                         </td>
                       </tr>
                       <tr>
-                        <td style="color: #6b7280; font-size: 14px; font-style: italic;">
+                        <td style="color: #6b7280; font-size: 16px; font-style: italic;">
                           Equipment will be ready on the porch
                         </td>
                       </tr>
@@ -593,22 +593,22 @@ export const emailTemplates = {
                   <td style="padding: 20px;">
                     <table border="0" cellpadding="0" cellspacing="0" width="100%">
                       <tr>
-                        <td style="color: #065f46; font-size: 16px; font-weight: bold; padding-bottom: 12px;">
+                        <td style="color: #065f46; font-size: 18px; font-weight: bold; padding-bottom: 12px;">
                           💡 Quick Reminders
                         </td>
                       </tr>
                       <tr>
-                        <td style="color: #047857; font-size: 14px; padding-bottom: 5px;">
+                        <td style="color: #047857; font-size: 16px; padding-bottom: 5px;">
                           • Download the Proton Control app for easy machine control
                         </td>
                       </tr>
                       <tr>
-                        <td style="color: #047857; font-size: 14px; padding-bottom: 5px;">
+                        <td style="color: #047857; font-size: 16px; padding-bottom: 5px;">
                           • Return equipment to the same porch location
                         </td>
                       </tr>
                       <tr>
-                        <td style="color: #047857; font-size: 14px;">
+                        <td style="color: #047857; font-size: 16px;">
                           • 65 balls and basket are included
                         </td>
                       </tr>
@@ -624,7 +624,7 @@ export const emailTemplates = {
             <td bgcolor="#111827" style="padding: 30px;">
               <table border="0" cellpadding="0" cellspacing="0" width="100%">
                 <tr>
-                  <td style="color: #d1d5db; font-size: 16px; font-weight: bold; padding-bottom: 10px;">
+                  <td style="color: #d1d5db; font-size: 18px; font-weight: bold; padding-bottom: 10px;">
                     Questions? We're here to help!
                   </td>
                 </tr>
@@ -632,15 +632,15 @@ export const emailTemplates = {
                   <td style="padding-bottom: 20px;">
                     <table border="0" cellpadding="0" cellspacing="0">
                       <tr>
-                        <td style="color: #9ca3af; font-size: 14px;">
-                          <a href="mailto:support@firstserveseattle.com" style="color: #60a5fa; text-decoration: none;">
+                        <td style="color: #9ca3af; font-size: 16px;">
+                          <a href="mailto:support@firstserveseattle.com" style="color: #86efac; text-decoration: none;">
                             support@firstserveseattle.com
                           </a>
                         </td>
                       </tr>
                       <tr>
-                        <td style="color: #9ca3af; font-size: 14px; padding-top: 5px;">
-                          <a href="tel:+12532529577" style="color: #60a5fa; text-decoration: none;">
+                        <td style="color: #9ca3af; font-size: 16px; padding-top: 5px;">
+                          <a href="tel:+12532529577" style="color: #86efac; text-decoration: none;">
                             (253) 252-9577
                           </a>
                         </td>
@@ -649,7 +649,7 @@ export const emailTemplates = {
                   </td>
                 </tr>
                 <tr>
-                  <td style="border-top: 1px solid #374151; padding-top: 20px; color: #6b7280; font-size: 12px;">
+                  <td style="border-top: 1px solid #374151; padding-top: 20px; color: #6b7280; font-size: 14px;">
                     © ${new Date().getFullYear()} Seattle Ball Machine. All rights reserved.
                   </td>
                 </tr>
@@ -676,7 +676,7 @@ export const emailTemplates = {
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Booking Cancelled</title>
 </head>
-<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f8fafc;">
+<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f8fafc; -webkit-text-size-adjust: 100%;">
   <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f8fafc;">
     <tr>
       <td align="center">
@@ -692,7 +692,7 @@ export const emailTemplates = {
                   </td>
                 </tr>
                 <tr>
-                  <td style="color: #ffffff; font-size: 16px; padding-top: 10px;">
+                  <td style="color: #ffffff; font-size: 18px; padding-top: 10px;">
                     Tennis Training Made Simple
                   </td>
                 </tr>
@@ -732,7 +732,7 @@ export const emailTemplates = {
                   <td>
                     <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#d1fae5" style="border: 1px solid #86efac;">
                       <tr>
-                        <td style="padding: 20px; color: #065f46; font-size: 16px; font-weight: bold;">
+                        <td style="padding: 20px; color: #065f46; font-size: 18px; font-weight: bold;">
                           ✓ Your session credit has been restored
                         </td>
                       </tr>
@@ -740,7 +740,7 @@ export const emailTemplates = {
                   </td>
                 </tr>
                 <tr>
-                  <td style="padding-top: 20px; padding-bottom: 20px; color: #6b7280; font-size: 16px;">
+                  <td style="padding-top: 20px; padding-bottom: 20px; color: #6b7280; font-size: 18px;">
                     No worries! You can book another session anytime using your available credits.
                   </td>
                 </tr>
@@ -754,7 +754,7 @@ export const emailTemplates = {
               <table border="0" cellpadding="0" cellspacing="0">
                 <tr>
                   <td bgcolor="#059669" style="border-radius: 8px;">
-                    <a href="${process.env.NEXT_PUBLIC_URL}/rentalbooking#calendar" style="display: block; padding: 15px 30px; color: #ffffff; text-decoration: none; font-weight: bold; font-size: 16px;">
+                    <a href="${process.env.NEXT_PUBLIC_URL}/rentalbooking#calendar" style="display: block; padding: 15px 30px; color: #ffffff; text-decoration: none; font-weight: bold; font-size: 18px;">
                       Book Another Session
                     </a>
                   </td>
@@ -768,7 +768,7 @@ export const emailTemplates = {
             <td bgcolor="#111827" style="padding: 30px;">
               <table border="0" cellpadding="0" cellspacing="0" width="100%">
                 <tr>
-                  <td style="color: #d1d5db; font-size: 16px; font-weight: bold; padding-bottom: 10px;">
+                  <td style="color: #d1d5db; font-size: 18px; font-weight: bold; padding-bottom: 10px;">
                     Questions? We're here to help!
                   </td>
                 </tr>
@@ -776,15 +776,15 @@ export const emailTemplates = {
                   <td style="padding-bottom: 20px;">
                     <table border="0" cellpadding="0" cellspacing="0">
                       <tr>
-                        <td style="color: #9ca3af; font-size: 14px;">
-                          <a href="mailto:support@firstserveseattle.com" style="color: #60a5fa; text-decoration: none;">
+                        <td style="color: #9ca3af; font-size: 16px;">
+                          <a href="mailto:support@firstserveseattle.com" style="color: #86efac; text-decoration: none;">
                             support@firstserveseattle.com
                           </a>
                         </td>
                       </tr>
                       <tr>
-                        <td style="color: #9ca3af; font-size: 14px; padding-top: 5px;">
-                          <a href="tel:+12532529577" style="color: #60a5fa; text-decoration: none;">
+                        <td style="color: #9ca3af; font-size: 16px; padding-top: 5px;">
+                          <a href="tel:+12532529577" style="color: #86efac; text-decoration: none;">
                             (253) 252-9577
                           </a>
                         </td>
@@ -793,7 +793,7 @@ export const emailTemplates = {
                   </td>
                 </tr>
                 <tr>
-                  <td style="border-top: 1px solid #374151; padding-top: 20px; color: #6b7280; font-size: 12px;">
+                  <td style="border-top: 1px solid #374151; padding-top: 20px; color: #6b7280; font-size: 14px;">
                     © ${new Date().getFullYear()} Seattle Ball Machine. All rights reserved.
                   </td>
                 </tr>
@@ -811,7 +811,7 @@ export const emailTemplates = {
   }),
 
   noSessionsWarning: () => ({
-    subject: "⚠️ No Sessions Available - Action Required",
+    subject: "No Sessions Available - Action Required",
     html: `
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -820,7 +820,7 @@ export const emailTemplates = {
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>No Sessions Available</title>
 </head>
-<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f8fafc;">
+<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f8fafc; -webkit-text-size-adjust: 100%;">
   <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f8fafc;">
     <tr>
       <td align="center">
@@ -836,7 +836,7 @@ export const emailTemplates = {
                   </td>
                 </tr>
                 <tr>
-                  <td style="color: #ffffff; font-size: 16px; padding-top: 10px;">
+                  <td style="color: #ffffff; font-size: 18px; padding-top: 10px;">
                     Action Required
                   </td>
                 </tr>
@@ -876,7 +876,7 @@ export const emailTemplates = {
                   <td>
                     <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#fee2e2" style="border: 1px solid #fecaca;">
                       <tr>
-                        <td style="padding: 20px; color: #991b1b; font-size: 16px; font-weight: bold;">
+                        <td style="padding: 20px; color: #991b1b; font-size: 18px; font-weight: bold;">
                           You've booked a session but have no credits remaining.
                         </td>
                       </tr>
@@ -884,7 +884,7 @@ export const emailTemplates = {
                   </td>
                 </tr>
                 <tr>
-                  <td style="padding-top: 20px; padding-bottom: 20px; color: #6b7280; font-size: 16px;">
+                  <td style="padding-top: 20px; padding-bottom: 20px; color: #6b7280; font-size: 18px;">
                     To secure your booking, please purchase additional sessions immediately.
                   </td>
                 </tr>
@@ -898,7 +898,7 @@ export const emailTemplates = {
               <table border="0" cellpadding="0" cellspacing="0">
                 <tr>
                   <td bgcolor="#ef4444" style="border-radius: 8px;">
-                    <a href="${process.env.NEXT_PUBLIC_URL}/#pricing" style="display: block; padding: 15px 30px; color: #ffffff; text-decoration: none; font-weight: bold; font-size: 16px;">
+                    <a href="${process.env.NEXT_PUBLIC_URL}/#pricing" style="display: block; padding: 15px 30px; color: #ffffff; text-decoration: none; font-weight: bold; font-size: 18px;">
                       Purchase Sessions Now
                     </a>
                   </td>
@@ -912,7 +912,7 @@ export const emailTemplates = {
             <td style="padding: 0 30px 30px 30px;">
               <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#fef3c7" style="border: 1px solid #fde68a;">
                 <tr>
-                  <td style="padding: 15px; color: #92400e; font-size: 14px;">
+                  <td style="padding: 15px; color: #92400e; font-size: 16px;">
                     Your booking may be automatically cancelled if payment is not received.
                   </td>
                 </tr>
@@ -925,7 +925,7 @@ export const emailTemplates = {
             <td bgcolor="#111827" style="padding: 30px;">
               <table border="0" cellpadding="0" cellspacing="0" width="100%">
                 <tr>
-                  <td style="color: #d1d5db; font-size: 16px; font-weight: bold; padding-bottom: 10px;">
+                  <td style="color: #d1d5db; font-size: 18px; font-weight: bold; padding-bottom: 10px;">
                     Questions? We're here to help!
                   </td>
                 </tr>
@@ -933,15 +933,15 @@ export const emailTemplates = {
                   <td style="padding-bottom: 20px;">
                     <table border="0" cellpadding="0" cellspacing="0">
                       <tr>
-                        <td style="color: #9ca3af; font-size: 14px;">
-                          <a href="mailto:support@firstserveseattle.com" style="color: #60a5fa; text-decoration: none;">
+                        <td style="color: #9ca3af; font-size: 16px;">
+                          <a href="mailto:support@firstserveseattle.com" style="color: #86efac; text-decoration: none;">
                             support@firstserveseattle.com
                           </a>
                         </td>
                       </tr>
                       <tr>
-                        <td style="color: #9ca3af; font-size: 14px; padding-top: 5px;">
-                          <a href="tel:+12532529577" style="color: #60a5fa; text-decoration: none;">
+                        <td style="color: #9ca3af; font-size: 16px; padding-top: 5px;">
+                          <a href="tel:+12532529577" style="color: #86efac; text-decoration: none;">
                             (253) 252-9577
                           </a>
                         </td>
@@ -950,7 +950,7 @@ export const emailTemplates = {
                   </td>
                 </tr>
                 <tr>
-                  <td style="border-top: 1px solid #374151; padding-top: 20px; color: #6b7280; font-size: 12px;">
+                  <td style="border-top: 1px solid #374151; padding-top: 20px; color: #6b7280; font-size: 14px;">
                     © ${new Date().getFullYear()} Seattle Ball Machine. All rights reserved.
                   </td>
                 </tr>
