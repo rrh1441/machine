@@ -155,31 +155,6 @@ export const emailTemplates = {
             </td>
           </tr>
           
-          <!-- Help Section -->
-          <tr>
-            <td bgcolor="#fffbeb" style="padding: 30px; border-top: 1px solid #fde68a;">
-              <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                <tr>
-                  <td style="color: #92400e; font-size: 18px; font-weight: bold; padding-bottom: 10px;">
-                    Need Help Getting Started?
-                  </td>
-                </tr>
-                <tr>
-                  <td style="color: #b45309; font-size: 16px; padding-bottom: 15px;">
-                    Watch our setup video or contact us anytime
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <a href="${process.env.NEXT_PUBLIC_URL}/rentalbooking#how-it-works" style="color: #92400e; font-weight: bold; font-size: 16px;">
-                      View Setup Guide →
-                    </a>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-          
           <!-- Footer -->
           <tr>
             <td bgcolor="#111827" style="padding: 30px;">
@@ -322,9 +297,9 @@ export const emailTemplates = {
           <!-- Sessions Remaining -->
           <tr>
             <td style="padding: 0 30px 30px 30px;">
-              <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#fffbeb" style="border: 1px solid #fde68a;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#d1fae5" style="border: 1px solid #86efac;">
                 <tr>
-                  <td style="padding: 15px; color: #92400e; font-size: 16px; font-weight: bold;">
+                  <td style="padding: 15px; color: #065f46; font-size: 16px; font-weight: bold;">
                     ${sessionsRemaining} session${sessionsRemaining !== 1 ? "s" : ""} remaining after this booking
                   </td>
                 </tr>
@@ -511,8 +486,8 @@ export const emailTemplates = {
                   <td>
                     <table border="0" cellpadding="0" cellspacing="0">
                       <tr>
-                        <td bgcolor="#fef3c7" style="padding: 10px 20px; border-radius: 20px; color: #92400e; font-weight: bold;">
-                          ⏰ Tomorrow's Session
+                        <td bgcolor="#d1fae5" style="padding: 10px 20px; border-radius: 20px; color: #065f46; font-weight: bold;">
+                          Tomorrow's Session
                         </td>
                       </tr>
                     </table>
@@ -910,9 +885,9 @@ export const emailTemplates = {
           <!-- Warning Box -->
           <tr>
             <td style="padding: 0 30px 30px 30px;">
-              <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#fef3c7" style="border: 1px solid #fde68a;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#fee2e2" style="border: 1px solid #fecaca;">
                 <tr>
-                  <td style="padding: 15px; color: #92400e; font-size: 16px;">
+                  <td style="padding: 15px; color: #991b1b; font-size: 16px;">
                     Your booking may be automatically cancelled if payment is not received.
                   </td>
                 </tr>
