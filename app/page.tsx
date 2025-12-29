@@ -9,11 +9,15 @@ import Image from 'next/image'
 import Link from 'next/link'
 import {
   CheckCircle,
-  DollarSign,
+  Clock,
   Gift,
   MapPin,
-  Star,
-  Users,
+  Quote,
+  Repeat,
+  Settings,
+  Smartphone,
+  Target,
+  Zap,
 } from 'lucide-react'
 import { track } from '@vercel/analytics'
 
@@ -61,33 +65,15 @@ export default function LandingPage() {
             </span>
           </Link>
 
-          {/* Desktop nav */}
-          <nav className="hidden items-center space-x-1 lg:space-x-2 md:flex">
-            <Button asChild variant="ghost" size="sm"><Link href="#features">Features</Link></Button>
-            <Button asChild variant="ghost" size="sm"><Link href="#how-it-works">How&nbsp;It&nbsp;Works</Link></Button>
-            <Button asChild variant="ghost" size="sm"><Link href="#pickup">Pickup&nbsp;&amp;&nbsp;Nearby</Link></Button>
-            <Button asChild variant="ghost" size="sm"><Link href="#about">About</Link></Button>
-            <Button asChild variant="ghost" size="sm"><Link href="#pricing">Pricing</Link></Button>
-            <Button 
-              asChild 
-              size="sm"
-              onClick={() => track('nav_book_now_clicked')}
-            >
-              <Link href="#pricing">Book&nbsp;Now</Link>
-            </Button>
-          </nav>
-
-          {/* Mobile nav - Book Now button */}
-          <div className="md:hidden">
-            <Button
-              asChild
-              size="sm"
-              className="bg-green-600 hover:bg-green-700"
-              onClick={() => track('mobile_nav_book_now_clicked')}
-            >
-              <Link href="#pricing">Book&nbsp;Now</Link>
-            </Button>
-          </div>
+          {/* Book Now button */}
+          <Button
+            asChild
+            size="sm"
+            className="bg-green-600 hover:bg-green-700"
+            onClick={() => track('nav_book_now_clicked')}
+          >
+            <Link href="#pricing">Book&nbsp;Now</Link>
+          </Button>
         </div>
       </header>
 
@@ -116,105 +102,152 @@ export default function LandingPage() {
               priority
               sizes="100vw"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-green-950/30 to-green-900/20" />
+            <div className="absolute inset-0 bg-gradient-to-r from-green-950/50 to-green-900/40" />
           </div>
           <div className="relative z-10 container px-4 text-center md:px-6">
             <h1 className="text-3xl font-bold tracking-tighter text-white text-shadow-lg sm:text-4xl md:text-5xl lg:text-6xl">
-              Elevate&nbsp;Your&nbsp;Tennis&nbsp;Game
+              Practice Smarter. Play Better.
+              <span className="block mt-2">On Your Schedule.</span>
             </h1>
-            <p className="mx-auto mt-4 max-w-[700px] text-xl text-white text-shadow-md md:text-2xl">
-              Seattle tennis ball machine rental in Queen Anne, Seattle
+            <p className="mx-auto mt-6 max-w-[700px] text-lg text-white/90 text-shadow-md md:text-xl">
+              Rent a professional-grade tennis ball machine in Queen Anne, Seattle.
+              Train solo at nearby courts — no partner required, no club membership.
+              Just focused, repeatable practice when it works for you.
             </p>
-            <p className="mx-auto mt-2 max-w-[700px] text-white text-shadow-sm md:text-xl">
-              Perfect your strokes with solo practice sessions on your schedule.
-            </p>
-            <div className="mt-4 space-x-4">
-              <Button 
-                asChild 
-                size="lg" 
-                className="bg-yellow-500 font-bold text-black shadow-lg hover:bg-yellow-600"
+            <div className="mt-8">
+              <Button
+                asChild
+                size="lg"
+                className="bg-yellow-500 font-bold text-black shadow-lg hover:bg-yellow-600 text-lg px-8 py-6"
                 onClick={() => track('hero_book_now_clicked')}
               >
-                <Link href="#pricing">Book&nbsp;Now</Link>
+                <Link href="#pricing">Book a Session</Link>
               </Button>
             </div>
           </div>
         </section>
 
-        {/* ─────────────── Features ─────────────── */}
+        {/* ─────────────── Why Rent a Ball Machine? ─────────────── */}
         <section id="features" className="w-full bg-white py-12 md:py-24 lg:py-32">
-          <div className="container px-4 text-center md:px-6">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-              Features&nbsp;&amp;&nbsp;Benefits
+          <div className="container px-4 md:px-6">
+            <div className="mx-auto max-w-4xl">
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center">
+                Why Rent a Ball Machine?
+              </h2>
+              <p className="mt-4 text-xl text-gray-600 text-center">
+                Most players don't need more matches — they need better reps.
+              </p>
+              <div className="mt-10 grid gap-6 sm:grid-cols-2">
+                <div className="flex items-start gap-4">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-green-100">
+                    <Target className="h-5 w-5 text-green-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-lg">Groove strokes with consistent feeds</h3>
+                    <p className="mt-1 text-gray-500">
+                      Get the same ball, same spot, until you own the shot.
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-green-100">
+                    <Zap className="h-5 w-5 text-green-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-lg">Isolate weaknesses without pressure</h3>
+                    <p className="mt-1 text-gray-500">
+                      Work on that backhand without worrying about points.
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-green-100">
+                    <Clock className="h-5 w-5 text-green-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-lg">Train on your own time</h3>
+                    <p className="mt-1 text-gray-500">
+                      No coordinating schedules with partners.
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-green-100">
+                    <Repeat className="h-5 w-5 text-green-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-lg">More meaningful practice in less time</h3>
+                    <p className="mt-1 text-gray-500">
+                      100+ quality reps in a single session.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <p className="mt-10 text-center text-gray-600">
+                This service exists to make high-quality solo training simple and accessible for Seattle players.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* ─────────────── What You Get ─────────────── */}
+        <section className="w-full bg-gray-50 py-12 md:py-24 lg:py-32">
+          <div className="container px-4 md:px-6">
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center">
+              What You Get
             </h2>
-            <p className="mx-auto mt-4 max-w-[900px] text-gray-500 md:text-xl">
-              The Hydrogen Proton ball machine Seattle offers professional-grade training
-              for Queen Anne tennis practice and players of all levels.
-            </p>
-            <div className="mx-auto mt-12 grid max-w-5xl gap-6 lg:grid-cols-2">
-              <Image
-                src="/action.png"
-                width={500}
-                height={500}
-                alt="Hydrogen Proton ball machine in action on Seattle tennis court"
-                className="aspect-square overflow-hidden rounded-xl object-cover"
-              />
-              <ul className="flex flex-col justify-center space-y-6">
-                <li className="flex items-start gap-4">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-green-100">
-                    <Users className="h-6 w-6 text-green-600" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold">Practice&nbsp;Solo&nbsp;Anytime</h3>
-                    <p className="text-gray-500">
-                      No need for a hitting partner. Perfect your strokes
-                      independently.
-                    </p>
-                  </div>
-                </li>
-                <li className="flex items-start gap-4">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-green-100">
-                    <Star className="h-6 w-6 text-green-600" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold">Improve&nbsp;Consistency</h3>
-                    <p className="text-gray-500">
-                      Repetitive drills help build muscle memory and perfect your
-                      technique.
-                    </p>
-                  </div>
-                </li>
-                <li className="flex items-start gap-4">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-green-100">
-                    <DollarSign className="h-6 w-6 text-green-600" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold">Try&nbsp;Before&nbsp;You&nbsp;Buy</h3>
-                    <p className="text-gray-500">
-                      Experience our professional ball machine before making your
-                      purchase decision.
-                    </p>
-                  </div>
-                </li>
-              </ul>
+            <div className="mx-auto mt-12 grid max-w-5xl gap-8 md:grid-cols-2 lg:grid-cols-4">
+              <div className="text-center">
+                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-green-100">
+                  <Settings className="h-7 w-7 text-green-600" />
+                </div>
+                <h3 className="mt-4 font-semibold text-lg">Professional-Grade Machine</h3>
+                <p className="mt-2 text-sm text-gray-500">
+                  Adjustable speed, spin, depth, and oscillation for realistic drills.
+                </p>
+              </div>
+              <div className="text-center">
+                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-green-100">
+                  <Clock className="h-7 w-7 text-green-600" />
+                </div>
+                <h3 className="mt-4 font-semibold text-lg">Solo Practice, Anytime</h3>
+                <p className="mt-2 text-sm text-gray-500">
+                  Practice when courts are open — early mornings, mid-day, or evenings.
+                </p>
+              </div>
+              <div className="text-center">
+                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-green-100">
+                  <Repeat className="h-7 w-7 text-green-600" />
+                </div>
+                <h3 className="mt-4 font-semibold text-lg">Repeatable Reps</h3>
+                <p className="mt-2 text-sm text-gray-500">
+                  Build muscle memory through structured, consistent feeds.
+                </p>
+              </div>
+              <div className="text-center">
+                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-green-100">
+                  <CheckCircle className="h-7 w-7 text-green-600" />
+                </div>
+                <h3 className="mt-4 font-semibold text-lg">No Commitment</h3>
+                <p className="mt-2 text-sm text-gray-500">
+                  Rent when you want. Packages available if you train regularly.
+                </p>
+              </div>
             </div>
           </div>
         </section>
 
         {/* ─────────────── How it works ─────────────── */}
-        <section id="how-it-works" className="w-full bg-gray-50 py-12 md:py-24 lg:py-32">
+        <section id="how-it-works" className="w-full bg-white py-12 md:py-24 lg:py-32">
           <div className="container px-4 text-center md:px-6">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-              How&nbsp;It&nbsp;Works
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+              How It Works
             </h2>
-            <p className="mx-auto mt-4 max-w-[900px] text-gray-500 md:text-xl">
-              Renting a ball machine has never been easier
-            </p>
-            <div className="mx-auto mt-12 grid max-w-5xl gap-6 md:grid-cols-3">
+            <div className="mx-auto mt-12 grid max-w-5xl gap-8 md:grid-cols-3">
               {[
-                ['1', 'Select Your Time', 'Choose a session or package that fits your schedule.'],
-                ['2', 'Easy Payment', 'Secure Stripe checkout with instant confirmation.'],
-                ['3', 'Pick Up & Play', 'Collect the machine in Queen Anne, Seattle. Balls and basket included.'],
+                ['1', 'Book Online', 'Choose your session or package and pay securely.'],
+                ['2', 'Get Pickup Details', 'You\'ll receive clear instructions after booking.'],
+                ['3', 'Pick Up & Play', 'Grab the machine, head to nearby courts, and start training.'],
               ].map(([num, title, desc]) => (
                 <div key={num} className="flex flex-col items-center space-y-4">
                   <div className="flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
@@ -225,11 +258,14 @@ export default function LandingPage() {
                 </div>
               ))}
             </div>
+            <p className="mx-auto mt-8 text-gray-500">
+              Fast, straightforward, and designed to stay out of your way.
+            </p>
           </div>
         </section>
 
         {/* ─── Pickup + Nearby courts (merged) ─── */}
-        <section id="pickup" className="w-full bg-white py-12 md:py-24 lg:py-32">
+        <section id="pickup" className="w-full bg-gray-50 py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
             <div className="mb-12 text-center">
               <div className="inline-block rounded-lg bg-green-100 px-3 py-1 text-sm text-green-700">
@@ -275,7 +311,7 @@ export default function LandingPage() {
         </section>
 
         {/* ─────────────── Video section ─────────────── */}
-        <section className="w-full bg-gray-50 py-12 md:py-24 lg:py-32 overflow-hidden">
+        <section className="w-full bg-white py-12 md:py-24 lg:py-32 overflow-hidden">
           <div className="container px-4 text-center md:px-6">
             <h2 className="text-2xl font-bold tracking-tighter sm:text-3xl md:text-5xl">
               See It In Action
@@ -331,7 +367,7 @@ export default function LandingPage() {
         </section>
 
         {/* ─────────────── About section ─────────────── */}
-        <section id="about" className="w-full bg-white py-12 md:py-24 lg:py-32">
+        <section id="about" className="w-full bg-gray-50 py-12 md:py-24 lg:py-32">
           <div className="container px-4 text-center md:px-6">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
               About&nbsp;Me
@@ -361,20 +397,17 @@ export default function LandingPage() {
         </section>
 
         {/* ─────────────── Pricing section ─────────────── */}
-        <section id="pricing" className="w-full bg-gray-50 py-12 md:py-24 lg:py-32">
+        <section id="pricing" className="w-full bg-white py-12 md:py-24 lg:py-32">
           <div className="container px-4 text-center md:px-6">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-              Rental&nbsp;Options
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+              Pricing & Rental Options
             </h2>
-            <p className="mx-auto mt-4 max-w-[900px] text-gray-500 md:text-xl">
-              Choose the option that works best for your schedule and budget.
-            </p>
             <div className="mx-auto mt-12 grid max-w-5xl gap-6 md:grid-cols-3">
               {/* Single session */}
               <Card className="flex flex-col">
                 <CardHeader>
                   <CardTitle>Single Session</CardTitle>
-                  <CardDescription>Perfect for occasional players</CardDescription>
+                  <CardDescription>Cheaper than a one-hour private lesson</CardDescription>
                 </CardHeader>
                 <CardContent className="flex-1">
                   <div className="flex flex-col gap-4">
@@ -382,17 +415,15 @@ export default function LandingPage() {
                       <span className="text-4xl font-bold">$40</span>
                       <span className="text-gray-500">/session</span>
                     </div>
-                    <ul className="grid gap-2">
-                      {[
-                        '2 Hours of play time',
-                        '65 balls included',
-                        'Pickup basket included',
-                      ].map((item) => (
-                        <li key={item} className="flex items-center gap-2">
-                          <CheckCircle className="h-4 w-4 text-green-600" />
-                          <span>{item}</span>
-                        </li>
-                      ))}
+                    <ul className="grid gap-2 text-left">
+                      <li className="flex items-center gap-2">
+                        <CheckCircle className="h-4 w-4 text-green-600 flex-shrink-0" />
+                        <span>2 hours of play time</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <CheckCircle className="h-4 w-4 text-green-600 flex-shrink-0" />
+                        <span>Perfect for first-timers</span>
+                      </li>
                     </ul>
                   </div>
                 </CardContent>
@@ -405,7 +436,7 @@ export default function LandingPage() {
                       price: '$40'
                     })}
                   >
-                    Book&nbsp;Single&nbsp;Session
+                    Book Single Session
                   </a>
                 </CardFooter>
               </Card>
@@ -414,10 +445,10 @@ export default function LandingPage() {
               <Card className="flex flex-col border-green-200 bg-green-50">
                 <CardHeader>
                   <div className="mb-2 inline-block rounded-full bg-green-600 px-3 py-1 text-xs font-bold text-white">
-                    POPULAR
+                    MOST POPULAR
                   </div>
                   <CardTitle>3-Pack</CardTitle>
-                  <CardDescription>Three 2-Hour Sessions</CardDescription>
+                  <CardDescription>Buy two, get third half off</CardDescription>
                 </CardHeader>
                 <CardContent className="flex-1">
                   <div className="flex flex-col gap-4">
@@ -426,24 +457,20 @@ export default function LandingPage() {
                       <span className="text-gray-500">total</span>
                     </div>
                     <p className="text-sm font-medium text-green-600">
-                      $35 per session (Save $15)
+                      $35 per session
                     </p>
-                    <ul className="grid gap-2">
-                      {[
-                        '3 sessions of 2 hours each',
-                        '65 balls included each session',
-                        'Flexible scheduling',
-                      ].map((item) => (
-                        <li key={item} className="flex items-center gap-2">
-                          <CheckCircle className="h-4 w-4 text-green-600" />
-                          <span>{item}</span>
-                        </li>
-                      ))}
+                    <ul className="grid gap-2 text-left">
                       <li className="flex items-center gap-2">
-                        <Gift className="h-4 w-4 text-yellow-500" />
-                        <span className="font-medium">
-                          Free Penn tennis balls
-                        </span>
+                        <CheckCircle className="h-4 w-4 text-green-600 flex-shrink-0" />
+                        <span>3 sessions of 2 hours each</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <CheckCircle className="h-4 w-4 text-green-600 flex-shrink-0" />
+                        <span>Flexible scheduling</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Gift className="h-4 w-4 text-yellow-500 flex-shrink-0" />
+                        <span className="font-medium">Free Penn tennis balls</span>
                       </li>
                     </ul>
                   </div>
@@ -457,7 +484,7 @@ export default function LandingPage() {
                       price: '$105'
                     })}
                   >
-                    Buy&nbsp;3-Pack
+                    Buy 3-Pack
                   </a>
                 </CardFooter>
               </Card>
@@ -465,8 +492,11 @@ export default function LandingPage() {
               {/* 10-pack */}
               <Card className="flex flex-col">
                 <CardHeader>
+                  <div className="mb-2 inline-block rounded-full bg-gray-600 px-3 py-1 text-xs font-bold text-white">
+                    BEST VALUE
+                  </div>
                   <CardTitle>10-Pack</CardTitle>
-                  <CardDescription>Ten 2-Hour Sessions</CardDescription>
+                  <CardDescription>Lowest per-session cost</CardDescription>
                 </CardHeader>
                 <CardContent className="flex-1">
                   <div className="flex flex-col gap-4">
@@ -475,24 +505,20 @@ export default function LandingPage() {
                       <span className="text-gray-500">total</span>
                     </div>
                     <p className="text-sm font-medium text-green-600">
-                      $30 per session (Save $100)
+                      $30 per session
                     </p>
-                    <ul className="grid gap-2">
-                      {[
-                        '10 sessions of 2 hours each',
-                        '65 balls included each session',
-                        'Best value for regular players',
-                      ].map((item) => (
-                        <li key={item} className="flex items-center gap-2">
-                          <CheckCircle className="h-4 w-4 text-green-600" />
-                          <span>{item}</span>
-                        </li>
-                      ))}
+                    <ul className="grid gap-2 text-left">
                       <li className="flex items-center gap-2">
-                        <Gift className="h-4 w-4 text-yellow-500" />
-                        <span className="font-medium">
-                          Free Penn tennis balls
-                        </span>
+                        <CheckCircle className="h-4 w-4 text-green-600 flex-shrink-0" />
+                        <span>10 sessions of 2 hours each</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <CheckCircle className="h-4 w-4 text-green-600 flex-shrink-0" />
+                        <span>Best for regular players</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Gift className="h-4 w-4 text-yellow-500 flex-shrink-0" />
+                        <span className="font-medium">Free Penn tennis balls</span>
                       </li>
                     </ul>
                   </div>
@@ -506,89 +532,188 @@ export default function LandingPage() {
                       price: '$300'
                     })}
                   >
-                    Buy&nbsp;10-Pack
+                    Buy 10-Pack
                   </a>
                 </CardFooter>
               </Card>
             </div>
-            <p className="mt-4 text-center text-gray-500">
-              All rentals include 65 balls &amp; a pickup basket. After successful
-              payment, your Stripe confirmation will include the Calendly link for
-              scheduling your session.
+            <p className="mt-6 text-center text-gray-500">
+              All rentals include the machine and balls.
             </p>
             
-            {/* SwingStick Add-on Information */}
-            <div className="mx-auto mt-16 max-w-4xl">
-              <div className="rounded-lg border-2 border-green-200 bg-green-50 p-4 sm:p-6 md:p-8">
+            {/* What's Included */}
+            <div className="mx-auto mt-16 max-w-3xl">
+              <h3 className="text-2xl font-bold mb-6">What's Included</h3>
+              <div className="bg-white rounded-lg border p-6 text-left">
+                <p className="text-gray-600 mb-4">Before you book, here's exactly what you get:</p>
+                <ul className="space-y-3">
+                  <li className="flex items-center gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0" />
+                    <span>Hydrogen Proton ball machine (fully charged)</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0" />
+                    <span>65 tennis balls</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0" />
+                    <span>Ball hopper / pickup basket</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0" />
+                    <span>App-based remote control</span>
+                  </li>
+                </ul>
+                <p className="mt-4 text-gray-600 font-medium">Everything you need to train immediately.</p>
+              </div>
+            </div>
+
+            {/* SwingStick Add-on */}
+            <div className="mx-auto mt-12 max-w-4xl">
+              <div className="rounded-lg border-2 border-gray-200 bg-white p-4 sm:p-6 md:p-8">
                 <div className="flex flex-col items-center gap-6 md:flex-row">
                   <div className="relative h-48 w-48 flex-shrink-0 overflow-hidden rounded-lg bg-gray-100">
                     <Image
                       src="/swingstick.JPG"
-                      alt="SwingStick training tool for tennis"
+                      alt="SwingStick sensor for tracking tennis stats"
                       fill
                       className="object-cover"
                       sizes="(max-width: 768px) 192px, 192px"
                     />
                   </div>
                   <div className="flex-1 text-left">
-                    <div className="mb-2 inline-block rounded-full bg-green-600 px-3 py-1 text-xs font-bold text-white">
-                      RECOMMENDED ADD-ON
+                    <div className="mb-2 inline-block rounded-full bg-gray-100 px-3 py-1 text-xs font-bold text-gray-700">
+                      OPTIONAL ADD-ON
                     </div>
-                    <h3 className="text-2xl font-bold">SwingStick for SwingVision</h3>
+                    <h3 className="text-2xl font-bold">Track Your Stats Like a Pro</h3>
                     <p className="mt-2 text-gray-600">
-                      The SwingStick is a lightweight sensor that attaches to your racquet handle to enhance shot tracking accuracy with the SwingVision app. Get detailed analytics on your swing speed, spin rate, and shot placement.
+                      Want data with your reps? Add the SwingStick sensor to measure swing speed, track contact patterns, and monitor consistency over time.
                     </p>
-                    <div className="mt-4">
-                      <h4 className="font-semibold text-gray-800">What you get:</h4>
-                      <ul className="mt-2 space-y-1 text-sm text-gray-600">
-                        <li className="flex items-start gap-2">
-                          <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
-                          <span>Enhanced motion tracking for more accurate shot data</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
-                          <span>Works with SwingVision app (iOS only, free 2hr/month tier available)</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
-                          <span>Easy to attach and remove from any racquet</span>
-                        </li>
-                      </ul>
-                    </div>
-                    <div className="mt-4 flex items-center gap-2">
+                    <ul className="mt-4 space-y-2 text-sm text-gray-600">
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
+                        <span>Works with SwingVision app on your iPhone</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
+                        <span>Pairs easily with your session</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
+                        <span>Ideal for players focused on measurable improvement</span>
+                      </li>
+                    </ul>
+                    <div className="mt-4 flex items-center gap-4">
                       <div className="flex items-baseline gap-1">
                         <span className="text-2xl font-bold">$10</span>
                         <span className="text-gray-500">/rental</span>
                       </div>
-                      <span className="text-sm text-gray-600">• Available at checkout</span>
+                      <span className="text-sm text-gray-500">iOS required</span>
                     </div>
                   </div>
                 </div>
               </div>
-              <p className="mt-4 text-center text-sm text-gray-500">
-                SwingStick can be added at checkout.
-              </p>
             </div>
           </div>
         </section>
 
-        {/* ────────────── ─ CTA secti on ─────────────── */}
+        {/* ─────────────── Testimonials ─────────────── */}
+        <section className="w-full bg-gray-50 py-12 md:py-24 lg:py-32">
+          <div className="container px-4 md:px-6">
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center">
+              What Players Are Saying
+            </h2>
+            <div className="mx-auto mt-12 grid max-w-4xl gap-8 md:grid-cols-2">
+              <div className="bg-white rounded-lg p-6 shadow-sm">
+                <Quote className="h-8 w-8 text-green-600 mb-4" />
+                <p className="text-gray-700 italic">
+                  "Finally fixed my backhand. Having consistent feeds made a huge difference."
+                </p>
+                <p className="mt-4 font-semibold text-gray-900">— Sarah T., Queen Anne</p>
+              </div>
+              <div className="bg-white rounded-lg p-6 shadow-sm">
+                <Quote className="h-8 w-8 text-green-600 mb-4" />
+                <p className="text-gray-700 italic">
+                  "Way more productive than just hitting around. Super easy pickup and setup."
+                </p>
+                <p className="mt-4 font-semibold text-gray-900">— Mark L., Seattle</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ─────────────── FAQ ─────────────── */}
+        <section className="w-full bg-white py-12 md:py-24 lg:py-32">
+          <div className="container px-4 md:px-6">
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center">
+              FAQ
+            </h2>
+            <div className="mx-auto mt-12 max-w-3xl">
+              <Accordion type="single" collapsible className="w-full">
+                <AccordionItem value="item-1">
+                  <AccordionTrigger>How long is each rental?</AccordionTrigger>
+                  <AccordionContent>
+                    Each session is 2 hours, with a 15-minute grace period for return.
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-2">
+                  <AccordionTrigger>What's included with the rental?</AccordionTrigger>
+                  <AccordionContent>
+                    The ball machine, 65 balls, and a pickup basket are included. Lost balls are charged at $2 per ball.
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-3">
+                  <AccordionTrigger>Does the machine fit in a sedan?</AccordionTrigger>
+                  <AccordionContent>
+                    Yes. The machine weighs less than 20 pounds and fits in a standard sedan with the seats folded down.
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-4">
+                  <AccordionTrigger>Do I need an app?</AccordionTrigger>
+                  <AccordionContent>
+                    Yes. The machine is controlled via a mobile app. You'll receive setup instructions after booking.
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-5">
+                  <AccordionTrigger>What happens if it rains?</AccordionTrigger>
+                  <AccordionContent>
+                    Cancellations made more than 24 hours in advance receive a full refund. Weather-related cancellations within 24 hours may be rescheduled.
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-6">
+                  <AccordionTrigger>Can other people use the machine?</AccordionTrigger>
+                  <AccordionContent>
+                    Yes, as long as you are present the entire rental. You're responsible for the equipment during the session.
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-7">
+                  <AccordionTrigger>What if the machine is damaged?</AccordionTrigger>
+                  <AccordionContent>
+                    Please inspect the machine at pickup and report any issues immediately. You are responsible for damage or loss during your rental period.
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </div>
+          </div>
+        </section>
+
+        {/* ─────────────── Final CTA ─────────────── */}
         <section className="w-full bg-green-600 py-12 md:py-24 lg:py-32">
           <div className="container px-4 text-center text-white md:px-6">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-              Ready&nbsp;to&nbsp;Improve&nbsp;Your&nbsp;Game?
+              Ready to Train?
             </h2>
-            <p className="mx-auto mt-4 max-w-[700px] md:text-xl">
-              Book your ball machine rental today and elevate your tennis practice.
+            <p className="mx-auto mt-4 max-w-[700px] md:text-xl text-green-100">
+              Stop waiting for partners or open clinics. Get focused reps and real improvement on your schedule.
             </p>
-            <div className="mt-6">
-              <Button 
-                asChild 
-                size="lg" 
-                className="bg-yellow-500 font-bold text-black hover:bg-yellow-600"
+            <div className="mt-8">
+              <Button
+                asChild
+                size="lg"
+                className="bg-yellow-500 font-bold text-black hover:bg-yellow-600 text-lg px-8 py-6"
                 onClick={() => track('cta_section_book_now_clicked')}
               >
-                <Link href="#pricing">Book&nbsp;Now</Link>
+                <Link href="#pricing">Reserve Your Session</Link>
               </Button>
             </div>
           </div>
