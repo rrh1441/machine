@@ -1,13 +1,73 @@
+import { Metadata } from "next"
 import Link from "next/link"
+
+export const metadata: Metadata = {
+  title: "Support & FAQs | Seattle Ball Machine Rental",
+  description: "Frequently asked questions about Seattle tennis ball machine rental. Learn about pickup, returns, rain policies, equipment, and how to contact support.",
+  alternates: {
+    canonical: "https://www.seattleballmachine.com/support",
+  },
+  openGraph: {
+    title: "Support & FAQs | Seattle Ball Machine Rental",
+    description: "Get answers to common questions about our tennis ball machine rental service in Seattle.",
+    url: "https://www.seattleballmachine.com/support",
+  },
+}
 import { ChevronLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 // Removed Input, Textarea, Label imports as they are no longer used
 
+// FAQ data for schema and display
+const faqData = [
+  {
+    question: "How does pickup and return work?",
+    answer: "After booking, you'll receive detailed pickup and return instructions. Generally, pickup is available from our Queen Anne location in Seattle. We'll provide the exact address after your booking is confirmed."
+  },
+  {
+    question: "What if it rains during my session?",
+    answer: "If your session is affected by rain, you can reschedule at no additional cost. Simply contact us within 24 hours of your session to arrange a new time."
+  },
+  {
+    question: "How many tennis balls are included?",
+    answer: "Each rental includes 65 tennis balls and a pickup basket. The balls are regularly replaced to ensure quality practice sessions."
+  },
+  {
+    question: "Do I need a special court to use the machine?",
+    answer: "The Hydrogen Proton ball machine works on any standard tennis court. You are responsible for securing your own court time at a facility of your choice."
+  },
+  {
+    question: "How do I transport the machine?",
+    answer: "The machine weighs less than 20 pounds making it easy to transport. It fits in most car trunks or back seats. We provide brief instructions during pickup on how to handle the equipment safely."
+  },
+  {
+    question: "What happens if the machine malfunctions?",
+    answer: "If the machine malfunctions during your session, contact us immediately. We will either help troubleshoot the issue or provide a full refund/reschedule. Our no-hassle guarantee ensures you'll never pay for a session where the equipment doesn't perform."
+  }
+]
+
+// FAQPage JSON-LD Schema
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqData.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+}
+
 export default function SupportPage() {
   return (
     <div className="container max-w-4xl py-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <Link href="/" className="flex items-center gap-2 mb-6 text-sm text-muted-foreground hover:text-foreground transition-colors">
         <ChevronLeft className="h-4 w-4" />
         Back to Home

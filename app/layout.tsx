@@ -8,14 +8,51 @@ import { Analytics } from '@vercel/analytics/react';
 export const metadata = {
   title: "Seattle Tennis Ball Machine Rental – Queen Anne Pickup",
   description: "Professional Hydrogen Proton ball machine rental in Queen Anne, Seattle. 2-hour sessions • 65 balls included • book online. Perfect your strokes with solo practice.",
+  keywords: ["tennis ball machine rental", "Seattle tennis", "Queen Anne tennis", "ball machine rental Seattle", "tennis practice Seattle", "Hydrogen Proton rental"],
+  authors: [{ name: "Seattle Ball Machine Rental" }],
+  openGraph: {
+    title: "Seattle Tennis Ball Machine Rental – Queen Anne Pickup",
+    description: "Professional Hydrogen Proton ball machine rental in Queen Anne, Seattle. 2-hour sessions • 65 balls included • book online.",
+    url: "https://www.seattleballmachine.com",
+    siteName: "Seattle Ball Machine Rental",
+    locale: "en_US",
+    type: "website",
+    images: [
+      {
+        url: "https://www.seattleballmachine.com/images/tennis-ball-hero.png",
+        width: 1200,
+        height: 630,
+        alt: "Seattle Tennis Ball Machine Rental - Hydrogen Proton ball machine",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Seattle Tennis Ball Machine Rental – Queen Anne Pickup",
+    description: "Professional Hydrogen Proton ball machine rental in Queen Anne, Seattle. 2-hour sessions • 65 balls included.",
+    images: ["https://www.seattleballmachine.com/images/tennis-ball-hero.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  alternates: {
+    canonical: "https://www.seattleballmachine.com",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
-        <link rel="canonical" href="https://www.seattleballmachine.com/" />
-        <link rel="preload" as="image" href="/images/tennis-ball-hero.png" />
+                <link rel="preload" as="image" href="/images/tennis-ball-hero.png" />
         <script 
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -77,6 +114,49 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   }
                 ]
               }
+            })
+          }}
+        />
+        {/* WebSite Schema with SearchAction */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "name": "Seattle Ball Machine Rental",
+              "url": "https://www.seattleballmachine.com",
+              "description": "Professional tennis ball machine rental service in Queen Anne, Seattle",
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://www.seattleballmachine.com/courts/{search_term_string}"
+                },
+                "query-input": "required name=search_term_string"
+              }
+            })
+          }}
+        />
+        {/* Organization Schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "Seattle Ball Machine Rental",
+              "url": "https://www.seattleballmachine.com",
+              "logo": "https://www.seattleballmachine.com/images/tennis-ball-hero.png",
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "telephone": "+1-253-252-9577",
+                "contactType": "customer service",
+                "email": "support@firstserveseattle.com",
+                "areaServed": "US",
+                "availableLanguage": "English"
+              },
+              "sameAs": []
             })
           }}
         />

@@ -1,4 +1,17 @@
+import { Metadata } from "next"
 import Link from "next/link"
+
+export const metadata: Metadata = {
+  title: "Privacy Policy | Seattle Ball Machine Rental",
+  description: "Privacy policy for Seattle Ball Machine Rental. Learn how we collect, use, and protect your personal information.",
+  alternates: {
+    canonical: "https://www.seattleballmachine.com/privacy",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+}
 import { ChevronLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 

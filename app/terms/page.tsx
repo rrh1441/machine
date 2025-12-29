@@ -1,4 +1,17 @@
+import { Metadata } from "next"
 import Link from "next/link"
+
+export const metadata: Metadata = {
+  title: "Terms of Service | Seattle Ball Machine Rental",
+  description: "Terms of service for Seattle Ball Machine Rental. Rental agreements, policies, and conditions for tennis ball machine rentals in Seattle.",
+  alternates: {
+    canonical: "https://www.seattleballmachine.com/terms",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+}
 import { ChevronLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 

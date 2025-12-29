@@ -8,12 +8,10 @@ import { useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import {
-  AlertCircle,
   CheckCircle,
   DollarSign,
   Gift,
   MapPin,
-  Menu,
   Star,
   Users,
 } from 'lucide-react'
@@ -34,7 +32,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion'
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import LiteYouTubeEmbed from 'react-lite-youtube-embed'
 import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css'
 
@@ -80,54 +77,27 @@ export default function LandingPage() {
             </Button>
           </nav>
 
-          {/* Mobile nav */}
+          {/* Mobile nav - Book Now button */}
           <div className="md:hidden">
-            <Sheet>
-              <SheetTrigger asChild><Button variant="ghost" size="icon"><Menu className="h-4 w-4" /><span className="sr-only">Toggle menu</span></Button></SheetTrigger>
-              <SheetContent side="right" className="w-[280px] sm:w-[320px]">
-                <nav className="mt-8 flex flex-col gap-4">
-                  {[
-                    ['#features', 'Features'],
-                    ['#how-it-works', 'How It Works'],
-                    ['#pickup', 'Pickup & Nearby'],
-                    ['#about', 'About'],
-                    ['#pricing', 'Pricing'],
-                  ].map(([href, label]) => (
-                    <Link
-                      key={href}
-                      href={href}
-                      className="flex items-center border-b py-3 text-lg font-medium"
-                    >
-                      {label}
-                    </Link>
-                  ))}
-                </nav>
-                <Button 
-                  asChild 
-                  className="mt-6 w-full bg-green-600 hover:bg-green-700"
-                  onClick={() => track('mobile_nav_book_now_clicked')}
-                >
-                  <Link href="#pricing">Book&nbsp;Now</Link>
-                </Button>
-              </SheetContent>
-            </Sheet>
+            <Button
+              asChild
+              size="sm"
+              className="bg-green-600 hover:bg-green-700"
+              onClick={() => track('mobile_nav_book_now_clicked')}
+            >
+              <Link href="#pricing">Book&nbsp;Now</Link>
+            </Button>
           </div>
         </div>
       </header>
 
       {/* ───────────── Promotion banner ───────────── */}
       <div className="bg-yellow-500 py-2 px-4 text-black">
-        <div className="container flex flex-col items-center justify-center gap-1 text-xs sm:text-sm font-medium md:text-base">
+        <div className="container flex items-center justify-center text-xs sm:text-sm font-medium md:text-base">
           <div className="flex items-center gap-2">
             <Gift className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
             <span className="text-center">
               Limited&nbsp;Time:&nbsp;Free can of Penn tennis balls with purchase of 3 or 10 pack!
-            </span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Star className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
-            <span className="text-center">
-              NEW:&nbsp;SwingStick rental now available as add-on!
             </span>
           </div>
         </div>
@@ -305,20 +275,31 @@ export default function LandingPage() {
         </section>
 
         {/* ─────────────── Video section ─────────────── */}
-        <section className="w-full bg-gray-50 py-12 md:py-24 lg:py-32">
+        <section className="w-full bg-gray-50 py-12 md:py-24 lg:py-32 overflow-hidden">
           <div className="container px-4 text-center md:px-6">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-              See&nbsp;It&nbsp;In&nbsp;Action
+            <h2 className="text-2xl font-bold tracking-tighter sm:text-3xl md:text-5xl">
+              See It In Action
             </h2>
-            <p className="mx-auto mt-4 max-w-[900px] text-gray-500 md:text-xl">
+            <p className="mx-auto mt-4 max-w-[900px] text-gray-500 text-sm sm:text-base md:text-xl">
               Watch how the Hydrogen Proton ball machine operates.
             </p>
-            <div className="mx-auto mt-12 grid max-w-5xl gap-12 items-center md:grid-cols-2">
-              <div className="flex flex-col space-y-4">
-                <h3 className="text-2xl font-bold">
-                  Professional&nbsp;Training&nbsp;at&nbsp;Your&nbsp;Fingertips
+            <div className="mx-auto mt-8 md:mt-12 grid max-w-5xl gap-8 md:gap-12 items-center md:grid-cols-2">
+              {/* Video first on mobile, second on desktop */}
+              <div className="flex justify-center order-1 md:order-2">
+                <div className="relative h-[400px] w-[225px] sm:h-[500px] sm:w-[280px] overflow-hidden rounded-xl border-4 border-gray-800 bg-black p-1 shadow-xl">
+                  <LiteYouTubeEmbed
+                    id="FhzlDpDv3nM"
+                    title="Seattle Ball Machine Rental Demo (Vertical)"
+                    wrapperClass="yt-lite absolute top-0 left-0 h-full w-full rounded-lg"
+                  />
+                </div>
+              </div>
+
+              <div className="flex flex-col space-y-4 text-left order-2 md:order-1">
+                <h3 className="text-xl sm:text-2xl font-bold">
+                  Professional Training at Your Fingertips
                 </h3>
-                <p className="text-gray-500">
+                <p className="text-gray-500 text-sm sm:text-base">
                   With a variety of drills and settings, practice your strokes and
                   improve your game.
                 </p>
@@ -329,30 +310,20 @@ export default function LandingPage() {
                     'Practice groundstrokes and volleys',
                     'Lightweight and easy to transport',
                   ].map((item) => (
-                    <li key={item} className="flex items-center gap-2">
-                      <CheckCircle className="h-5 w-5 text-green-600" />
+                    <li key={item} className="flex items-center gap-2 text-sm sm:text-base">
+                      <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-600 flex-shrink-0" />
                       <span>{item}</span>
                     </li>
                   ))}
                 </ul>
                 <div className="mt-4">
-                  <Button 
-                    asChild 
+                  <Button
+                    asChild
                     className="bg-green-600 hover:bg-green-700"
                     onClick={() => track('video_section_book_now_clicked')}
                   >
-                    <Link href="#pricing">Book&nbsp;Your&nbsp;Session&nbsp;Now</Link>
+                    <Link href="#pricing">Book Your Session Now</Link>
                   </Button>
-                </div>
-              </div>
-
-              <div className="flex justify-center">
-                <div className="relative h-[500px] w-[280px] overflow-hidden rounded-xl border-4 border-gray-800 bg-black p-1 shadow-xl">
-                  <LiteYouTubeEmbed
-                    id="FhzlDpDv3nM"
-                    title="Seattle Ball Machine Rental Demo (Vertical)"
-                    wrapperClass="yt-lite absolute top-0 left-0 h-full w-full rounded-lg"
-                  />
                 </div>
               </div>
             </div>
