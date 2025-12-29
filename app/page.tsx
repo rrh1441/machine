@@ -674,7 +674,7 @@ export default function LandingPage() {
                 <AccordionItem value="item-5">
                   <AccordionTrigger>What happens if it rains?</AccordionTrigger>
                   <AccordionContent>
-                    Cancellations made more than 24 hours in advance receive a full refund. Weather-related cancellations within 24 hours may be rescheduled.
+                    No problem. Easy cancellation with full refund or rescheduling for any weather-related issues.
                   </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="item-6">
