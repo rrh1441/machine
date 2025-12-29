@@ -537,10 +537,7 @@ export default function LandingPage() {
                 </CardFooter>
               </Card>
             </div>
-            <p className="mt-6 text-center text-gray-500">
-              All rentals include the machine and balls.
-            </p>
-            
+
             {/* What's Included */}
             <div className="mx-auto mt-16 max-w-3xl">
               <h3 className="text-2xl font-bold mb-6">What's Included</h3>
@@ -665,7 +662,7 @@ export default function LandingPage() {
                 <AccordionItem value="item-3">
                   <AccordionTrigger>Does the machine fit in a sedan?</AccordionTrigger>
                   <AccordionContent>
-                    Yes. The machine weighs less than 20 pounds and fits in a standard sedan with the seats folded down.
+                    Yes. The machine weighs less than 20 pounds and is compact enough to fit in any trunk or on a back seat.
                   </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="item-4">
