@@ -7,9 +7,20 @@ import { Analytics } from '@vercel/analytics/react';
 
 export const metadata = {
   title: "Seattle Tennis Ball Machine Rental – Queen Anne Pickup",
-  description: "Professional Hydrogen Proton ball machine rental in Queen Anne, Seattle. 2-hour sessions • 65 balls included • book online. Perfect your strokes with solo practice.",
+  description: "Professional Hydrogen Proton ball machine rental in Queen Anne, Seattle. 2-hour sessions • 65 balls included • book online. Perfect your strokes.",
   keywords: ["tennis ball machine rental", "Seattle tennis", "Queen Anne tennis", "ball machine rental Seattle", "tennis practice Seattle", "Hydrogen Proton rental"],
   authors: [{ name: "Seattle Ball Machine Rental" }],
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-96x96.png", type: "image/png", sizes: "96x96" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
+  manifest: "/site.webmanifest",
   openGraph: {
     title: "Seattle Tennis Ball Machine Rental – Queen Anne Pickup",
     description: "Professional Hydrogen Proton ball machine rental in Queen Anne, Seattle. 2-hour sessions • 65 balls included • book online.",
