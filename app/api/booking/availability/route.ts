@@ -4,6 +4,9 @@ import { createGoogleCalendarClient } from '@/lib/google-calendar/client';
 
 const SLOT_DURATION_HOURS = 2;
 const TIMEZONE = 'America/Los_Angeles';
+const MIN_HOURS_IN_ADVANCE = 8; // Must book at least 8 hours ahead
+const EARLIEST_START_HOUR = 7;  // 7:00 AM
+const LATEST_START_HOUR = 18;   // 6:00 PM (session ends at 8:00 PM)
 
 interface TimeSlot {
   start: string; // HH:MM format
@@ -80,12 +83,13 @@ export async function GET(req: NextRequest): Promise<NextResponse<AvailabilityRe
       });
     }
 
+    // Override with enforced booking hours: 7am-8pm (last booking 6pm)
     const businessHours = {
-      start: hoursData.start_time.slice(0, 5), // "HH:MM"
-      end: hoursData.end_time.slice(0, 5)
+      start: `${EARLIEST_START_HOUR.toString().padStart(2, '0')}:00`,
+      end: `${(LATEST_START_HOUR + SLOT_DURATION_HOURS).toString().padStart(2, '0')}:00` // 8pm end
     };
 
-    // 2. Generate all possible slots within business hours
+    // 2. Generate all possible slots (7am to 6pm start times, ending by 8pm)
     const allSlots = generateSlots(businessHours.start, businessHours.end, SLOT_DURATION_HOURS);
 
     // 3. Get blocked times from database
@@ -121,9 +125,10 @@ export async function GET(req: NextRequest): Promise<NextResponse<AvailabilityRe
       const slotStart = parseSeattleTime(dateParam, slot.start);
       const slotEnd = parseSeattleTime(dateParam, slot.end);
 
-      // Check if slot is in the past
+      // Check if slot is at least 8 hours in the future
       const now = new Date();
-      if (slotStart < now) {
+      const minBookingTime = new Date(now.getTime() + MIN_HOURS_IN_ADVANCE * 60 * 60 * 1000);
+      if (slotStart < minBookingTime) {
         return { ...slot, available: false };
       }
 
