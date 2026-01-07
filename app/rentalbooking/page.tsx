@@ -23,18 +23,16 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 
-const supabase = createClientComponentClient<{
-  Tables: {
-    referral_sources: {
-      id: string
-      browser_id: string
-      source: 'search_engine' | 'friend' | 'first_serve_seattle'
-      inserted_at: string
-    }
-  }
-}>()
-
 const COOKIE_NAME = 'sbm_browser_id'
+
+// Lazy Supabase client - only created on first use (client-side)
+let _supabase: ReturnType<typeof createClientComponentClient> | null = null
+function getSupabase() {
+  if (!_supabase) {
+    _supabase = createClientComponentClient()
+  }
+  return _supabase
+}
 
 export default function SuccessPage() {
   const currentYear = new Date().getFullYear()
@@ -67,7 +65,7 @@ export default function SuccessPage() {
     // Track referral source selection
     track('referral_source_selected', { source })
     
-    await supabase.from('referral_sources').insert({ source, browser_id })
+    await getSupabase().from('referral_sources').insert({ source, browser_id })
 
     setSubmitting(false)
     setOpen(false)

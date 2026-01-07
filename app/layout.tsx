@@ -1,9 +1,22 @@
 // app/layout.tsx
 import Script from "next/script";
+import { Playfair_Display, Source_Sans_3 } from "next/font/google";
 import "./globals.css";
 import ClientAnalytics from "./components/ClientAnalytics"; // relative import
 import MaintenancePopup from "../components/MaintenancePopup";
 import { Analytics } from '@vercel/analytics/react';
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-playfair",
+  display: "swap",
+});
+
+const sourceSans = Source_Sans_3({
+  subsets: ["latin"],
+  variable: "--font-source-sans",
+  display: "swap",
+});
 
 export const metadata = {
   title: "Seattle Tennis Ball Machine Rental – Queen Anne Pickup",
@@ -180,7 +193,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           defer
         />
       </head>
-      <body>
+      <body className={`${playfair.variable} ${sourceSans.variable} font-sans`}>
         <MaintenancePopup />
         {children}
         <ClientAnalytics />

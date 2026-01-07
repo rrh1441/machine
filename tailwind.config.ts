@@ -19,18 +19,28 @@ const config = {
       },
     },
     extend: {
+      fontFamily: {
+        serif: ["var(--font-playfair)", "Playfair Display", "serif"],
+        sans: ["var(--font-source-sans)", "Source Sans 3", "sans-serif"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        // Country Club Palette
+        "club-green": "#1a472a",
+        "club-cream": "#fdfbf7",
+        "court-clay": "#c06045",
+        "tennis-yellow": "#dfff4f",
+        "rich-black": "#111111",
         primary: {
-          DEFAULT: "#16a34a", // Green-600
+          DEFAULT: "#1a472a", // Club Green
           foreground: "#ffffff",
         },
         secondary: {
-          DEFAULT: "#eab308", // Yellow-500
+          DEFAULT: "#dfff4f", // Tennis Yellow
           foreground: "#000000",
         },
         destructive: {
