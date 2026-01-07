@@ -15,6 +15,8 @@ interface CancelResponse {
   error?: string;
 }
 
+const MIN_CANCEL_NOTICE_HOURS = 2; // Must cancel at least 2 hours before booking
+
 /**
  * POST /api/booking/cancel
  * Cancel an existing booking
@@ -91,12 +93,22 @@ export async function POST(req: NextRequest): Promise<NextResponse<CancelRespons
       }, { status: 400 });
     }
 
-    // 4. Check if booking is in the past
+    // 4. Check if booking is in the past or within notice period
     const bookingDate = new Date(booking.booking_datetime);
-    if (bookingDate < new Date()) {
+    const now = new Date();
+    const minCancelTime = new Date(now.getTime() + MIN_CANCEL_NOTICE_HOURS * 60 * 60 * 1000);
+
+    if (bookingDate < now) {
       return NextResponse.json({
         success: false,
         error: 'Cannot cancel past bookings'
+      }, { status: 400 });
+    }
+
+    if (bookingDate < minCancelTime) {
+      return NextResponse.json({
+        success: false,
+        error: `Cannot cancel with less than ${MIN_CANCEL_NOTICE_HOURS} hours notice`
       }, { status: 400 });
     }
 

@@ -25,6 +25,7 @@ interface RescheduleResponse {
 
 const SLOT_DURATION_HOURS = 2;
 const PICKUP_LOCATION = '2116 4th Avenue West, Seattle, WA 98119';
+const MIN_RESCHEDULE_NOTICE_HOURS = 2; // Must reschedule at least 2 hours before booking
 
 /**
  * POST /api/booking/reschedule
@@ -104,10 +105,20 @@ export async function POST(req: NextRequest): Promise<NextResponse<RescheduleRes
     }
 
     const originalDate = new Date(booking.booking_datetime);
-    if (originalDate < new Date()) {
+    const now = new Date();
+    const minRescheduleTime = new Date(now.getTime() + MIN_RESCHEDULE_NOTICE_HOURS * 60 * 60 * 1000);
+
+    if (originalDate < now) {
       return NextResponse.json({
         success: false,
         error: 'Cannot reschedule past bookings'
+      }, { status: 400 });
+    }
+
+    if (originalDate < minRescheduleTime) {
+      return NextResponse.json({
+        success: false,
+        error: `Cannot reschedule with less than ${MIN_RESCHEDULE_NOTICE_HOURS} hours notice`
       }, { status: 400 });
     }
 

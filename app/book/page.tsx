@@ -417,60 +417,91 @@ export default function BookPage() {
 
               {/* Step 5: Success */}
               {step === 'success' && bookingResult?.booking && (
-                <Card className="border-2 border-club-green bg-white shadow-[8px_8px_0_#1a472a]">
-                  <CardHeader className="text-center">
-                    <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center bg-club-green">
-                      <CheckCircle className="h-10 w-10 text-white" />
-                    </div>
-                    <CardTitle className="font-serif text-2xl text-club-green">Booking Confirmed!</CardTitle>
-                    <CardDescription>
-                      A confirmation email has been sent to {email}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="border-2 border-club-green/20 bg-club-cream p-4 space-y-3">
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Date</span>
-                        <span className="font-medium text-club-green">
-                          {selectedDate && format(selectedDate, 'EEEE, MMMM d, yyyy')}
-                        </span>
+                <div className="space-y-6">
+                  <Card className="border-2 border-club-green bg-white shadow-[8px_8px_0_#1a472a]">
+                    <CardHeader className="text-center">
+                      <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center bg-club-green">
+                        <CheckCircle className="h-10 w-10 text-white" />
                       </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Time</span>
-                        <span className="font-medium text-club-green">
-                          {selectedSlot?.start} - {selectedSlot?.end}
-                        </span>
-                      </div>
-                      {sessionsAvailable !== null && (
+                      <CardTitle className="font-serif text-2xl text-club-green">Booking Confirmed!</CardTitle>
+                      <CardDescription>
+                        A confirmation email has been sent to {email}
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="border-2 border-club-green/20 bg-club-cream p-4 space-y-3">
                         <div className="flex justify-between">
-                          <span className="text-gray-600">Sessions Remaining</span>
-                          <span className="font-medium text-club-green">{sessionsAvailable}</span>
+                          <span className="text-gray-600">Date</span>
+                          <span className="font-medium text-club-green">
+                            {selectedDate && format(selectedDate, 'EEEE, MMMM d, yyyy')}
+                          </span>
                         </div>
-                      )}
-                    </div>
-
-                    <div className="flex items-start gap-3 border-2 border-club-green/20 bg-club-cream p-4">
-                      <MapPin className="h-5 w-5 text-court-clay mt-0.5" />
-                      <div>
-                        <p className="font-medium text-club-green">Pickup Location</p>
-                        <p className="text-sm text-gray-600">2116 4th Avenue West, Seattle, WA 98119</p>
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Time</span>
+                          <span className="font-medium text-club-green">
+                            {selectedSlot?.start} - {selectedSlot?.end}
+                          </span>
+                        </div>
+                        {sessionsAvailable !== null && (
+                          <div className="flex justify-between">
+                            <span className="text-gray-600">Sessions Remaining</span>
+                            <span className="font-medium text-club-green">{sessionsAvailable}</span>
+                          </div>
+                        )}
                       </div>
-                    </div>
 
-                    <div className="flex gap-3 pt-4">
-                      <Button asChild variant="outline" className="flex-1 border-club-green text-club-green hover:bg-club-green/10 rounded-none">
-                        <Link href={bookingResult.booking.rescheduleUrl}>Reschedule</Link>
-                      </Button>
-                      <Button asChild variant="outline" className="flex-1 border-club-green text-club-green hover:bg-club-green/10 rounded-none">
-                        <Link href={bookingResult.booking.cancelUrl}>Cancel</Link>
-                      </Button>
-                    </div>
+                      <div className="flex items-start gap-3 border-2 border-club-green/20 bg-club-cream p-4">
+                        <MapPin className="h-5 w-5 text-court-clay mt-0.5" />
+                        <div>
+                          <p className="font-medium text-club-green">Pickup Location</p>
+                          <p className="text-sm text-gray-600">2116 4th Avenue West, Seattle, WA 98119</p>
+                          <p className="text-xs text-gray-500 mt-1">Machine and balls will be on the porch</p>
+                        </div>
+                      </div>
 
-                    <Button onClick={resetForm} className="w-full bg-club-green hover:bg-[#265c3a] rounded-none">
-                      Book Another Session
-                    </Button>
-                  </CardContent>
-                </Card>
+                      <div className="flex gap-3 pt-2">
+                        <Button asChild variant="outline" className="flex-1 border-club-green text-club-green hover:bg-club-green/10 rounded-none">
+                          <Link href={bookingResult.booking.rescheduleUrl}>Reschedule</Link>
+                        </Button>
+                        <Button asChild variant="outline" className="flex-1 border-club-green text-club-green hover:bg-club-green/10 rounded-none">
+                          <Link href={bookingResult.booking.cancelUrl}>Cancel</Link>
+                        </Button>
+                      </div>
+                      <p className="text-xs text-center text-gray-500">Changes must be made at least 2 hours before your session</p>
+
+                      <Button onClick={resetForm} className="w-full bg-club-green hover:bg-[#265c3a] rounded-none">
+                        Book Another Session
+                      </Button>
+                    </CardContent>
+                  </Card>
+
+                  {/* How It Works Video */}
+                  <Card className="border-2 border-club-green bg-white">
+                    <CardHeader className="text-center pb-2">
+                      <span className="text-court-clay font-bold uppercase tracking-[2px] text-xs mb-1 block">
+                        Setup Guide
+                      </span>
+                      <CardTitle className="font-serif text-xl text-club-green">How It Works</CardTitle>
+                      <CardDescription>
+                        Quick 1-minute walkthrough before your session
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="relative aspect-video w-full overflow-hidden border-2 border-club-green/20">
+                        <iframe
+                          src="https://www.loom.com/embed/ce70d3812a404ec1af3bbabde67a7ad6?sid=981b366e-a2d2-4c64-81d3-eb26163d3b7a"
+                          title="Seattle Ball Machine – How it Works"
+                          frameBorder={0}
+                          allowFullScreen
+                          className="absolute inset-0 h-full w-full"
+                        />
+                      </div>
+                      <p className="text-sm text-gray-600 text-center mt-3">
+                        Install the <strong>Proton Control</strong> app for easy management
+                      </p>
+                    </CardContent>
+                  </Card>
+                </div>
               )}
 
             </div>
