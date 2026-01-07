@@ -128,7 +128,7 @@ export default function LandingPage() {
                 </h3>
                 <p className="text-gray-600 text-lg leading-relaxed">
                   Partners cancel. Traffic happens. The machine is always ready to go.
-                  Book a lane, pick it up, and hit 500 balls in an hour.
+                  Find a court, pick it up, and hit 500 balls in an hour.
                 </p>
               </div>
 
@@ -263,7 +263,7 @@ export default function LandingPage() {
                 </div>
               </div>
 
-              <div className="flex flex-col space-y-4 text-left order-2 md:order-1">
+              <div className="flex flex-col space-y-4 text-center md:text-left order-2 md:order-1">
                 <h3 className="font-serif text-2xl md:text-3xl text-club-green">
                   Professional Training at Your Fingertips
                 </h3>
@@ -271,14 +271,14 @@ export default function LandingPage() {
                   With a variety of drills and settings, practice your strokes and
                   improve your game.
                 </p>
-                <ul className="mt-4 space-y-3">
+                <ul className="mt-4 space-y-3 inline-block mx-auto md:mx-0">
                   {[
                     'Set up various shot patterns',
                     'Adjust ball speed and frequency',
                     'Practice groundstrokes and volleys',
                     'Lightweight and easy to transport',
                   ].map((item) => (
-                    <li key={item} className="flex items-center gap-3 text-base">
+                    <li key={item} className="flex items-center gap-3 text-base text-left">
                       <CheckCircle className="h-5 w-5 text-club-green flex-shrink-0" />
                       <span>{item}</span>
                     </li>
