@@ -58,7 +58,7 @@ export default function LandingPage() {
             className="bg-club-green hover:bg-[#265c3a] text-white font-semibold rounded-sm px-6"
             onClick={() => track('nav_book_now_clicked')}
           >
-            <Link href="#pricing">Reserve Court Time</Link>
+            <Link href="#pricing">Book Your Session Now</Link>
           </Button>
         </div>
       </header>
