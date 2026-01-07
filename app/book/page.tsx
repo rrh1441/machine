@@ -172,15 +172,15 @@ export default function BookPage() {
   return (
     <div className="flex min-h-screen flex-col">
       {/* Header */}
-      <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur">
-        <div className="container flex h-14 sm:h-16 items-center justify-between px-4">
+      <header className="sticky top-0 z-40 w-full border-b-2 border-club-green bg-club-cream">
+        <div className="container flex h-16 items-center justify-between px-4 md:px-[5%]">
           <Link href="/" className="flex items-center space-x-2">
-            <span className="inline-block text-base font-bold sm:text-lg md:text-xl">
-              Seattle&nbsp;Ball&nbsp;Machine
+            <span className="text-lg font-bold tracking-tight text-club-green uppercase md:text-xl">
+              Seattle Ball Machine
             </span>
           </Link>
           <nav className="hidden items-center space-x-2 md:flex">
-            <Button asChild variant="ghost" size="sm">
+            <Button asChild variant="ghost" size="sm" className="text-club-green hover:bg-club-green/10">
               <Link href="/">Home</Link>
             </Button>
           </nav>
@@ -189,14 +189,14 @@ export default function BookPage() {
           <div className="md:hidden">
             <Sheet>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon">
+                <Button variant="ghost" size="icon" className="text-club-green">
                   <Menu className="h-5 w-5" />
                   <span className="sr-only">Toggle menu</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-[280px] sm:w-[320px]">
+              <SheetContent side="right" className="w-[280px] sm:w-[320px] bg-club-cream">
                 <nav className="mt-8 flex flex-col gap-4">
-                  <Link href="/" className="flex items-center border-b py-3 text-lg font-medium">
+                  <Link href="/" className="flex items-center border-b border-club-green/20 py-3 text-lg font-medium text-club-green">
                     Home
                   </Link>
                 </nav>
@@ -207,33 +207,36 @@ export default function BookPage() {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1">
-        <section className="w-full bg-green-600 py-8 md:py-12">
-          <div className="container px-4 text-center text-white md:px-6">
-            <h1 className="text-2xl font-bold tracking-tighter sm:text-3xl md:text-4xl">
+      <main className="flex-1 bg-club-cream">
+        <section className="w-full bg-club-green py-10 md:py-14">
+          <div className="container px-4 text-center text-club-cream md:px-[5%]">
+            <span className="text-court-clay font-bold uppercase tracking-[2px] text-sm mb-3 block">
+              Schedule Your Time
+            </span>
+            <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl">
               Book Your Session
             </h1>
-            <p className="mx-auto mt-2 max-w-[600px] text-white/90 md:text-lg">
+            <p className="mx-auto mt-3 max-w-[600px] text-club-cream/80 md:text-lg">
               2-hour ball machine rental sessions
             </p>
           </div>
         </section>
 
-        <section className="w-full py-8 md:py-12">
-          <div className="container px-4 md:px-6">
+        <section className="w-full py-10 md:py-14">
+          <div className="container px-4 md:px-[5%]">
             <div className="mx-auto max-w-2xl">
 
               {/* Progress indicator */}
-              <div className="mb-8 flex justify-center gap-2">
+              <div className="mb-10 flex justify-center gap-2">
                 {(['email', 'date', 'time', 'confirm'] as const).map((s, i) => (
                   <div
                     key={s}
-                    className={`h-2 w-12 rounded-full ${
+                    className={`h-1.5 w-14 ${
                       step === s || (step === 'success' && i <= 3)
-                        ? 'bg-green-600'
+                        ? 'bg-club-green'
                         : ['email', 'date', 'time', 'confirm', 'success'].indexOf(step) > i
-                        ? 'bg-green-600'
-                        : 'bg-gray-200'
+                        ? 'bg-club-green'
+                        : 'bg-gray-300'
                     }`}
                   />
                 ))}
@@ -248,9 +251,9 @@ export default function BookPage() {
 
               {/* Step 1: Email */}
               {step === 'email' && (
-                <Card>
+                <Card className="border-2 border-club-green bg-white shadow-[8px_8px_0_#1a472a]">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
+                    <CardTitle className="flex items-center gap-2 font-serif text-xl text-club-green">
                       <Mail className="h-5 w-5" />
                       Enter Your Email
                     </CardTitle>
@@ -269,9 +272,10 @@ export default function BookPage() {
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           required
+                          className="border-club-green/30 focus:border-club-green"
                         />
                       </div>
-                      <Button type="submit" className="w-full" disabled={loading}>
+                      <Button type="submit" className="w-full bg-club-green hover:bg-[#265c3a] rounded-none" disabled={loading}>
                         {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Continue'}
                       </Button>
                     </form>
@@ -281,9 +285,9 @@ export default function BookPage() {
 
               {/* Step 2: Date Selection */}
               {step === 'date' && (
-                <Card>
+                <Card className="border-2 border-club-green bg-white shadow-[8px_8px_0_#1a472a]">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
+                    <CardTitle className="flex items-center gap-2 font-serif text-xl text-club-green">
                       <CalendarIcon className="h-5 w-5" />
                       Select a Date
                     </CardTitle>
@@ -297,11 +301,11 @@ export default function BookPage() {
                       selected={selectedDate}
                       onSelect={handleDateSelect}
                       disabled={disabledDays}
-                      className="rounded-md border"
+                      className="border-2 border-club-green/20"
                     />
                   </CardContent>
                   <div className="px-6 pb-6">
-                    <Button variant="outline" onClick={() => setStep('email')} className="w-full">
+                    <Button variant="outline" onClick={() => setStep('email')} className="w-full border-club-green text-club-green hover:bg-club-green/10 rounded-none">
                       Back
                     </Button>
                   </div>
@@ -310,36 +314,37 @@ export default function BookPage() {
 
               {/* Step 3: Time Selection */}
               {step === 'time' && (
-                <Card>
+                <Card className="border-2 border-club-green bg-white shadow-[8px_8px_0_#1a472a]">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
+                    <CardTitle className="flex items-center gap-2 font-serif text-xl text-club-green">
                       <Clock className="h-5 w-5" />
-                      Select a Time
+                      Select a Start Time
                     </CardTitle>
-                    <CardDescription>
-                      {selectedDate && format(selectedDate, 'EEEE, MMMM d, yyyy')}
+                    <CardDescription className="space-y-1">
+                      <span className="block">{selectedDate && format(selectedDate, 'EEEE, MMMM d, yyyy')}</span>
+                      <span className="block text-court-clay font-medium">2-hour session</span>
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
                     {loading ? (
                       <div className="flex justify-center py-8">
-                        <Loader2 className="h-8 w-8 animate-spin text-green-600" />
+                        <Loader2 className="h-8 w-8 animate-spin text-club-green" />
                       </div>
                     ) : slots.length > 0 ? (
-                      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+                      <div className="grid grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-5">
                         {slots.map((slot) => (
                           <Button
                             key={slot.start}
                             variant={slot.available ? 'outline' : 'ghost'}
-                            className={`h-14 ${
+                            className={`h-12 text-sm font-medium ${
                               slot.available
-                                ? 'hover:bg-green-50 hover:border-green-500'
-                                : 'opacity-50 cursor-not-allowed line-through'
+                                ? 'border-club-green/40 hover:bg-club-green hover:text-white hover:border-club-green'
+                                : 'opacity-40 cursor-not-allowed text-gray-400'
                             }`}
                             disabled={!slot.available}
                             onClick={() => handleSlotSelect(slot)}
                           >
-                            {slot.start} - {slot.end}
+                            {slot.start}
                           </Button>
                         ))}
                       </div>
@@ -350,7 +355,7 @@ export default function BookPage() {
                     )}
                   </CardContent>
                   <div className="px-6 pb-6">
-                    <Button variant="outline" onClick={() => setStep('date')} className="w-full">
+                    <Button variant="outline" onClick={() => setStep('date')} className="w-full border-club-green text-club-green hover:bg-club-green/10 rounded-none">
                       Back - Choose Different Date
                     </Button>
                   </div>
@@ -359,48 +364,48 @@ export default function BookPage() {
 
               {/* Step 4: Confirmation */}
               {step === 'confirm' && selectedDate && selectedSlot && (
-                <Card>
+                <Card className="border-2 border-club-green bg-white shadow-[8px_8px_0_#1a472a]">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <CheckCircle className="h-5 w-5 text-green-600" />
+                    <CardTitle className="flex items-center gap-2 font-serif text-xl text-club-green">
+                      <CheckCircle className="h-5 w-5 text-club-green" />
                       Confirm Your Booking
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    <div className="rounded-lg bg-gray-50 p-4 space-y-3">
+                    <div className="border-2 border-club-green/20 bg-club-cream p-4 space-y-3">
                       <div className="flex justify-between">
                         <span className="text-gray-600">Date</span>
-                        <span className="font-medium">{format(selectedDate, 'EEEE, MMMM d, yyyy')}</span>
+                        <span className="font-medium text-club-green">{format(selectedDate, 'EEEE, MMMM d, yyyy')}</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-gray-600">Time</span>
-                        <span className="font-medium">{selectedSlot.start} - {selectedSlot.end}</span>
+                        <span className="font-medium text-club-green">{selectedSlot.start} - {selectedSlot.end}</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-gray-600">Duration</span>
-                        <span className="font-medium">2 hours</span>
+                        <span className="font-medium text-club-green">2 hours</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-gray-600">Email</span>
-                        <span className="font-medium">{email}</span>
+                        <span className="font-medium text-club-green">{email}</span>
                       </div>
                     </div>
 
-                    <div className="flex items-start gap-2 rounded-lg bg-blue-50 p-4">
-                      <MapPin className="h-5 w-5 text-blue-600 mt-0.5" />
+                    <div className="flex items-start gap-3 border-2 border-club-green/20 bg-club-cream p-4">
+                      <MapPin className="h-5 w-5 text-court-clay mt-0.5" />
                       <div>
-                        <p className="font-medium">Pickup Location</p>
+                        <p className="font-medium text-club-green">Pickup Location</p>
                         <p className="text-sm text-gray-600">2116 4th Avenue West, Seattle, WA 98119</p>
                       </div>
                     </div>
 
                     <div className="flex gap-3">
-                      <Button variant="outline" onClick={() => setStep('time')} className="flex-1">
+                      <Button variant="outline" onClick={() => setStep('time')} className="flex-1 border-club-green text-club-green hover:bg-club-green/10 rounded-none">
                         Back
                       </Button>
                       <Button
                         onClick={handleConfirmBooking}
-                        className="flex-1 bg-green-600 hover:bg-green-700"
+                        className="flex-1 bg-club-green hover:bg-[#265c3a] rounded-none"
                         disabled={loading}
                       >
                         {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Confirm Booking'}
@@ -412,56 +417,56 @@ export default function BookPage() {
 
               {/* Step 5: Success */}
               {step === 'success' && bookingResult?.booking && (
-                <Card>
+                <Card className="border-2 border-club-green bg-white shadow-[8px_8px_0_#1a472a]">
                   <CardHeader className="text-center">
-                    <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
-                      <CheckCircle className="h-10 w-10 text-green-600" />
+                    <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center bg-club-green">
+                      <CheckCircle className="h-10 w-10 text-white" />
                     </div>
-                    <CardTitle className="text-2xl">Booking Confirmed!</CardTitle>
+                    <CardTitle className="font-serif text-2xl text-club-green">Booking Confirmed!</CardTitle>
                     <CardDescription>
                       A confirmation email has been sent to {email}
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    <div className="rounded-lg bg-gray-50 p-4 space-y-3">
+                    <div className="border-2 border-club-green/20 bg-club-cream p-4 space-y-3">
                       <div className="flex justify-between">
                         <span className="text-gray-600">Date</span>
-                        <span className="font-medium">
+                        <span className="font-medium text-club-green">
                           {selectedDate && format(selectedDate, 'EEEE, MMMM d, yyyy')}
                         </span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-gray-600">Time</span>
-                        <span className="font-medium">
+                        <span className="font-medium text-club-green">
                           {selectedSlot?.start} - {selectedSlot?.end}
                         </span>
                       </div>
                       {sessionsAvailable !== null && (
                         <div className="flex justify-between">
                           <span className="text-gray-600">Sessions Remaining</span>
-                          <span className="font-medium">{sessionsAvailable}</span>
+                          <span className="font-medium text-club-green">{sessionsAvailable}</span>
                         </div>
                       )}
                     </div>
 
-                    <div className="flex items-start gap-2 rounded-lg bg-blue-50 p-4">
-                      <MapPin className="h-5 w-5 text-blue-600 mt-0.5" />
+                    <div className="flex items-start gap-3 border-2 border-club-green/20 bg-club-cream p-4">
+                      <MapPin className="h-5 w-5 text-court-clay mt-0.5" />
                       <div>
-                        <p className="font-medium">Pickup Location</p>
+                        <p className="font-medium text-club-green">Pickup Location</p>
                         <p className="text-sm text-gray-600">2116 4th Avenue West, Seattle, WA 98119</p>
                       </div>
                     </div>
 
                     <div className="flex gap-3 pt-4">
-                      <Button asChild variant="outline" className="flex-1">
+                      <Button asChild variant="outline" className="flex-1 border-club-green text-club-green hover:bg-club-green/10 rounded-none">
                         <Link href={bookingResult.booking.rescheduleUrl}>Reschedule</Link>
                       </Button>
-                      <Button asChild variant="outline" className="flex-1">
+                      <Button asChild variant="outline" className="flex-1 border-club-green text-club-green hover:bg-club-green/10 rounded-none">
                         <Link href={bookingResult.booking.cancelUrl}>Cancel</Link>
                       </Button>
                     </div>
 
-                    <Button onClick={resetForm} className="w-full">
+                    <Button onClick={resetForm} className="w-full bg-club-green hover:bg-[#265c3a] rounded-none">
                       Book Another Session
                     </Button>
                   </CardContent>
@@ -473,15 +478,15 @@ export default function BookPage() {
         </section>
 
         {/* Contact section */}
-        <section className="w-full bg-gray-50 py-8 md:py-12">
-          <div className="container flex flex-col items-center gap-4 px-4 text-center md:px-6">
-            <h2 className="text-xl font-bold">Need Help?</h2>
+        <section className="w-full bg-club-cream border-t-2 border-club-green/20 py-10 md:py-14">
+          <div className="container flex flex-col items-center gap-4 px-4 text-center md:px-[5%]">
+            <h2 className="font-serif text-xl text-club-green">Need Help?</h2>
             <div className="flex flex-col items-center gap-2 sm:flex-row sm:gap-6">
-              <a href="mailto:support@firstserveseattle.com" className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
+              <a href="mailto:support@firstserveseattle.com" className="flex items-center gap-2 text-gray-600 hover:text-club-green transition-colors">
                 <Mail className="h-4 w-4" />
                 support@firstserveseattle.com
               </a>
-              <a href="tel:+12532529577" className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
+              <a href="tel:+12532529577" className="flex items-center gap-2 text-gray-600 hover:text-club-green transition-colors">
                 <Phone className="h-4 w-4" />
                 (253) 252-9577
               </a>
@@ -491,15 +496,18 @@ export default function BookPage() {
       </main>
 
       {/* Footer */}
-      <footer className="w-full border-t bg-white py-6">
-        <div className="container flex flex-col items-center justify-between gap-4 px-4 md:flex-row md:px-6">
-          <p className="text-sm text-gray-500">
-            &copy; {currentYear} Seattle Ball Machine Rental. All rights reserved.
-          </p>
+      <footer className="w-full border-t border-gray-200 bg-club-cream py-10">
+        <div className="container flex flex-col items-center justify-between gap-4 px-4 md:flex-row md:px-[5%]">
+          <div className="text-center md:text-left">
+            <p className="font-serif text-lg text-club-green font-bold">Seattle Ball Machine</p>
+            <p className="text-sm text-gray-500 mt-1">
+              &copy; {currentYear}. Keep your eye on the ball.
+            </p>
+          </div>
           <nav className="flex gap-4 sm:gap-6">
-            <Link href="/support" className="text-sm text-gray-500 hover:underline">Support</Link>
-            <Link href="/privacy" className="text-sm text-gray-500 hover:underline">Privacy</Link>
-            <Link href="/terms" className="text-sm text-gray-500 hover:underline">Terms</Link>
+            <Link href="/support" className="text-sm text-gray-500 hover:text-club-green transition-colors">Support</Link>
+            <Link href="/privacy" className="text-sm text-gray-500 hover:text-club-green transition-colors">Privacy</Link>
+            <Link href="/terms" className="text-sm text-gray-500 hover:text-club-green transition-colors">Terms</Link>
           </nav>
         </div>
       </footer>

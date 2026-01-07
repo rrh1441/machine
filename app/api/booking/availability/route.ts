@@ -179,20 +179,34 @@ export async function GET(req: NextRequest): Promise<NextResponse<AvailabilityRe
 }
 
 /**
- * Generate 2-hour slots between start and end times
+ * Generate slots with 30-minute increments between start and end times
+ * Each slot represents a potential start time for a 2-hour session
  */
 function generateSlots(startTime: string, endTime: string, durationHours: number): TimeSlot[] {
   const slots: TimeSlot[] = [];
 
-  const [startHour] = startTime.split(':').map(Number);
-  const [endHour] = endTime.split(':').map(Number);
+  const [startHour, startMin = 0] = startTime.split(':').map(Number);
+  const [endHour, endMin = 0] = endTime.split(':').map(Number);
 
-  // Start at even hours for clean 2-hour blocks
-  let currentHour = startHour % 2 === 0 ? startHour : startHour + 1;
+  // Convert to minutes for easier calculation
+  const startMinutes = startHour * 60 + startMin;
+  const endMinutes = endHour * 60 + endMin;
+  const durationMinutes = durationHours * 60;
+  const incrementMinutes = 30; // 30-minute increments for flexibility
 
-  while (currentHour + durationHours <= endHour) {
-    const slotStart = `${currentHour.toString().padStart(2, '0')}:00`;
-    const slotEnd = `${(currentHour + durationHours).toString().padStart(2, '0')}:00`;
+  // Generate slots every 30 minutes
+  // Last valid start time is when session would end at business hours end
+  let currentMinutes = startMinutes;
+
+  while (currentMinutes + durationMinutes <= endMinutes) {
+    const hours = Math.floor(currentMinutes / 60);
+    const mins = currentMinutes % 60;
+    const endTotalMinutes = currentMinutes + durationMinutes;
+    const endHours = Math.floor(endTotalMinutes / 60);
+    const endMins = endTotalMinutes % 60;
+
+    const slotStart = `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}`;
+    const slotEnd = `${endHours.toString().padStart(2, '0')}:${endMins.toString().padStart(2, '0')}`;
 
     slots.push({
       start: slotStart,
@@ -200,7 +214,7 @@ function generateSlots(startTime: string, endTime: string, durationHours: number
       available: true // Will be updated later
     });
 
-    currentHour += durationHours;
+    currentMinutes += incrementMinutes;
   }
 
   return slots;
