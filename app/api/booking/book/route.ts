@@ -128,6 +128,8 @@ export async function POST(req: NextRequest): Promise<NextResponse<BookingRespon
 
     if (calendarClient) {
       try {
+        console.log('Attempting to create Google Calendar event for:', email);
+        console.log('Calendar ID:', process.env.GOOGLE_CALENDAR_ID || 'primary (default)');
         const event = await calendarClient.createEvent({
           summary: `Ball Machine Rental - ${customer.name || email}`,
           description: `2-hour ball machine rental session.\n\nCustomer: ${customer.name || 'N/A'}\nEmail: ${email}`,
@@ -137,11 +139,15 @@ export async function POST(req: NextRequest): Promise<NextResponse<BookingRespon
           location: PICKUP_LOCATION
         });
         googleEventId = event.id || null;
-        console.log('Created Google Calendar event:', googleEventId);
-      } catch (calError) {
-        console.error('Failed to create Google Calendar event:', calError);
+        console.log('Successfully created Google Calendar event:', googleEventId);
+      } catch (calError: unknown) {
+        const error = calError as Error & { response?: { data?: unknown } };
+        console.error('Failed to create Google Calendar event:', error.message);
+        console.error('Calendar error details:', error.response?.data || error);
         // Continue without calendar event - we can add it manually later
       }
+    } else {
+      console.warn('Google Calendar client not initialized - check GMAIL_CLIENT_ID, GMAIL_CLIENT_SECRET, GMAIL_REFRESH_TOKEN env vars');
     }
 
     // 6. Create booking in database
