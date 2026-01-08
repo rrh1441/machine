@@ -26,6 +26,39 @@ interface RescheduleResponse {
 const SLOT_DURATION_HOURS = 2;
 const PICKUP_LOCATION = '2116 4th Avenue West, Seattle, WA 98119';
 const MIN_RESCHEDULE_NOTICE_HOURS = 2; // Must reschedule at least 2 hours before booking
+const TIMEZONE = 'America/Los_Angeles';
+
+/**
+ * Convert Seattle local time to UTC Date
+ */
+function parseSeattleTime(dateStr: string, timeStr: string): Date {
+  const [year, month, day] = dateStr.split('-').map(Number);
+  const [hours, minutes] = timeStr.split(':').map(Number);
+
+  const formatter = new Intl.DateTimeFormat('en-US', {
+    timeZone: TIMEZONE,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false
+  });
+
+  const roughDate = new Date(Date.UTC(year, month - 1, day, hours, minutes, 0));
+  const parts = formatter.formatToParts(roughDate);
+  const getPart = (type: string) => parseInt(parts.find(p => p.type === type)?.value || '0');
+
+  const seattleHour = getPart('hour');
+  const seattleDay = getPart('day');
+
+  let offsetHours = hours - seattleHour;
+  if (seattleDay < day) offsetHours -= 24;
+  if (seattleDay > day) offsetHours += 24;
+
+  return new Date(Date.UTC(year, month - 1, day, hours + offsetHours, minutes, 0));
+}
 
 /**
  * POST /api/booking/reschedule
@@ -122,8 +155,8 @@ export async function POST(req: NextRequest): Promise<NextResponse<RescheduleRes
       }, { status: 400 });
     }
 
-    // 4. Create new booking datetime
-    const newBookingDatetime = new Date(`${newDate}T${newStartTime}:00`);
+    // 4. Create new booking datetime (convert Seattle local time to UTC)
+    const newBookingDatetime = parseSeattleTime(newDate, newStartTime);
     const newEndTime = new Date(newBookingDatetime.getTime() + SLOT_DURATION_HOURS * 60 * 60 * 1000);
 
     // 5. Verify new slot is available

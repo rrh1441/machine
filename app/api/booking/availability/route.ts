@@ -93,8 +93,9 @@ export async function GET(req: NextRequest): Promise<NextResponse<AvailabilityRe
     const allSlots = generateSlots(businessHours.start, businessHours.end, SLOT_DURATION_HOURS);
 
     // 3. Get blocked times from database
-    const dayStart = new Date(`${dateParam}T00:00:00-08:00`); // PST approximation
-    const dayEnd = new Date(`${dateParam}T23:59:59-08:00`);
+    // Use proper Seattle timezone conversion for day boundaries
+    const dayStart = parseSeattleTime(dateParam, '00:00');
+    const dayEnd = parseSeattleTime(dateParam, '23:59');
 
     const { data: blockedTimes } = await supabaseAdmin
       .from('blocked_times')
@@ -226,17 +227,47 @@ function generateSlots(startTime: string, endTime: string, durationHours: number
 }
 
 /**
- * Parse a time string into a Date in Seattle timezone
+ * Parse a time string into a Date in Seattle timezone (returns UTC Date)
  */
 function parseSeattleTime(dateStr: string, timeStr: string): Date {
-  // Create date string with Seattle timezone offset
-  // This is a simplified approach - for production, use a library like date-fns-tz
-  const dateTimeStr = `${dateStr}T${timeStr}:00`;
-  const date = new Date(dateTimeStr);
+  // Get the UTC offset for Seattle on this specific date
+  // This properly handles DST transitions
+  const [year, month, day] = dateStr.split('-').map(Number);
+  const [hours, minutes] = timeStr.split(':').map(Number);
 
-  // Adjust for Seattle timezone (PST = UTC-8, PDT = UTC-7)
-  // This is approximate - proper handling would use Intl or date-fns-tz
-  return date;
+  // Create a date formatter for Seattle timezone
+  const formatter = new Intl.DateTimeFormat('en-US', {
+    timeZone: TIMEZONE,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false
+  });
+
+  // Create a rough UTC date first, then calculate the offset
+  const roughDate = new Date(Date.UTC(year, month - 1, day, hours, minutes, 0));
+
+  // Get what time it would be in Seattle for this UTC time
+  const parts = formatter.formatToParts(roughDate);
+  const getPart = (type: string) => parseInt(parts.find(p => p.type === type)?.value || '0');
+
+  const seattleHour = getPart('hour');
+  const seattleDay = getPart('day');
+
+  // Calculate offset: if Seattle shows different hour/day, adjust
+  // Seattle is behind UTC, so UTC hour > Seattle hour
+  let offsetHours = hours - seattleHour;
+  if (seattleDay < day) offsetHours -= 24;
+  if (seattleDay > day) offsetHours += 24;
+
+  // Now create the correct UTC time for the Seattle local time
+  // If user wants 10:30 Seattle time, and offset is -8, we need 18:30 UTC
+  const utcDate = new Date(Date.UTC(year, month - 1, day, hours + offsetHours, minutes, 0));
+
+  return utcDate;
 }
 
 /**

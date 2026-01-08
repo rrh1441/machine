@@ -90,3 +90,51 @@ export async function GET(req: NextRequest) {
 
   return NextResponse.json(result);
 }
+
+/**
+ * DELETE /api/debug/calendar?bookingId=xxx
+ * Delete a booking by ID (for fixing bad data)
+ */
+export async function DELETE(req: NextRequest) {
+  const bookingId = req.nextUrl.searchParams.get('bookingId');
+
+  if (!bookingId) {
+    return NextResponse.json({ error: 'Missing bookingId parameter' }, { status: 400 });
+  }
+
+  if (!supabaseAdmin) {
+    return NextResponse.json({ error: 'Supabase not configured' }, { status: 500 });
+  }
+
+  // First get the booking to check if it exists and get details
+  const { data: booking, error: fetchError } = await supabaseAdmin
+    .from('bookings')
+    .select('*')
+    .eq('id', bookingId)
+    .single();
+
+  if (fetchError || !booking) {
+    return NextResponse.json({ error: 'Booking not found', details: fetchError?.message }, { status: 404 });
+  }
+
+  // Delete any session_usage records first (foreign key constraint)
+  await supabaseAdmin
+    .from('session_usage')
+    .delete()
+    .eq('booking_id', bookingId);
+
+  // Delete the booking
+  const { error: deleteError } = await supabaseAdmin
+    .from('bookings')
+    .delete()
+    .eq('id', bookingId);
+
+  if (deleteError) {
+    return NextResponse.json({ error: 'Failed to delete', details: deleteError.message }, { status: 500 });
+  }
+
+  return NextResponse.json({
+    success: true,
+    deleted: booking
+  });
+}

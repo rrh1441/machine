@@ -25,6 +25,39 @@ interface BookingResponse {
 
 const SLOT_DURATION_HOURS = 2;
 const PICKUP_LOCATION = '2116 4th Avenue West, Seattle, WA 98119';
+const TIMEZONE = 'America/Los_Angeles';
+
+/**
+ * Convert Seattle local time to UTC Date
+ */
+function parseSeattleTime(dateStr: string, timeStr: string): Date {
+  const [year, month, day] = dateStr.split('-').map(Number);
+  const [hours, minutes] = timeStr.split(':').map(Number);
+
+  const formatter = new Intl.DateTimeFormat('en-US', {
+    timeZone: TIMEZONE,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false
+  });
+
+  const roughDate = new Date(Date.UTC(year, month - 1, day, hours, minutes, 0));
+  const parts = formatter.formatToParts(roughDate);
+  const getPart = (type: string) => parseInt(parts.find(p => p.type === type)?.value || '0');
+
+  const seattleHour = getPart('hour');
+  const seattleDay = getPart('day');
+
+  let offsetHours = hours - seattleHour;
+  if (seattleDay < day) offsetHours -= 24;
+  if (seattleDay > day) offsetHours += 24;
+
+  return new Date(Date.UTC(year, month - 1, day, hours + offsetHours, minutes, 0));
+}
 
 /**
  * POST /api/booking/book
@@ -89,8 +122,8 @@ export async function POST(req: NextRequest): Promise<NextResponse<BookingRespon
       }, { status: 400 });
     }
 
-    // 3. Create booking datetime
-    const bookingDatetime = new Date(`${date}T${startTime}:00`);
+    // 3. Create booking datetime (convert Seattle local time to UTC)
+    const bookingDatetime = parseSeattleTime(date, startTime);
     const endTime = new Date(bookingDatetime.getTime() + SLOT_DURATION_HOURS * 60 * 60 * 1000);
 
     // 4. Verify slot is still available (double-check)
