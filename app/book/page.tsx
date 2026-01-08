@@ -533,7 +533,7 @@ export default function BookPage() {
                     <CardContent>
                       <div className="relative aspect-video w-full overflow-hidden border-2 border-club-green/20">
                         <iframe
-                          src="https://www.loom.com/embed/ce70d3812a404ec1af3bbabde67a7ad6?sid=981b366e-a2d2-4c64-81d3-eb26163d3b7a"
+                          src="https://www.youtube.com/embed/Jt105BS5T24"
                           title="Seattle Ball Machine – How it Works"
                           frameBorder={0}
                           allowFullScreen
