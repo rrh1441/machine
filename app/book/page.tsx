@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { MapPin, Mail, Phone, Menu, Calendar as CalendarIcon, Clock, CheckCircle, AlertCircle, Loader2 } from 'lucide-react'
+import { MapPin, Mail, Phone, Menu, Calendar as CalendarIcon, Clock, CheckCircle, AlertCircle, Loader2, ChevronLeft, ChevronRight } from 'lucide-react'
 import { format, addDays, isBefore, startOfDay } from 'date-fns'
 
 import { Button } from '@/components/ui/button'
@@ -118,6 +118,28 @@ export default function BookPage() {
     setSelectedSlot(slot)
     setStep('confirm')
   }
+
+  function handlePreviousDay() {
+    if (!selectedDate) return
+    const prevDay = addDays(selectedDate, -1)
+    const today = startOfDay(new Date())
+    if (!isBefore(prevDay, today)) {
+      setSelectedDate(prevDay)
+    }
+  }
+
+  function handleNextDay() {
+    if (!selectedDate) return
+    const nextDay = addDays(selectedDate, 1)
+    const maxDate = addDays(startOfDay(new Date()), 30)
+    if (!isBefore(maxDate, nextDay)) {
+      setSelectedDate(nextDay)
+    }
+  }
+
+  // Check if we can navigate to prev/next day
+  const canGoPrevious = selectedDate && !isBefore(addDays(selectedDate, -1), startOfDay(new Date()))
+  const canGoNext = selectedDate && !isBefore(addDays(startOfDay(new Date()), 30), addDays(selectedDate, 1))
 
   async function handleConfirmBooking() {
     if (!selectedDate || !selectedSlot) return
@@ -320,8 +342,30 @@ export default function BookPage() {
                       <Clock className="h-5 w-5" />
                       Select a Start Time
                     </CardTitle>
-                    <CardDescription className="space-y-1">
-                      <span className="block">{selectedDate && format(selectedDate, 'EEEE, MMMM d, yyyy')}</span>
+                    <CardDescription className="space-y-2">
+                      <div className="flex items-center justify-center gap-2">
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={handlePreviousDay}
+                          disabled={!canGoPrevious || loading}
+                          className="h-8 w-8 text-club-green hover:bg-club-green/10 disabled:opacity-30"
+                        >
+                          <ChevronLeft className="h-5 w-5" />
+                        </Button>
+                        <span className="font-medium text-club-green min-w-[200px] text-center">
+                          {selectedDate && format(selectedDate, 'EEE, MMM d, yyyy')}
+                        </span>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={handleNextDay}
+                          disabled={!canGoNext || loading}
+                          className="h-8 w-8 text-club-green hover:bg-club-green/10 disabled:opacity-30"
+                        >
+                          <ChevronRight className="h-5 w-5" />
+                        </Button>
+                      </div>
                       <span className="block text-court-clay font-medium">2-hour session</span>
                     </CardDescription>
                   </CardHeader>
