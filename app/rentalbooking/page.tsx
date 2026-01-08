@@ -235,7 +235,7 @@ export default function SuccessPage() {
               Quick 1-minute walkthrough. Install the Proton Control app for easy
               management!
             </p>
-            <div className="relative mx-auto mt-10 aspect-video w-full max-w-4xl overflow-hidden rounded-xl shadow-lg">
+            <div className="relative mx-auto mt-10 aspect-[9/16] w-full max-w-sm overflow-hidden rounded-xl shadow-lg">
               <iframe
                 src="https://www.youtube.com/embed/Jt105BS5T24"
                 title="Seattle Ball Machine – How it Works"

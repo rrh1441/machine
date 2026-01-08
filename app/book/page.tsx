@@ -531,7 +531,7 @@ export default function BookPage() {
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
-                      <div className="relative aspect-video w-full overflow-hidden border-2 border-club-green/20">
+                      <div className="relative aspect-[9/16] w-full max-w-[240px] mx-auto overflow-hidden border-2 border-club-green/20">
                         <iframe
                           src="https://www.youtube.com/embed/Jt105BS5T24"
                           title="Seattle Ball Machine – How it Works"
