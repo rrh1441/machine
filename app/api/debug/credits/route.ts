@@ -2,8 +2,17 @@ import { NextRequest, NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabase/server'
 
 export async function GET(req: NextRequest) {
+  // SECURITY: Only allow in development or with admin secret
+  const isProduction = process.env.NODE_ENV === 'production'
+  const adminSecret = req.headers.get('x-admin-secret')
+  const validSecret = process.env.ADMIN_DEBUG_SECRET
+
+  if (isProduction && (!validSecret || adminSecret !== validSecret)) {
+    return NextResponse.json({ error: 'Not found' }, { status: 404 })
+  }
+
   const email = req.nextUrl.searchParams.get('email')
-  
+
   if (!email) {
     return NextResponse.json({ error: 'Email parameter required' }, { status: 400 })
   }

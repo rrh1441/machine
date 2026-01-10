@@ -30,3 +30,9 @@ next-env.d.ts
 create-calendly-webhook.sh
 setup-calendly-webhook.js
 test-webhook.sh
+
+# OAuth tokens - SENSITIVE
+.oauth-tokens-SENSITIVE
+
+# Playwright MCP screenshots
+.playwright-mcp/

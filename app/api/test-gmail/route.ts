@@ -3,6 +3,15 @@ import { gmail } from '@/lib/gmail/email-service'
 import { emailTemplates } from '@/lib/emails/templates'
 
 export async function GET(request: NextRequest) {
+  // SECURITY: Only allow in development or with admin secret
+  const isProduction = process.env.NODE_ENV === 'production'
+  const adminSecret = request.headers.get('x-admin-secret')
+  const validSecret = process.env.ADMIN_DEBUG_SECRET
+
+  if (isProduction && (!validSecret || adminSecret !== validSecret)) {
+    return NextResponse.json({ error: 'Not found' }, { status: 404 })
+  }
+
   const searchParams = request.nextUrl.searchParams
   const to = searchParams.get('to')
   const type = searchParams.get('type') || 'purchase'

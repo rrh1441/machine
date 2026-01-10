@@ -85,13 +85,22 @@ const server = http.createServer(async (req, res) => {
         `);
 
         console.log('========================================');
-        console.log('SUCCESS! Here are your tokens:');
+        console.log('SUCCESS! Tokens generated.');
         console.log('========================================\n');
-        console.log('GMAIL_REFRESH_TOKEN=' + tokens.refresh_token);
-        console.log('\n========================================');
-        console.log('\nAdd this to your Vercel environment variables:');
+
+        // SECURITY: Write token to file instead of console to avoid log exposure
+        const fs = require('fs');
+        const tokenFile = '.oauth-tokens-SENSITIVE';
+        fs.writeFileSync(tokenFile, `# SENSITIVE - Delete after copying to Vercel\n# Generated: ${new Date().toISOString()}\nGMAIL_REFRESH_TOKEN=${tokens.refresh_token}\n`, { mode: 0o600 });
+
+        console.log(`Refresh token written to: ${tokenFile}`);
+        console.log('\n⚠️  SECURITY NOTICE:');
+        console.log('1. Copy the token from the file to Vercel environment variables');
+        console.log('2. DELETE the file after copying: rm ' + tokenFile);
+        console.log('3. Clear your terminal history if you ran this with credentials visible');
+        console.log('\nVercel setup:');
         console.log('1. Go to Vercel Dashboard > Your Project > Settings > Environment Variables');
-        console.log('2. Update GMAIL_REFRESH_TOKEN with the value above');
+        console.log('2. Add GMAIL_REFRESH_TOKEN with the value from the file');
         console.log('3. Also add: GOOGLE_CALENDAR_ID=ryan@firstserveseattle.com');
         console.log('4. Redeploy your app');
         console.log('========================================\n');

@@ -1,9 +1,24 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabase/server'
 import { gmail as resend } from '@/lib/gmail/email-service'
 import { emailTemplates } from '@/lib/emails/templates'
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  // SECURITY: Verify cron secret in production (Vercel sets this header)
+  const authHeader = request.headers.get('authorization')
+  const cronSecret = process.env.CRON_SECRET
+
+  if (process.env.NODE_ENV === 'production') {
+    if (!cronSecret) {
+      console.error('CRON_SECRET not configured')
+      return NextResponse.json({ error: 'Server misconfigured' }, { status: 500 })
+    }
+    if (authHeader !== `Bearer ${cronSecret}`) {
+      console.error('Invalid cron authorization')
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+  }
+
   // Check if Supabase is configured
   if (!supabaseAdmin) {
     return NextResponse.json({ error: 'Supabase not configured' }, { status: 503 })

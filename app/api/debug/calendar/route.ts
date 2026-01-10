@@ -2,11 +2,26 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createGoogleCalendarClient } from '@/lib/google-calendar/client';
 import { supabaseAdmin } from '@/lib/supabase/server';
 
+// SECURITY: Check admin access
+function checkAdminAccess(req: NextRequest): boolean {
+  const isProduction = process.env.NODE_ENV === 'production'
+  if (!isProduction) return true
+
+  const adminSecret = req.headers.get('x-admin-secret')
+  const validSecret = process.env.ADMIN_DEBUG_SECRET
+  return validSecret !== undefined && adminSecret === validSecret
+}
+
 /**
  * Debug endpoint to see ALL sources blocking availability
  * GET /api/debug/calendar?date=2025-01-08
+ * REQUIRES: x-admin-secret header in production
  */
 export async function GET(req: NextRequest) {
+  if (!checkAdminAccess(req)) {
+    return NextResponse.json({ error: 'Not found' }, { status: 404 })
+  }
+
   const dateParam = req.nextUrl.searchParams.get('date');
   const date = dateParam || new Date().toISOString().split('T')[0];
 
@@ -94,8 +109,13 @@ export async function GET(req: NextRequest) {
 /**
  * DELETE /api/debug/calendar?bookingId=xxx
  * Delete a booking by ID (for fixing bad data)
+ * REQUIRES: x-admin-secret header in production
  */
 export async function DELETE(req: NextRequest) {
+  if (!checkAdminAccess(req)) {
+    return NextResponse.json({ error: 'Not found' }, { status: 404 })
+  }
+
   const bookingId = req.nextUrl.searchParams.get('bookingId');
 
   if (!bookingId) {

@@ -126,21 +126,7 @@ export async function POST(req: NextRequest): Promise<NextResponse<BookingRespon
     const bookingDatetime = parseSeattleTime(date, startTime);
     const endTime = new Date(bookingDatetime.getTime() + SLOT_DURATION_HOURS * 60 * 60 * 1000);
 
-    // 4. Verify slot is still available (double-check)
-    const { data: existingBooking } = await supabaseAdmin
-      .from('bookings')
-      .select('id')
-      .eq('booking_date', date)
-      .eq('status', 'scheduled')
-      .gte('booking_datetime', new Date(`${date}T00:00:00`).toISOString())
-      .lte('booking_datetime', new Date(`${date}T23:59:59`).toISOString());
-
-    const hasConflict = (existingBooking || []).some(booking => {
-      // This is a simplified check - in production you'd check actual time overlaps
-      return true; // We'd need the actual times to check properly
-    });
-
-    // For now, check using a more specific query
+    // 4. Verify slot is still available (double-check for race conditions)
     const { data: conflictCheck } = await supabaseAdmin
       .from('bookings')
       .select('id')

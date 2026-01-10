@@ -56,9 +56,8 @@ export default function LandingPage() {
             asChild
             size="sm"
             className="bg-club-green hover:bg-[#265c3a] text-white font-semibold rounded-sm px-6"
-            onClick={() => track('nav_book_now_clicked')}
           >
-            <Link href="#pricing">Book Your Session Now</Link>
+            <Link href="#pricing" onClick={() => track('nav_book_now_clicked')}>Book Your Session Now</Link>
           </Button>
         </div>
       </header>
@@ -85,9 +84,8 @@ export default function LandingPage() {
                   asChild
                   size="lg"
                   className="bg-club-green hover:bg-transparent hover:text-club-green border-2 border-club-green text-white font-semibold text-lg px-10 py-6 rounded-none transition-all hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_rgba(26,71,42,0.2)]"
-                  onClick={() => track('hero_book_now_clicked')}
                 >
-                  <Link href="#pricing">Book Your Session</Link>
+                  <Link href="#pricing" onClick={() => track('hero_book_now_clicked')}>Book Your Session</Link>
                 </Button>
                 <p className="mt-5 text-sm text-gray-500 italic">
                   *Fits in the passenger seat of any car.
@@ -219,16 +217,16 @@ export default function LandingPage() {
                 <Button
                   asChild
                   className="bg-club-green hover:bg-[#265c3a] font-semibold rounded-sm"
-                  onClick={() => track('external_link_clicked', {
-                    url: 'https://firstserveseattle.com',
-                    link_text: 'See Today\'s Open Courts'
-                  })}
                 >
                   <Link
                     href="https://firstserveseattle.com"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2"
+                    onClick={() => track('external_link_clicked', {
+                      url: 'https://firstserveseattle.com',
+                      link_text: 'See Today\'s Open Courts'
+                    })}
                   >
                     <MapPin className="h-4 w-4" />
                     See Today&rsquo;s Open Courts
@@ -288,9 +286,8 @@ export default function LandingPage() {
                   <Button
                     asChild
                     className="bg-club-green hover:bg-transparent hover:text-club-green border-2 border-club-green text-white font-semibold rounded-none transition-all"
-                    onClick={() => track('video_section_book_now_clicked')}
                   >
-                    <Link href="#pricing">Book Your Session Now</Link>
+                    <Link href="#pricing" onClick={() => track('video_section_book_now_clicked')}>Book Your Session Now</Link>
                   </Button>
                 </div>
               </div>
@@ -624,9 +621,8 @@ export default function LandingPage() {
                 asChild
                 size="lg"
                 className="bg-tennis-yellow font-bold text-black hover:bg-[#d4f545] text-lg px-8 py-6 rounded-none"
-                onClick={() => track('cta_section_book_now_clicked')}
               >
-                <Link href="#pricing">Reserve Your Session</Link>
+                <Link href="#pricing" onClick={() => track('cta_section_book_now_clicked')}>Reserve Your Session</Link>
               </Button>
             </div>
           </div>

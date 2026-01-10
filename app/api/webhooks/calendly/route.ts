@@ -15,28 +15,34 @@ export async function POST(req: NextRequest) {
   console.log('Signature present:', !!signature)
   console.log('Signing key configured:', !!process.env.CALENDLY_WEBHOOK_SIGNING_KEY)
   
-  // Calendly signature verification (optional but recommended)
-  // Note: The signing_key should be provided when creating the webhook subscription
-  // If you don't have it, you can still process webhooks but with reduced security
-  if (process.env.CALENDLY_WEBHOOK_SIGNING_KEY && process.env.CALENDLY_WEBHOOK_SIGNING_KEY !== 'temporarily_disabled') {
+  // Calendly signature verification
+  // SECURITY: In production, CALENDLY_WEBHOOK_SIGNING_KEY must be configured
+  const signingKey = process.env.CALENDLY_WEBHOOK_SIGNING_KEY
+  const isProduction = process.env.NODE_ENV === 'production'
+
+  if (isProduction && !signingKey) {
+    console.error('CALENDLY_WEBHOOK_SIGNING_KEY not configured in production')
+    return NextResponse.json({ error: 'Server misconfigured' }, { status: 500 })
+  }
+
+  if (signingKey) {
     if (!signature) {
       console.error('No Calendly signature header found')
       return NextResponse.json({ error: 'No signature' }, { status: 401 })
     }
-    
-    const hmac = crypto.createHmac('sha256', process.env.CALENDLY_WEBHOOK_SIGNING_KEY)
+
+    const hmac = crypto.createHmac('sha256', signingKey)
     hmac.update(body)
     const expectedSignature = hmac.digest('base64')
-    
+
     if (signature !== `v1=${expectedSignature}`) {
       console.error('Invalid Calendly webhook signature')
-      console.error('Expected:', `v1=${expectedSignature}`)
-      console.error('Received:', signature)
       return NextResponse.json({ error: 'Invalid signature' }, { status: 401 })
     }
     console.log('Calendly webhook signature verified')
   } else {
-    console.log('Calendly webhook received - signature verification disabled')
+    // Only in development without signing key
+    console.log('Calendly webhook received - signature verification skipped (development only)')
   }
 
   const event = JSON.parse(body)

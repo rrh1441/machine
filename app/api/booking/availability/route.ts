@@ -62,8 +62,6 @@ export async function GET(req: NextRequest): Promise<NextResponse<AvailabilityRe
   }
 
   try {
-    // Create date in Seattle timezone
-    const targetDate = new Date(`${dateParam}T00:00:00`);
     const dayOfWeek = getDayOfWeekInSeattle(dateParam);
 
     // 1. Get business hours for this day of week
