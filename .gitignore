@@ -36,3 +36,4 @@ test-webhook.sh
 
 # Playwright MCP screenshots
 .playwright-mcp/
+.env*.local

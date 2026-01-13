@@ -106,7 +106,7 @@ export const emailTemplates = {
               <table border="0" cellpadding="0" cellspacing="0">
                 <tr>
                   <td bgcolor="#059669" style="border-radius: 8px;">
-                    <a href="${process.env.NEXT_PUBLIC_URL}/rentalbooking#calendar" style="display: block; padding: 15px 30px; color: #ffffff; text-decoration: none; font-weight: bold; font-size: 18px;">
+                    <a href="${process.env.NEXT_PUBLIC_URL}/book" style="display: block; padding: 15px 30px; color: #ffffff; text-decoration: none; font-weight: bold; font-size: 18px;">
                       Schedule Your First Session
                     </a>
                   </td>
@@ -171,7 +171,7 @@ export const emailTemplates = {
                 </tr>
                 <tr>
                   <td>
-                    <a href="${process.env.NEXT_PUBLIC_URL}/rentalbooking#how-it-works" style="color: #065f46; font-weight: bold; font-size: 16px;">
+                    <a href="${process.env.NEXT_PUBLIC_URL}/guide" style="color: #065f46; font-weight: bold; font-size: 16px;">
                       View Setup Guide →
                     </a>
                   </td>
@@ -754,7 +754,7 @@ export const emailTemplates = {
               <table border="0" cellpadding="0" cellspacing="0">
                 <tr>
                   <td bgcolor="#059669" style="border-radius: 8px;">
-                    <a href="${process.env.NEXT_PUBLIC_URL}/rentalbooking#calendar" style="display: block; padding: 15px 30px; color: #ffffff; text-decoration: none; font-weight: bold; font-size: 18px;">
+                    <a href="${process.env.NEXT_PUBLIC_URL}/book" style="display: block; padding: 15px 30px; color: #ffffff; text-decoration: none; font-weight: bold; font-size: 18px;">
                       Book Another Session
                     </a>
                   </td>
