@@ -146,6 +146,15 @@ export const emailTemplates = {
             </td>
           </tr>
 
+          <!-- Setup Guide Link -->
+          <tr>
+            <td style="padding-bottom: 25px;">
+              <a href="${process.env.NEXT_PUBLIC_URL}/guide" style="color: #059669; font-size: 14px; text-decoration: none;">
+                View setup guide &rarr;
+              </a>
+            </td>
+          </tr>
+
           <!-- Action Links -->
           ${rescheduleUrl || cancelUrl ? `
           <tr>
@@ -235,6 +244,15 @@ export const emailTemplates = {
               <p style="margin: 0; font-size: 14px; color: #374151; line-height: 1.6;">
                 Download the <strong>Proton Control</strong> app for easy machine control. Return equipment to the same porch location when done.
               </p>
+            </td>
+          </tr>
+
+          <!-- Setup Guide Link -->
+          <tr>
+            <td style="padding-bottom: 25px;">
+              <a href="${process.env.NEXT_PUBLIC_URL}/guide" style="color: #059669; font-size: 14px; text-decoration: none;">
+                View setup guide &rarr;
+              </a>
             </td>
           </tr>
 

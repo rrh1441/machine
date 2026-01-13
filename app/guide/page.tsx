@@ -1,186 +1,151 @@
 // -----------------------------------------------------------------------------
-// app/guide/page.tsx  •  2025-05-23
+// app/guide/page.tsx  •  2025-01-13
 // Post-booking guide for Seattle Ball Machine
 // -----------------------------------------------------------------------------
 'use client'
 
 import Link from 'next/link'
-import { MapPin, PlayCircle, Mail, Phone, Menu } from 'lucide-react'
+import { MapPin, Mail, Phone } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
+import LiteYouTubeEmbed from 'react-lite-youtube-embed'
+import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css'
 
 export default function BookingGuidePage() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col bg-club-cream">
       {/* ───────────────────── NAV ───────────────────── */}
-      <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur">
-        <div className="container flex h-16 items-center justify-between px-4">
+      <header className="w-full border-b-2 border-club-green bg-club-cream">
+        <div className="container flex h-16 items-center justify-between px-4 md:px-[5%]">
           <Link href="/" className="flex items-center space-x-2">
-            <span className="inline-block text-lg font-bold md:text-xl">
-              Seattle&nbsp;Ball&nbsp;Machine
+            <span className="text-lg font-bold tracking-tight text-club-green uppercase md:text-xl">
+              Seattle Ball Machine
             </span>
           </Link>
-          <nav className="hidden items-center space-x-2 md:flex">
-            <Button asChild variant="ghost">
-              <Link href="/">Home</Link>
-            </Button>
-            <Button asChild>
-              <Link href="/#pricing">Book&nbsp;Another</Link>
-            </Button>
-          </nav>
-          
-          {/* Mobile nav */}
-          <div className="md:hidden">
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="icon">
-                  <Menu className="h-5 w-5" />
-                  <span className="sr-only">Toggle menu</span>
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="right" className="w-[280px] sm:w-[320px]">
-                <nav className="mt-8 flex flex-col gap-4">
-                  <Link
-                    href="/"
-                    className="flex items-center border-b py-3 text-lg font-medium"
-                  >
-                    Home
-                  </Link>
-                  <Link
-                    href="/#pricing"
-                    className="flex items-center border-b py-3 text-lg font-medium"
-                  >
-                    Book Another
-                  </Link>
-                </nav>
-              </SheetContent>
-            </Sheet>
-          </div>
+          <Button
+            asChild
+            size="sm"
+            className="bg-club-green hover:bg-[#265c3a] text-white font-semibold rounded-sm px-6"
+          >
+            <Link href="/book">Book a Session</Link>
+          </Button>
         </div>
       </header>
 
       {/* ───────────────────── MAIN ───────────────────── */}
       <main className="flex-1">
-        {/* ───────────── Confirmation hero ───────────── */}
-        <section className="w-full bg-green-600 py-12 md:py-20 lg:py-24">
-          <div className="container px-4 text-center text-white md:px-6">
-            <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-              Booking&nbsp;Confirmed&nbsp;—&nbsp;Here&rsquo;s&nbsp;What&nbsp;to&nbsp;Know
+        {/* ───────────── Hero ───────────── */}
+        <section className="w-full bg-club-cream py-12 md:py-16 lg:py-20">
+          <div className="container px-4 md:px-[5%] max-w-3xl mx-auto text-center">
+            <span className="text-court-clay font-bold uppercase tracking-[2px] text-sm mb-4 block">
+              You're All Set
+            </span>
+            <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl leading-tight text-club-green mb-4">
+              Here's What to Know
             </h1>
-            <p className="mx-auto mt-4 max-w-[720px] text-lg text-white/90 md:text-xl">
-              Review pickup details, watch the quick setup guide, and reach out if
-              you have any questions.
+            <p className="text-lg text-gray-600 max-w-xl mx-auto">
+              Review pickup details, watch the quick setup guide, and reach out if you have any questions.
             </p>
           </div>
         </section>
 
-        {/* ───────────── Pickup location ───────────── */}
-        <section
-          id="pickup"
-          className="w-full bg-white py-12 md:py-20 lg:py-24"
-        >
-          <div className="container flex flex-col items-center gap-6 px-4 text-center md:px-6">
-            <div className="inline-block rounded-lg bg-green-100 px-3 py-1 text-sm text-green-700">
-              Step&nbsp;1&nbsp;·&nbsp;Pickup&nbsp;Location
-            </div>
-            <div className="flex flex-col items-center gap-4">
-              <MapPin className="h-8 w-8 text-green-600" />
-              <p className="text-xl font-semibold">
-                2116&nbsp;4th&nbsp;Avenue&nbsp;West<br />
-                Seattle,&nbsp;WA&nbsp;98119
-              </p>
-              <p className="max-w-[600px] text-gray-600">
-                The machine and bucket of balls will be waiting on the porch.
-                Please return them to the same spot when you&rsquo;re done.
-              </p>
-            </div>
-          </div>
-        </section>
+        {/* ───────────── Pickup + Video Grid ───────────── */}
+        <section className="w-full bg-club-cream pb-16 md:pb-24">
+          <div className="container px-4 md:px-[5%] max-w-5xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-8 md:gap-12">
 
-        {/* ───────────── How it works ───────────── */}
-        <section
-          id="how-it-works"
-          className="w-full bg-gray-50 py-12 md:py-20 lg:py-24"
-        >
-          <div className="container px-4 text-center md:px-6">
-            <div className="inline-block rounded-lg bg-green-100 px-3 py-1 text-sm text-green-700">
-              Step&nbsp;2&nbsp;·&nbsp;Watch&nbsp;Setup&nbsp;Guide
-            </div>
-            <h2 className="mt-2 text-3xl font-bold tracking-tighter sm:text-5xl">
-              How&nbsp;It&nbsp;Works
-            </h2>
-            <p className="mx-auto mt-4 max-w-[750px] text-gray-600 md:text-lg">
-              A quick 1-minute walkthrough of the Hydrogen&nbsp;Proton. We
-              recommend installing the Proton&nbsp;Control app from Hydrogen
-              Sports for easy session management.
-            </p>
+              {/* Pickup Location */}
+              <div className="bg-white border-2 border-club-green p-6 md:p-8">
+                <div className="flex items-center gap-3 mb-4">
+                  <MapPin className="h-6 w-6 text-club-green flex-shrink-0" />
+                  <h2 className="font-serif text-xl md:text-2xl text-club-green">Pickup Location</h2>
+                </div>
+                <p className="text-lg font-semibold text-gray-800 mb-1">
+                  2116 4th Avenue West
+                </p>
+                <p className="text-lg font-semibold text-gray-800 mb-4">
+                  Seattle, WA 98119
+                </p>
+                <p className="text-gray-600 mb-6">
+                  The machine and bucket of balls will be waiting on the porch. Please return them to the same spot when you're done.
+                </p>
+                <a
+                  href="https://maps.google.com/?q=2116+4th+Avenue+West+Seattle+WA+98119"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block text-club-green font-semibold hover:underline"
+                >
+                  Open in Maps &rarr;
+                </a>
+              </div>
 
-            {/* Video embed */}
-            <div className="relative mx-auto mt-10 aspect-[9/16] w-full max-w-sm overflow-hidden rounded-xl shadow-lg">
-              <iframe
-                src="https://www.youtube.com/embed/Jt105BS5T24"
-                title="Seattle Ball Machine – How it Works"
-                frameBorder={0}
-                allowFullScreen
-                className="absolute inset-0 h-full w-full"
-              />
+              {/* Video */}
+              <div className="bg-white border-2 border-club-green p-6 md:p-8">
+                <h2 className="font-serif text-xl md:text-2xl text-club-green mb-4">Setup Guide</h2>
+                <p className="text-gray-600 mb-4">
+                  A quick walkthrough of the Hydrogen Proton. We recommend installing the <strong>Proton Control</strong> app for easy session management.
+                </p>
+                <div className="relative aspect-[9/16] w-full max-w-[200px] mx-auto overflow-hidden rounded-sm border border-gray-200 bg-black">
+                  <LiteYouTubeEmbed
+                    id="Jt105BS5T24"
+                    title="Seattle Ball Machine – How it Works"
+                    wrapperClass="yt-lite absolute top-0 left-0 h-full w-full"
+                  />
+                </div>
+              </div>
+
             </div>
           </div>
         </section>
 
         {/* ───────────── Contact ───────────── */}
-        <section
-          id="contact"
-          className="w-full bg-white py-12 md:py-20 lg:py-24"
-        >
-          <div className="container flex flex-col items-center gap-6 px-4 text-center md:px-6">
-            <div className="inline-block rounded-lg bg-green-100 px-3 py-1 text-sm text-green-700">
-              Need&nbsp;Help?
-            </div>
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">
-              We&rsquo;re&nbsp;Here&nbsp;to&nbsp;Assist
+        <section className="w-full bg-white py-12 md:py-16">
+          <div className="container px-4 md:px-[5%] max-w-3xl mx-auto text-center">
+            <h2 className="font-serif text-2xl md:text-3xl text-club-green mb-4">
+              Need Help?
             </h2>
-            <p className="mx-auto max-w-[650px] text-gray-600 md:text-lg">
+            <p className="text-gray-600 mb-6">
               Questions about pickup, return, or the machine? Get in touch.
             </p>
-            <div className="flex flex-col items-center gap-4">
-              <p className="flex items-center gap-2 text-lg font-medium">
-                <Mail className="h-5 w-5 text-green-600" />
-                <a
-                  href="mailto:support@firstserveseattle.com"
-                  className="hover:underline"
-                >
-                  support@firstserveseattle.com
-                </a>
-              </p>
-              <p className="flex items-center gap-2 text-lg font-medium">
-                <Phone className="h-5 w-5 text-green-600" />
-                <a href="tel:+12532529577" className="hover:underline">
-                  (253)&nbsp;252-9577
-                </a>
-              </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8">
+              <a
+                href="mailto:support@firstserveseattle.com"
+                className="flex items-center gap-2 text-gray-800 hover:text-club-green transition-colors"
+              >
+                <Mail className="h-5 w-5 text-club-green" />
+                support@firstserveseattle.com
+              </a>
+              <a
+                href="tel:+12532529577"
+                className="flex items-center gap-2 text-gray-800 hover:text-club-green transition-colors"
+              >
+                <Phone className="h-5 w-5 text-club-green" />
+                (253) 252-9577
+              </a>
             </div>
           </div>
         </section>
       </main>
 
-      {/* ───────────── Footer ───────────── */}
-      <footer className="w-full border-t bg-white py-6">
-        <div className="container flex flex-col items-center justify-between gap-4 px-4 md:flex-row md:px-6">
-          <p className="text-sm text-gray-500">
-            © {currentYear} Seattle Ball Machine Rental. All rights reserved.
-          </p>
+      {/* ─────────────── Footer ─────────────── */}
+      <footer className="w-full border-t border-gray-200 bg-club-cream py-8">
+        <div className="container flex flex-col items-center justify-between gap-4 px-4 md:flex-row md:px-[5%]">
+          <div className="text-center md:text-left">
+            <p className="font-serif text-lg text-club-green font-bold">Seattle Ball Machine</p>
+            <p className="text-sm text-gray-500 mt-1">
+              © {currentYear}. Keep your eye on the ball.
+            </p>
+          </div>
           <nav className="flex gap-4 sm:gap-6">
-            <Link href="/support" className="text-sm text-gray-500 hover:underline">
+            <Link href="/support" className="text-sm text-gray-500 hover:text-club-green transition-colors">
               Support
             </Link>
-            <Link href="/privacy" className="text-sm text-gray-500 hover:underline">
+            <Link href="/privacy" className="text-sm text-gray-500 hover:text-club-green transition-colors">
               Privacy Policy
             </Link>
-            <Link href="/terms" className="text-sm text-gray-500 hover:underline">
+            <Link href="/terms" className="text-sm text-gray-500 hover:text-club-green transition-colors">
               Terms of Service
             </Link>
           </nav>
