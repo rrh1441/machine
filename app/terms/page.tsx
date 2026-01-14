@@ -27,7 +27,7 @@ export default function TermsPage() {
       
       <div className="prose prose-green max-w-none">
         <h2>1. Rental Agreement</h2>
-        <p>By renting the Hydrogen Proton ball machine ("Equipment"), a product of First Serve Seattle, owned by Simple Apps, LLC you agree to these Terms of Service. You must be at least 18 years old to rent the Equipment.</p>
+        <p>By renting the Hydrogen Proton ball machine ("Equipment") from Seattle Ball Machine Rental, a product of First Serve Seattle, owned by Simple Apps, LLC, you agree to these Terms of Service. You must be at least 18 years old to rent the Equipment.</p>
         
         <h2>2. Rental Period</h2>
         <p>The rental period is for 2 hours per session, unless otherwise specified in your booking. There is a 15 minute grace period at the end of the rental. Late returns beyond this grace period will result in additional charges according to the following schedule:</p>
@@ -41,7 +41,7 @@ export default function TermsPage() {
         <p>Any delayed return of more than an hour is subject to the maximum $400 fee.</p>
         
         <h2>3. Tennis Balls and Equipment</h2>
-        <p>Rentals come with 65 tennis balls and a pickup basket. You will be responsible for a $2 per ball fee for any lost balls. Please return all equipment in the same condition as received.</p>
+        <p>Rentals come with 65 tennis balls and a pickup basket. You will be responsible for a $1 per ball fee for any lost balls. Please return all equipment in the same condition as received.</p>
         
         <h2>4. Condition of Equipment</h2>
         <p>You are responsible for inspecting the Equipment upon pickup. By accepting the Equipment, you acknowledge it is in good working condition. You agree to return the Equipment in the same condition, normal wear and tear excepted.</p>

@@ -8,6 +8,7 @@ interface BookingRequest {
   email: string;
   date: string;      // YYYY-MM-DD
   startTime: string; // HH:MM
+  waiverAcceptedAt?: string; // ISO timestamp
 }
 
 interface BookingResponse {
@@ -81,7 +82,7 @@ export async function POST(req: NextRequest): Promise<NextResponse<BookingRespon
     }, { status: 400 });
   }
 
-  const { email, date, startTime } = body;
+  const { email, date, startTime, waiverAcceptedAt } = body;
 
   if (!email || !date || !startTime) {
     return NextResponse.json({
@@ -180,7 +181,8 @@ export async function POST(req: NextRequest): Promise<NextResponse<BookingRespon
         duration_hours: SLOT_DURATION_HOURS,
         status: 'scheduled',
         booking_source: 'native',
-        google_calendar_event_id: googleEventId
+        google_calendar_event_id: googleEventId,
+        waiver_accepted_at: waiverAcceptedAt || null
       })
       .select()
       .single();

@@ -50,6 +50,7 @@ export default function BookPage() {
   const [email, setEmail] = useState('')
   const [selectedDate, setSelectedDate] = useState<Date | undefined>()
   const [selectedSlot, setSelectedSlot] = useState<TimeSlot | null>(null)
+  const [waiverAccepted, setWaiverAccepted] = useState(false)
 
   // Loading/error state
   const [loading, setLoading] = useState(false)
@@ -154,7 +155,8 @@ export default function BookPage() {
         body: JSON.stringify({
           email: email.toLowerCase().trim(),
           date: format(selectedDate, 'yyyy-MM-dd'),
-          startTime: selectedSlot.start
+          startTime: selectedSlot.start,
+          waiverAcceptedAt: new Date().toISOString()
         })
       })
 
@@ -182,6 +184,7 @@ export default function BookPage() {
     setError(null)
     setSlots([])
     setBookingResult(null)
+    setWaiverAccepted(false)
   }
 
   // Disable past dates and dates more than 30 days out
@@ -443,6 +446,36 @@ export default function BookPage() {
                       </div>
                     </div>
 
+                    {/* Liability Waiver */}
+                    <div className="border-2 border-club-green/20 bg-club-cream p-4 space-y-3">
+                      <p className="text-sm font-medium text-club-green">Rental Agreement & Liability Waiver</p>
+                      <div className="text-xs text-gray-600 space-y-2 max-h-32 overflow-y-auto">
+                        <p>By checking the box below, I agree to the following:</p>
+                        <ul className="list-disc pl-4 space-y-1">
+                          <li><strong>Assumption of Risk:</strong> I understand that using the ball machine involves inherent risks, including risk of injury. I voluntarily assume all risks associated with its use.</li>
+                          <li><strong>Liability Release:</strong> I release Seattle Ball Machine Rental, First Serve Seattle, Simple Apps LLC, and their owners from any claims, damages, or injuries arising from equipment use.</li>
+                          <li><strong>Equipment Responsibility:</strong> I am responsible for the equipment during my rental period and agree to pay for any damage or loss.</li>
+                          <li><strong>Lost Balls:</strong> I will return all 65 tennis balls. Lost balls are charged at $1 per ball.</li>
+                          <li><strong>Late Returns:</strong> Late fees apply: 16-30 min ($50), 31-45 min ($100), 46-60 min ($150), 61+ min ($400).</li>
+                          <li><strong>Supervision:</strong> I will be present during the entire rental and am responsible for all users of the equipment.</li>
+                        </ul>
+                        <p className="pt-1">
+                          Full terms at <Link href="/terms" target="_blank" className="text-club-green underline">seattleballmachine.com/terms</Link>
+                        </p>
+                      </div>
+                      <label className="flex items-start gap-3 cursor-pointer pt-2 border-t border-club-green/20">
+                        <input
+                          type="checkbox"
+                          checked={waiverAccepted}
+                          onChange={(e) => setWaiverAccepted(e.target.checked)}
+                          className="mt-0.5 h-4 w-4 rounded border-club-green text-club-green focus:ring-club-green"
+                        />
+                        <span className="text-sm text-gray-700">
+                          I have read and agree to the <Link href="/terms" target="_blank" className="text-club-green underline">Terms of Service</Link> and Liability Waiver
+                        </span>
+                      </label>
+                    </div>
+
                     <div className="flex gap-3">
                       <Button variant="outline" onClick={() => setStep('time')} className="flex-1 border-club-green text-club-green hover:bg-club-green/10 rounded-none">
                         Back
@@ -450,7 +483,7 @@ export default function BookPage() {
                       <Button
                         onClick={handleConfirmBooking}
                         className="flex-1 bg-club-green hover:bg-[#265c3a] rounded-none"
-                        disabled={loading}
+                        disabled={loading || !waiverAccepted}
                       >
                         {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Confirm Booking'}
                       </Button>
