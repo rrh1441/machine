@@ -21,7 +21,7 @@ export const emailTemplates = {
   <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #ffffff;">
     <tr>
       <td align="center" style="padding: 40px 20px;">
-        <table border="0" cellpadding="0" cellspacing="0" width="500" style="background-color: #ffffff;">
+        <table border="0" cellpadding="0" cellspacing="0" width="600" style="background-color: #ffffff;">
 
           <!-- Logo/Header -->
           <tr>
@@ -109,7 +109,7 @@ export const emailTemplates = {
   <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #ffffff;">
     <tr>
       <td align="center" style="padding: 40px 20px;">
-        <table border="0" cellpadding="0" cellspacing="0" width="500" style="background-color: #ffffff;">
+        <table border="0" cellpadding="0" cellspacing="0" width="600" style="background-color: #ffffff;">
 
           <!-- Logo/Header -->
           <tr>
@@ -203,7 +203,7 @@ export const emailTemplates = {
   <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #ffffff;">
     <tr>
       <td align="center" style="padding: 40px 20px;">
-        <table border="0" cellpadding="0" cellspacing="0" width="500" style="background-color: #ffffff;">
+        <table border="0" cellpadding="0" cellspacing="0" width="600" style="background-color: #ffffff;">
 
           <!-- Logo/Header -->
           <tr>
@@ -294,7 +294,7 @@ export const emailTemplates = {
   <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #ffffff;">
     <tr>
       <td align="center" style="padding: 40px 20px;">
-        <table border="0" cellpadding="0" cellspacing="0" width="500" style="background-color: #ffffff;">
+        <table border="0" cellpadding="0" cellspacing="0" width="600" style="background-color: #ffffff;">
 
           <!-- Logo/Header -->
           <tr>
@@ -366,7 +366,7 @@ export const emailTemplates = {
   <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #ffffff;">
     <tr>
       <td align="center" style="padding: 40px 20px;">
-        <table border="0" cellpadding="0" cellspacing="0" width="500" style="background-color: #ffffff;">
+        <table border="0" cellpadding="0" cellspacing="0" width="600" style="background-color: #ffffff;">
 
           <!-- Logo/Header -->
           <tr>
