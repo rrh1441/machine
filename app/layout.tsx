@@ -192,6 +192,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           strategy="lazyOnload"
           defer
         />
+        {/* Google Analytics */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-V2Y2VY5S71"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-V2Y2VY5S71');
+          `}
+        </Script>
       </head>
       <body className={`${playfair.variable} ${sourceSans.variable} font-sans`}>
         <MaintenancePopup />
