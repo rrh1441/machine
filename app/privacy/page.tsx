@@ -26,7 +26,7 @@ export default function PrivacyPage() {
       <h1 className="text-3xl font-bold tracking-tight mb-6">Privacy Policy</h1>
       
       <div className="prose prose-green max-w-none">
-        <p>Last Updated: April 6, 2025</p>
+        <p>Last Updated: February 3, 2026</p>
         
         <h2>1. Introduction</h2>
         <p>Seattle Ball Machine Rental ("we," "our," or "us"), a product of First Serve Seattle, owned by Simple Apps, LLC respects your privacy and is committed to protecting your personal information. This Privacy Policy explains how we collect, use, and safeguard your information when you use our website and services.</p>
@@ -57,11 +57,22 @@ export default function PrivacyPage() {
           <li>Third parties in connection with a business transfer (e.g., merger or acquisition)</li>
         </ul>
         <p>We do not sell your personal information to third parties.</p>
+
+        <h2>5. Third-Party Services</h2>
+        <p>We use the following third-party services to operate our business:</p>
+        <ul>
+          <li><strong>Stripe:</strong> For secure payment processing. Stripe&apos;s privacy policy can be found at <a href="https://stripe.com/privacy" target="_blank" rel="noopener noreferrer">stripe.com/privacy</a>.</li>
+          <li><strong>Supabase:</strong> For secure data storage and authentication.</li>
+          <li><strong>Google Analytics:</strong> For website analytics and usage insights.</li>
+          <li><strong>Google Calendar:</strong> For booking management and scheduling.</li>
+          <li><strong>Resend:</strong> For transactional email delivery.</li>
+        </ul>
+        <p>Each of these services has their own privacy policies governing their handling of your data.</p>
         
-        <h2>5. Data Security</h2>
+        <h2>6. Data Security</h2>
         <p>We implement appropriate security measures to protect your personal information from unauthorized access, alteration, disclosure, or destruction.</p>
         
-        <h2>6. Your Rights</h2>
+        <h2>7. Your Rights</h2>
         <p>Depending on your location, you may have the right to:</p>
         <ul>
           <li>Access personal information we hold about you</li>
@@ -71,16 +82,17 @@ export default function PrivacyPage() {
           <li>Data portability</li>
         </ul>
         
-        <h2>7. Cookies</h2>
+        <h2>8. Cookies and Analytics</h2>
         <p>We use cookies and similar technologies to enhance your experience on our website. You can manage cookie preferences through your browser settings.</p>
+        <p>We use Google Analytics to understand how visitors interact with our website. Google Analytics collects information such as how often users visit the site, what pages they visit, and what other sites they used prior to coming to our site. We use this information to improve our website and services. Google Analytics collects only the IP address assigned to you on the date you visit our site, rather than your name or other identifying information. You can opt out of Google Analytics by installing the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">Google Analytics Opt-out Browser Add-on</a>.</p>
         
-        <h2>8. Children's Privacy</h2>
+        <h2>9. Children's Privacy</h2>
         <p>Our services are not intended for individuals under 18 years of age. We do not knowingly collect personal information from children.</p>
         
-        <h2>9. Changes to This Policy</h2>
+        <h2>10. Changes to This Policy</h2>
         <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new policy on this page.</p>
         
-        <h2>10. Contact Us</h2>
+        <h2>11. Contact Us</h2>
         <p>If you have any questions about this Privacy Policy, please contact us at support@firstserveseattle.com</p>
       </div>
       

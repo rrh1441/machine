@@ -26,6 +26,8 @@ export default function TermsPage() {
       <h1 className="text-3xl font-bold tracking-tight mb-6">Terms of Service</h1>
       
       <div className="prose prose-green max-w-none">
+        <p>Last Updated: February 3, 2026</p>
+
         <h2>1. Rental Agreement</h2>
         <p>By renting the Hydrogen Proton ball machine ("Equipment") from Seattle Ball Machine Rental, a product of First Serve Seattle, owned by Simple Apps, LLC, you agree to these Terms of Service. You must be at least 18 years old to rent the Equipment.</p>
         
@@ -65,17 +67,32 @@ export default function TermsPage() {
         <h2>8. Cancellation Policy</h2>
         <p>Cancellations made more than 24 hours before your session will receive a full refund. Cancellations within 24 hours may be rescheduled but are not eligible for refunds unless due to inclement weather.</p>
         
-        <h2>9. Limitation of Liability</h2>
-        <p>Seattle Ball Machine Rental is not responsible for any injuries, damages, or losses resulting from the use of the Equipment. You use the Equipment at your own risk.</p>
-        
+        <h2>9. Assumption of Risk and Liability Waiver</h2>
+        <p><strong>PLEASE READ THIS SECTION CAREFULLY. BY RENTING THE EQUIPMENT, YOU ARE GIVING UP CERTAIN LEGAL RIGHTS.</strong></p>
+        <p>You acknowledge that tennis and the use of ball machine equipment involves inherent risks, including but not limited to: physical injury from tennis balls, equipment malfunction, slips, falls, overexertion, and other hazards associated with athletic activity. You voluntarily assume all such risks, both known and unknown, even if arising from the negligence of Seattle Ball Machine Rental or others, and assume full responsibility for your participation.</p>
+        <p>You hereby waive, release, and discharge Seattle Ball Machine Rental, First Serve Seattle, Simple Apps, LLC, and their officers, directors, employees, agents, and representatives from any and all liability, claims, demands, actions, or causes of action whatsoever arising out of or related to any loss, damage, or injury, including death, that may be sustained by you, or to any property belonging to you, while renting or using the Equipment, whether caused by the negligence of Seattle Ball Machine Rental or otherwise.</p>
+
         <h2>10. Indemnification</h2>
-        <p>You agree to indemnify and hold harmless Seattle Ball Machine Rental from any claims, damages, expenses, or liabilities related to your use of the Equipment.</p>
+        <p>You agree to indemnify, defend, and hold harmless Seattle Ball Machine Rental, First Serve Seattle, Simple Apps, LLC, and their officers, directors, employees, agents, and representatives from and against any and all claims, damages, expenses, judgments, penalties, losses, and liabilities (including reasonable attorneys&apos; fees) arising out of or related to your use of the Equipment, your violation of these Terms, or your violation of any rights of a third party.</p>
         
         <h2>11. Governing Law</h2>
         <p>These Terms of Service are governed by the laws of the State of Washington.</p>
         
         <h2>12. Modifications</h2>
         <p>Seattle Ball Machine Rental reserves the right to modify these Terms of Service at any time. Continued use of our services constitutes acceptance of any modified terms.</p>
+
+        <h2>13. Acknowledgment</h2>
+        <p>By checking the waiver acceptance box during the booking process, you acknowledge that:</p>
+        <ul>
+          <li>You have read, understood, and agree to be bound by these Terms of Service</li>
+          <li>You have read and understand the Assumption of Risk and Liability Waiver in Section 9</li>
+          <li>You are at least 18 years of age</li>
+          <li>You are voluntarily choosing to rent and use the Equipment</li>
+          <li>Your electronic acceptance has the same legal effect as a handwritten signature</li>
+        </ul>
+
+        <h2>14. Contact Us</h2>
+        <p>If you have any questions about these Terms of Service, please contact us at support@firstserveseattle.com</p>
       </div>
       
       <div className="mt-8">
