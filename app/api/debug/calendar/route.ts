@@ -137,6 +137,22 @@ export async function DELETE(req: NextRequest) {
     return NextResponse.json({ error: 'Booking not found', details: fetchError?.message }, { status: 404 });
   }
 
+  // Delete Google Calendar event if it exists
+  let calendarDeleted = false;
+  if (booking.google_calendar_event_id) {
+    const calendarClient = createGoogleCalendarClient();
+    if (calendarClient) {
+      try {
+        await calendarClient.deleteEvent(booking.google_calendar_event_id);
+        calendarDeleted = true;
+        console.log('Deleted Google Calendar event:', booking.google_calendar_event_id);
+      } catch (calError) {
+        console.error('Failed to delete Google Calendar event:', calError);
+        // Continue with deletion even if calendar delete fails
+      }
+    }
+  }
+
   // Delete any session_usage records first (foreign key constraint)
   await supabaseAdmin
     .from('session_usage')
@@ -155,6 +171,7 @@ export async function DELETE(req: NextRequest) {
 
   return NextResponse.json({
     success: true,
-    deleted: booking
+    deleted: booking,
+    calendarEventDeleted: calendarDeleted
   });
 }

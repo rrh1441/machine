@@ -1,4 +1,4 @@
-import { createGmailClient } from './client';
+import { resend } from '@/lib/resend/client';
 
 const FROM_EMAIL = 'Seattle Ball Machine <ryan@firstserveseattle.com>';
 
@@ -15,23 +15,28 @@ export const gmail = {
       subject: string;
       html: string;
     }) {
-      const client = createGmailClient();
-      if (!client) {
-        console.error('Gmail client not initialized');
-        return { error: 'Gmail not configured' };
+      if (!resend) {
+        console.error('Resend client not initialized - missing RESEND_API_KEY');
+        return { error: 'Email service not configured' };
       }
 
       try {
-        const result = await client.sendEmail({
-          from: FROM_EMAIL, // Always use our authenticated address
+        const { data, error } = await resend.emails.send({
+          from: FROM_EMAIL,
           to: options.to,
           subject: options.subject,
           html: options.html,
         });
-        console.log('Email sent via Gmail to:', options.to);
-        return { data: result };
+
+        if (error) {
+          console.error('Failed to send email via Resend:', error);
+          return { error };
+        }
+
+        console.log('Email sent via Resend to:', options.to);
+        return { data };
       } catch (error) {
-        console.error('Failed to send email via Gmail:', error);
+        console.error('Failed to send email via Resend:', error);
         return { error };
       }
     }
