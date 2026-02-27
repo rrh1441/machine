@@ -3,17 +3,23 @@
 import { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 
+const MAINTENANCE_END = new Date('2026-03-27');
+const STORAGE_KEY = 'maintenance-popup-dismissed-mar-2026';
+
 export default function MaintenancePopup() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Maintenance is complete - popup disabled
-    setIsVisible(false);
+    const now = new Date();
+    const isDismissed = localStorage.getItem(STORAGE_KEY) === 'true';
+    const isBeforeMaintenanceEnds = now <= MAINTENANCE_END;
+
+    setIsVisible(!isDismissed && isBeforeMaintenanceEnds);
   }, []);
 
   const handleClose = () => {
     setIsVisible(false);
-    localStorage.setItem('maintenance-popup-dismissed', 'true');
+    localStorage.setItem(STORAGE_KEY, 'true');
   };
 
   if (!isVisible) return null;
@@ -28,16 +34,16 @@ export default function MaintenancePopup() {
         >
           <X size={20} />
         </button>
-        
+
         <div className="pr-8">
           <h3 className="text-lg font-semibold text-gray-900 mb-3">
             Maintenance Notice
           </h3>
           <p className="text-gray-700 leading-relaxed">
-            Ball machine rentals will be unavailable from June 24-June 30. I am sending the machine back to the manufacturer for a tune-up. Thank you for your understanding!
+            Ball machine rentals will be unavailable from March 15-27. The machine is going out for maintenance. Thank you for your understanding!
           </p>
         </div>
-        
+
         <div className="mt-6">
           <button
             onClick={handleClose}

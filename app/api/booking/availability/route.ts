@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase/server';
 import { createGoogleCalendarClient } from '@/lib/google-calendar/client';
+import { BLOCKED_DATE_RANGES } from '@/lib/booking/constants';
 
 const SLOT_DURATION_HOURS = 2;
 const TIMEZONE = 'America/Los_Angeles';
@@ -62,6 +63,21 @@ export async function GET(req: NextRequest): Promise<NextResponse<AvailabilityRe
   }
 
   try {
+    // Check if date falls within a blocked date range
+    const isDateBlocked = BLOCKED_DATE_RANGES.some(range => {
+      return dateParam >= range.start && dateParam <= range.end;
+    });
+
+    if (isDateBlocked) {
+      return NextResponse.json({
+        date: dateParam,
+        dayOfWeek: getDayOfWeekInSeattle(dateParam),
+        businessHours: null,
+        slots: [],
+        error: 'Not available on this day'
+      });
+    }
+
     const dayOfWeek = getDayOfWeekInSeattle(dateParam);
 
     // 1. Get business hours for this day of week

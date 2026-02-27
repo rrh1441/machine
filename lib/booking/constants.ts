@@ -31,4 +31,10 @@ export const BOOKING_CONSTANTS = {
   LATEST_START_HOUR: 18,
 } as const;
 
+/** Blocked date ranges when ball machine is unavailable (inclusive) */
+export const BLOCKED_DATE_RANGES: Array<{ start: string; end: string }> = [
+  { start: '2026-03-05', end: '2026-03-06' },
+  { start: '2026-03-15', end: '2026-03-27' },
+];
+
 export type BookingConstants = typeof BOOKING_CONSTANTS;
