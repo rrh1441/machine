@@ -3,6 +3,7 @@ import { supabaseAdmin } from '@/lib/supabase/server';
 import { createGoogleCalendarClient } from '@/lib/google-calendar/client';
 import { gmail } from '@/lib/gmail/email-service';
 import { emailTemplates } from '@/lib/emails/templates';
+import { notifyOwnerOfBooking } from '@/lib/emails/notify-owner';
 
 interface BookingRequest {
   email: string;
@@ -252,6 +253,13 @@ export async function POST(req: NextRequest): Promise<NextResponse<BookingRespon
     } catch (emailError) {
       console.error('Failed to send confirmation email:', emailError);
       // Don't fail the booking if email fails
+    }
+
+    // 10. Notify owner of new booking
+    try {
+      await notifyOwnerOfBooking(email, customer.name, bookingDatetime, 'new');
+    } catch (ownerEmailError) {
+      console.error('Failed to send owner notification:', ownerEmailError);
     }
 
     return NextResponse.json({

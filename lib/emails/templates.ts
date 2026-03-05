@@ -353,6 +353,42 @@ export const emailTemplates = {
     `,
   }),
 
+  // Owner notification templates
+  ownerBookingNotification: (customerEmail: string, customerName: string | null, date: Date, type: 'new' | 'reschedule' | 'cancel') => {
+    const typeLabels = {
+      new: { subject: '📅 New Booking', heading: 'New booking received' },
+      reschedule: { subject: '🔄 Booking Rescheduled', heading: 'Booking rescheduled' },
+      cancel: { subject: '❌ Booking Cancelled', heading: 'Booking cancelled' }
+    };
+    const { subject, heading } = typeLabels[type];
+
+    return {
+      subject: `${subject} - ${customerName || customerEmail}`,
+      html: `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>${subject}</title>
+</head>
+<body style="margin: 0; padding: 20px; font-family: Arial, sans-serif; background-color: #f9fafb;">
+  <table width="100%" style="max-width: 500px; margin: 0 auto; background: white; border-radius: 8px; padding: 24px;">
+    <tr>
+      <td>
+        <h2 style="margin: 0 0 16px 0; color: #111827;">${heading}</h2>
+        <p style="margin: 0 0 8px 0; color: #374151;"><strong>Customer:</strong> ${customerName || 'N/A'}</p>
+        <p style="margin: 0 0 8px 0; color: #374151;"><strong>Email:</strong> ${customerEmail}</p>
+        <p style="margin: 0 0 8px 0; color: #374151;"><strong>Date:</strong> ${date.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" })}</p>
+        <p style="margin: 0; color: #374151;"><strong>Time:</strong> ${date.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", timeZone: "America/Los_Angeles" })} PT</p>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+      `
+    };
+  },
+
   noSessionsWarning: () => ({
     subject: "No Sessions Available - Action Required",
     html: `

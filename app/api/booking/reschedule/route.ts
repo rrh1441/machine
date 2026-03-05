@@ -3,6 +3,7 @@ import { supabaseAdmin } from '@/lib/supabase/server';
 import { createGoogleCalendarClient } from '@/lib/google-calendar/client';
 import { gmail } from '@/lib/gmail/email-service';
 import { emailTemplates } from '@/lib/emails/templates';
+import { notifyOwnerOfBooking } from '@/lib/emails/notify-owner';
 
 interface RescheduleRequest {
   bookingId: string;
@@ -243,6 +244,13 @@ export async function POST(req: NextRequest): Promise<NextResponse<RescheduleRes
         console.log('Sent reschedule confirmation email to:', customerData.email);
       } catch (emailError) {
         console.error('Failed to send confirmation email:', emailError);
+      }
+
+      // 11. Notify owner of reschedule
+      try {
+        await notifyOwnerOfBooking(customerData.email, customerData.name, newBookingDatetime, 'reschedule');
+      } catch (ownerEmailError) {
+        console.error('Failed to send owner notification:', ownerEmailError);
       }
     }
 

@@ -3,6 +3,7 @@ import { supabaseAdmin } from '@/lib/supabase/server';
 import { createGoogleCalendarClient } from '@/lib/google-calendar/client';
 import { gmail } from '@/lib/gmail/email-service';
 import { emailTemplates } from '@/lib/emails/templates';
+import { notifyOwnerOfBooking } from '@/lib/emails/notify-owner';
 
 interface CancelRequest {
   bookingId: string;
@@ -177,6 +178,13 @@ export async function POST(req: NextRequest): Promise<NextResponse<CancelRespons
         console.log('Sent cancellation email to:', customerData.email);
       } catch (emailError) {
         console.error('Failed to send cancellation email:', emailError);
+      }
+
+      // 9. Notify owner of cancellation
+      try {
+        await notifyOwnerOfBooking(customerData.email, customerData.name, bookingDate, 'cancel');
+      } catch (ownerEmailError) {
+        console.error('Failed to send owner notification:', ownerEmailError);
       }
     }
 
