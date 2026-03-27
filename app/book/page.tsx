@@ -101,10 +101,25 @@ export default function BookPage() {
     setLoading(true)
     setError(null)
 
-    // For now, we'll validate the customer exists when they try to book
-    // Just move to date selection
-    setStep('date')
-    setLoading(false)
+    try {
+      const res = await fetch(`/api/booking/check-credits?email=${encodeURIComponent(email.toLowerCase().trim())}`)
+      const data = await res.json()
+
+      if (data.error) {
+        setError(data.error)
+        setSessionsAvailable(null)
+      } else if (!data.hasCredits) {
+        setError('No sessions available. Please purchase a session pack first.')
+        setSessionsAvailable(0)
+      } else {
+        setSessionsAvailable(data.sessionsAvailable)
+        setStep('date')
+      }
+    } catch {
+      setError('Failed to verify account')
+    } finally {
+      setLoading(false)
+    }
   }
 
   function handleDateSelect(date: Date | undefined) {
@@ -312,6 +327,14 @@ export default function BookPage() {
               {step === 'date' && (
                 <Card className="border-2 border-club-green bg-white shadow-[8px_8px_0_#1a472a]">
                   <CardHeader>
+                    {sessionsAvailable !== null && (
+                      <div className="mb-3 flex items-center justify-center gap-2 bg-club-green/10 py-2 px-4 border border-club-green/20">
+                        <CheckCircle className="h-4 w-4 text-club-green" />
+                        <span className="text-sm font-medium text-club-green">
+                          You have {sessionsAvailable} session{sessionsAvailable !== 1 ? 's' : ''} available
+                        </span>
+                      </div>
+                    )}
                     <CardTitle className="flex items-center gap-2 font-serif text-xl text-club-green">
                       <CalendarIcon className="h-5 w-5" />
                       Select a Date
@@ -341,6 +364,14 @@ export default function BookPage() {
               {step === 'time' && (
                 <Card className="border-2 border-club-green bg-white shadow-[8px_8px_0_#1a472a]">
                   <CardHeader>
+                    {sessionsAvailable !== null && (
+                      <div className="mb-3 flex items-center justify-center gap-2 bg-club-green/10 py-2 px-4 border border-club-green/20">
+                        <CheckCircle className="h-4 w-4 text-club-green" />
+                        <span className="text-sm font-medium text-club-green">
+                          You have {sessionsAvailable} session{sessionsAvailable !== 1 ? 's' : ''} available
+                        </span>
+                      </div>
+                    )}
                     <CardTitle className="flex items-center gap-2 font-serif text-xl text-club-green">
                       <Clock className="h-5 w-5" />
                       Select a Start Time
@@ -413,6 +444,14 @@ export default function BookPage() {
               {step === 'confirm' && selectedDate && selectedSlot && (
                 <Card className="border-2 border-club-green bg-white shadow-[8px_8px_0_#1a472a]">
                   <CardHeader>
+                    {sessionsAvailable !== null && (
+                      <div className="mb-3 flex items-center justify-center gap-2 bg-club-green/10 py-2 px-4 border border-club-green/20">
+                        <CheckCircle className="h-4 w-4 text-club-green" />
+                        <span className="text-sm font-medium text-club-green">
+                          Using 1 of {sessionsAvailable} session{sessionsAvailable !== 1 ? 's' : ''} available
+                        </span>
+                      </div>
+                    )}
                     <CardTitle className="flex items-center gap-2 font-serif text-xl text-club-green">
                       <CheckCircle className="h-5 w-5 text-club-green" />
                       Confirm Your Booking
