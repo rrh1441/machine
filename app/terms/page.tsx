@@ -26,7 +26,7 @@ export default function TermsPage() {
       <h1 className="text-3xl font-bold tracking-tight mb-6">Terms of Service</h1>
       
       <div className="prose prose-green max-w-none">
-        <p>Last Updated: February 3, 2026</p>
+        <p>Last Updated: March 27, 2026</p>
 
         <h2>1. Rental Agreement</h2>
         <p>By renting the Hydrogen Proton ball machine ("Equipment") from Seattle Ball Machine Rental, a product of First Serve Seattle, owned by Simple Apps, LLC, you agree to these Terms of Service. You must be at least 18 years old to rent the Equipment.</p>
