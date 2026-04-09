@@ -26,6 +26,7 @@ import LiteYouTubeEmbed from 'react-lite-youtube-embed'
 import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css'
 
 import { NearbyCourtsMapWidget } from './components/local/nearby-courts-map'
+import { AvailabilityPreview } from './components/local/availability-preview'
 
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -328,8 +329,26 @@ export default function LandingPage() {
           </div>
         </section>
 
+        {/* ─────────────── Availability Preview ─────────────── */}
+        <section id="availability" className="w-full bg-white py-16 md:py-24 lg:py-28">
+          <div className="container px-4 md:px-[5%] max-w-5xl mx-auto">
+            <div className="text-center mb-12">
+              <span className="text-court-clay font-bold uppercase tracking-[2px] text-sm mb-4 block">
+                Check Availability
+              </span>
+              <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-club-green">
+                When Can You Play?
+              </h2>
+              <p className="mx-auto mt-4 max-w-[700px] text-gray-600 text-base md:text-lg">
+                See available 2-hour session times. Green slots are open, gray slots are already booked.
+              </p>
+            </div>
+            <AvailabilityPreview />
+          </div>
+        </section>
+
         {/* ─────────────── Pricing section ─────────────── */}
-        <section id="pricing" className="w-full bg-white py-16 md:py-24 lg:py-28">
+        <section id="pricing" className="w-full bg-club-cream py-16 md:py-24 lg:py-28">
           <div className="container px-4 md:px-[5%] text-center">
             <span className="text-court-clay font-bold uppercase tracking-[2px] text-sm mb-4 block">
               Pricing
