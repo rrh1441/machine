@@ -24,6 +24,9 @@ export const BOOKING_CONSTANTS = {
   /** Minimum hours notice required to reschedule */
   MIN_RESCHEDULE_NOTICE_HOURS: 2,
 
+  /** Buffer time between different renters' bookings in minutes */
+  BUFFER_MINUTES_BETWEEN_BOOKINGS: 30,
+
   /** Earliest allowed start hour (7 AM) */
   EARLIEST_START_HOUR: 7,
 

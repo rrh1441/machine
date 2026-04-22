@@ -51,6 +51,7 @@ export default function BookPage() {
   const [selectedDate, setSelectedDate] = useState<Date | undefined>()
   const [selectedSlot, setSelectedSlot] = useState<TimeSlot | null>(null)
   const [waiverAccepted, setWaiverAccepted] = useState(false)
+  const [bookBackToBack, setBookBackToBack] = useState(false)
 
   // Loading/error state
   const [loading, setLoading] = useState(false)
@@ -76,7 +77,9 @@ export default function BookPage() {
 
     try {
       const dateStr = format(date, 'yyyy-MM-dd')
-      const res = await fetch(`/api/booking/availability?date=${dateStr}`)
+      // Pass email to get same-renter availability (allows back-to-back)
+      const emailQuery = email ? `&email=${encodeURIComponent(email.toLowerCase().trim())}` : ''
+      const res = await fetch(`/api/booking/availability?date=${dateStr}${emailQuery}`)
       const data: AvailabilityResponse = await res.json()
 
       if (data.error) {
@@ -132,6 +135,7 @@ export default function BookPage() {
   function handleSlotSelect(slot: TimeSlot) {
     if (!slot.available) return
     setSelectedSlot(slot)
+    setBookBackToBack(false) // Reset back-to-back when selecting new slot
     setStep('confirm')
   }
 
@@ -171,7 +175,9 @@ export default function BookPage() {
           email: email.toLowerCase().trim(),
           date: format(selectedDate, 'yyyy-MM-dd'),
           startTime: selectedSlot.start,
-          waiverAcceptedAt: new Date().toISOString()
+          waiverAcceptedAt: new Date().toISOString(),
+          // Include back-to-back slot if selected
+          backToBackSlot: bookBackToBack && adjacentSlot ? adjacentSlot.start : undefined
         })
       })
 
@@ -200,7 +206,17 @@ export default function BookPage() {
     setSlots([])
     setBookingResult(null)
     setWaiverAccepted(false)
+    setBookBackToBack(false)
   }
+
+  // Find the adjacent slot (starts when selected slot ends)
+  function getAdjacentSlot(): TimeSlot | null {
+    if (!selectedSlot) return null
+    return slots.find(s => s.start === selectedSlot.end && s.available) || null
+  }
+
+  const adjacentSlot = getAdjacentSlot()
+  const canBookBackToBack = sessionsAvailable !== null && sessionsAvailable >= 2 && adjacentSlot !== null
 
   // Disable past dates and dates more than 30 days out
   const disabledDays = (date: Date) => {
@@ -448,7 +464,7 @@ export default function BookPage() {
                       <div className="mb-3 flex items-center justify-center gap-2 bg-club-green/10 py-2 px-4 border border-club-green/20">
                         <CheckCircle className="h-4 w-4 text-club-green" />
                         <span className="text-sm font-medium text-club-green">
-                          Using 1 of {sessionsAvailable} session{sessionsAvailable !== 1 ? 's' : ''} available
+                          Using {bookBackToBack ? 2 : 1} of {sessionsAvailable} session{sessionsAvailable !== 1 ? 's' : ''} available
                         </span>
                       </div>
                     )}
@@ -465,17 +481,41 @@ export default function BookPage() {
                       </div>
                       <div className="flex justify-between">
                         <span className="text-gray-600">Time</span>
-                        <span className="font-medium text-club-green">{selectedSlot.start} - {selectedSlot.end}</span>
+                        <span className="font-medium text-club-green">
+                          {selectedSlot.start} - {bookBackToBack && adjacentSlot ? adjacentSlot.end : selectedSlot.end}
+                        </span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-gray-600">Duration</span>
-                        <span className="font-medium text-club-green">2 hours</span>
+                        <span className="font-medium text-club-green">{bookBackToBack ? '4 hours' : '2 hours'}</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-gray-600">Email</span>
                         <span className="font-medium text-club-green">{email}</span>
                       </div>
                     </div>
+
+                    {/* Back-to-back option */}
+                    {canBookBackToBack && adjacentSlot && (
+                      <div className="border-2 border-court-clay/30 bg-court-clay/5 p-4">
+                        <label className="flex items-start gap-3 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={bookBackToBack}
+                            onChange={(e) => setBookBackToBack(e.target.checked)}
+                            className="mt-0.5 h-4 w-4 rounded border-court-clay text-court-clay focus:ring-court-clay"
+                          />
+                          <div>
+                            <span className="text-sm font-medium text-club-green">
+                              Book back-to-back session
+                            </span>
+                            <p className="text-xs text-gray-600 mt-1">
+                              Add {adjacentSlot.start} - {adjacentSlot.end} for a total of 4 hours (uses 2 credits)
+                            </p>
+                          </div>
+                        </label>
+                      </div>
+                    )}
 
                     <div className="flex items-start gap-3 border-2 border-club-green/20 bg-club-cream p-4">
                       <MapPin className="h-5 w-5 text-court-clay mt-0.5" />

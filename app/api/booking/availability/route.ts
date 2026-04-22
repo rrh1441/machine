@@ -1,13 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase/server';
 import { createGoogleCalendarClient } from '@/lib/google-calendar/client';
-import { BLOCKED_DATE_RANGES } from '@/lib/booking/constants';
+import { BLOCKED_DATE_RANGES, BOOKING_CONSTANTS } from '@/lib/booking/constants';
 
 const SLOT_DURATION_HOURS = 2;
 const TIMEZONE = 'America/Los_Angeles';
 const MIN_HOURS_IN_ADVANCE = 8; // Must book at least 8 hours ahead
 const EARLIEST_START_HOUR = 7;  // 7:00 AM
 const LATEST_START_HOUR = 18;   // 6:00 PM (session ends at 8:00 PM)
+const BUFFER_MINUTES = BOOKING_CONSTANTS.BUFFER_MINUTES_BETWEEN_BOOKINGS;
 
 interface TimeSlot {
   start: string; // HH:MM format
@@ -24,11 +25,13 @@ interface AvailabilityResponse {
 }
 
 /**
- * GET /api/booking/availability?date=2025-01-15
+ * GET /api/booking/availability?date=2025-01-15&email=user@example.com
  * Returns available 2-hour slots for the given date
+ * If email is provided, same-renter can book back-to-back (no buffer applied)
  */
 export async function GET(req: NextRequest): Promise<NextResponse<AvailabilityResponse>> {
   const dateParam = req.nextUrl.searchParams.get('date');
+  const emailParam = req.nextUrl.searchParams.get('email')?.toLowerCase().trim();
 
   if (!dateParam) {
     return NextResponse.json({
@@ -103,10 +106,21 @@ export async function GET(req: NextRequest): Promise<NextResponse<AvailabilityRe
       end: `${(LATEST_START_HOUR + SLOT_DURATION_HOURS).toString().padStart(2, '0')}:00` // 8pm end
     };
 
-    // 2. Generate all possible slots (7am to 6pm start times, ending by 8pm)
+    // 2. Look up customer ID if email provided (for same-renter back-to-back booking)
+    let requestingCustomerId: string | null = null;
+    if (emailParam) {
+      const { data: customer } = await supabaseAdmin
+        .from('customers')
+        .select('id')
+        .eq('email', emailParam)
+        .single();
+      requestingCustomerId = customer?.id || null;
+    }
+
+    // 3. Generate all possible slots (7am to 6pm start times, ending by 8pm)
     const allSlots = generateSlots(businessHours.start, businessHours.end, SLOT_DURATION_HOURS);
 
-    // 3. Get blocked times from database
+    // 4. Get blocked times from database
     // Use proper Seattle timezone conversion for day boundaries
     const dayStart = parseSeattleTime(dateParam, '00:00');
     const dayEnd = parseSeattleTime(dateParam, '23:59');
@@ -117,14 +131,14 @@ export async function GET(req: NextRequest): Promise<NextResponse<AvailabilityRe
       .lt('start_datetime', dayEnd.toISOString())
       .gt('end_datetime', dayStart.toISOString());
 
-    // 4. Get existing bookings
+    // 5. Get existing bookings (include customer_id for same-renter check)
     const { data: bookings } = await supabaseAdmin
       .from('bookings')
-      .select('booking_datetime, duration_hours')
+      .select('booking_datetime, duration_hours, customer_id')
       .eq('booking_date', dateParam)
       .eq('status', 'scheduled');
 
-    // 5. Try to get Google Calendar busy times
+    // 6. Try to get Google Calendar busy times
     let googleBusyPeriods: Array<{ start: Date; end: Date }> = [];
     try {
       const calendarClient = createGoogleCalendarClient();
@@ -135,7 +149,7 @@ export async function GET(req: NextRequest): Promise<NextResponse<AvailabilityRe
       console.error('Google Calendar error (continuing without it):', calError);
     }
 
-    // 6. Mark slots as available/unavailable
+    // 7. Mark slots as available/unavailable
     const slots = allSlots.map(slot => {
       const slotStart = parseSeattleTime(dateParam, slot.start);
       const slotEnd = parseSeattleTime(dateParam, slot.end);
@@ -157,14 +171,23 @@ export async function GET(req: NextRequest): Promise<NextResponse<AvailabilityRe
         return { ...slot, available: false };
       }
 
-      // Check existing bookings
-      const hasBooking = (bookings || []).some(booking => {
+      // Check existing bookings (with buffer for different renters)
+      const hasConflict = (bookings || []).some(booking => {
         const bookingStart = new Date(booking.booking_datetime);
         const duration = booking.duration_hours || SLOT_DURATION_HOURS;
         const bookingEnd = new Date(bookingStart.getTime() + duration * 60 * 60 * 1000);
-        return bookingStart < slotEnd && bookingEnd > slotStart;
+
+        // Check if this is the same customer (no buffer needed for back-to-back)
+        const isSameCustomer = requestingCustomerId && booking.customer_id === requestingCustomerId;
+
+        // For same customer: only block if actual overlap (allows back-to-back)
+        // For different customer: add buffer time to prevent back-to-back
+        const bufferMs = isSameCustomer ? 0 : BUFFER_MINUTES * 60 * 1000;
+        const effectiveBookingEnd = new Date(bookingEnd.getTime() + bufferMs);
+
+        return bookingStart < slotEnd && effectiveBookingEnd > slotStart;
       });
-      if (hasBooking) {
+      if (hasConflict) {
         return { ...slot, available: false };
       }
 

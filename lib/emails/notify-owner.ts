@@ -11,13 +11,15 @@ export async function notifyOwnerOfBooking(
   customerEmail: string,
   customerName: string | null,
   bookingDatetime: Date,
-  type: 'new' | 'reschedule' | 'cancel'
+  type: 'new' | 'reschedule' | 'cancel',
+  endTime?: Date
 ): Promise<void> {
   const emailContent = emailTemplates.ownerBookingNotification(
     customerEmail,
     customerName,
     bookingDatetime,
-    type
+    type,
+    endTime
   );
 
   for (const ownerEmail of OWNER_EMAILS) {

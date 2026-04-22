@@ -92,8 +92,15 @@ export const emailTemplates = {
     `,
   }),
 
-  bookingConfirmation: (date: Date, sessionsRemaining: number, rescheduleUrl?: string, cancelUrl?: string) => ({
-    subject: "Booking Confirmed - Seattle Ball Machine",
+  bookingConfirmation: (date: Date, sessionsRemaining: number, rescheduleUrl?: string, cancelUrl?: string, endTime?: Date) => {
+    const isBackToBack = !!endTime;
+    const durationHours = isBackToBack ? 4 : 2;
+    const endTimeStr = endTime
+      ? endTime.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })
+      : new Date(date.getTime() + 2 * 60 * 60 * 1000).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
+
+    return {
+    subject: isBackToBack ? "Back-to-Back Booking Confirmed - Seattle Ball Machine" : "Booking Confirmed - Seattle Ball Machine",
     html: `
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -138,10 +145,13 @@ export const emailTemplates = {
           <tr>
             <td style="padding-bottom: 25px; background-color: #ffffff !important;">
               <p style="margin: 0; font-size: 22px; color: #111827 !important; font-weight: 600; background-color: #ffffff !important;">
-                ${date.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })} at ${date.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })}
+                ${date.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}
+              </p>
+              <p style="margin: 8px 0 0 0; font-size: 18px; color: #111827 !important; background-color: #ffffff !important;">
+                ${date.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })} - ${endTimeStr}${isBackToBack ? ' (back-to-back)' : ''}
               </p>
               <p style="margin: 8px 0 0 0; font-size: 15px; color: #6b7280 !important; background-color: #ffffff !important;">
-                2 hours &bull; 65 balls + basket &bull; ${sessionsRemaining} session${sessionsRemaining !== 1 ? "s" : ""} remaining
+                ${durationHours} hours &bull; 65 balls + basket &bull; ${sessionsRemaining} session${sessionsRemaining !== 1 ? "s" : ""} remaining
               </p>
             </td>
           </tr>
@@ -188,7 +198,8 @@ export const emailTemplates = {
 </body>
 </html>
     `,
-  }),
+  };
+  },
 
   bookingReminder: (date: Date, time: string) => ({
     subject: "Reminder: Your ball machine rental is tomorrow!",
@@ -354,16 +365,21 @@ export const emailTemplates = {
   }),
 
   // Owner notification templates
-  ownerBookingNotification: (customerEmail: string, customerName: string | null, date: Date, type: 'new' | 'reschedule' | 'cancel') => {
+  ownerBookingNotification: (customerEmail: string, customerName: string | null, date: Date, type: 'new' | 'reschedule' | 'cancel', endTime?: Date) => {
     const typeLabels = {
       new: { subject: '📅 New Booking', heading: 'New booking received' },
       reschedule: { subject: '🔄 Booking Rescheduled', heading: 'Booking rescheduled' },
       cancel: { subject: '❌ Booking Cancelled', heading: 'Booking cancelled' }
     };
     const { subject, heading } = typeLabels[type];
+    const isBackToBack = !!endTime;
+    const durationHours = isBackToBack ? 4 : 2;
+    const endTimeStr = endTime
+      ? endTime.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", timeZone: "America/Los_Angeles" })
+      : new Date(date.getTime() + 2 * 60 * 60 * 1000).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", timeZone: "America/Los_Angeles" });
 
     return {
-      subject: `${subject} - ${customerName || customerEmail}`,
+      subject: `${subject}${isBackToBack ? ' (Back-to-Back)' : ''} - ${customerName || customerEmail}`,
       html: `
 <!DOCTYPE html>
 <html>
@@ -375,11 +391,12 @@ export const emailTemplates = {
   <table width="100%" style="max-width: 500px; margin: 0 auto; background: white; border-radius: 8px; padding: 24px;">
     <tr>
       <td>
-        <h2 style="margin: 0 0 16px 0; color: #111827;">${heading}</h2>
+        <h2 style="margin: 0 0 16px 0; color: #111827;">${heading}${isBackToBack ? ' (Back-to-Back)' : ''}</h2>
         <p style="margin: 0 0 8px 0; color: #374151;"><strong>Customer:</strong> ${customerName || 'N/A'}</p>
         <p style="margin: 0 0 8px 0; color: #374151;"><strong>Email:</strong> ${customerEmail}</p>
         <p style="margin: 0 0 8px 0; color: #374151;"><strong>Date:</strong> ${date.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" })}</p>
-        <p style="margin: 0; color: #374151;"><strong>Time:</strong> ${date.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", timeZone: "America/Los_Angeles" })} PT</p>
+        <p style="margin: 0 0 8px 0; color: #374151;"><strong>Time:</strong> ${date.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", timeZone: "America/Los_Angeles" })} - ${endTimeStr} PT</p>
+        <p style="margin: 0; color: #374151;"><strong>Duration:</strong> ${durationHours} hours${isBackToBack ? ' (2 sessions)' : ''}</p>
       </td>
     </tr>
   </table>

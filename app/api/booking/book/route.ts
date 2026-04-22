@@ -10,6 +10,7 @@ interface BookingRequest {
   date: string;      // YYYY-MM-DD
   startTime: string; // HH:MM
   waiverAcceptedAt?: string; // ISO timestamp
+  backToBackSlot?: string; // HH:MM - optional second consecutive slot
 }
 
 interface BookingResponse {
@@ -83,7 +84,9 @@ export async function POST(req: NextRequest): Promise<NextResponse<BookingRespon
     }, { status: 400 });
   }
 
-  const { email, date, startTime, waiverAcceptedAt } = body;
+  const { email, date, startTime, waiverAcceptedAt, backToBackSlot } = body;
+  const isBackToBack = !!backToBackSlot;
+  const creditsRequired = isBackToBack ? 2 : 1;
 
   if (!email || !date || !startTime) {
     return NextResponse.json({
@@ -110,17 +113,20 @@ export async function POST(req: NextRequest): Promise<NextResponse<BookingRespon
     // 2. Check available sessions
     const { data: credits } = await supabaseAdmin
       .from('session_credits')
-      .select('sessions_remaining')
+      .select('id, sessions_remaining, expires_at, created_at')
       .eq('customer_id', customer.id)
       .gt('sessions_remaining', 0)
-      .gt('expires_at', new Date().toISOString());
+      .gt('expires_at', new Date().toISOString())
+      .order('created_at', { ascending: true });
 
     const totalSessions = credits?.reduce((sum, c) => sum + c.sessions_remaining, 0) || 0;
 
-    if (totalSessions === 0) {
+    if (totalSessions < creditsRequired) {
       return NextResponse.json({
         success: false,
-        error: 'No sessions available. Please purchase more sessions.'
+        error: isBackToBack
+          ? `Not enough sessions for back-to-back booking. You have ${totalSessions}, need ${creditsRequired}.`
+          : 'No sessions available. Please purchase more sessions.'
       }, { status: 400 });
     }
 
@@ -128,7 +134,13 @@ export async function POST(req: NextRequest): Promise<NextResponse<BookingRespon
     const bookingDatetime = parseSeattleTime(date, startTime);
     const endTime = new Date(bookingDatetime.getTime() + SLOT_DURATION_HOURS * 60 * 60 * 1000);
 
-    // 4. Verify slot is still available (double-check for race conditions)
+    // Back-to-back slot times (if applicable)
+    const backToBackDatetime = isBackToBack ? parseSeattleTime(date, backToBackSlot) : null;
+    const backToBackEndTime = backToBackDatetime
+      ? new Date(backToBackDatetime.getTime() + SLOT_DURATION_HOURS * 60 * 60 * 1000)
+      : null;
+
+    // 4. Verify slot(s) are still available (double-check for race conditions)
     const { data: conflictCheck } = await supabaseAdmin
       .from('bookings')
       .select('id')
@@ -143,9 +155,29 @@ export async function POST(req: NextRequest): Promise<NextResponse<BookingRespon
       }, { status: 409 });
     }
 
+    // Check back-to-back slot availability if applicable
+    if (isBackToBack) {
+      const { data: backToBackConflict } = await supabaseAdmin
+        .from('bookings')
+        .select('id')
+        .eq('booking_date', date)
+        .eq('booking_time', `${backToBackSlot}:00`)
+        .eq('status', 'scheduled');
+
+      if (backToBackConflict && backToBackConflict.length > 0) {
+        return NextResponse.json({
+          success: false,
+          error: 'The back-to-back time slot is no longer available'
+        }, { status: 409 });
+      }
+    }
+
     // 5. Create Google Calendar event (if configured)
+    // For back-to-back bookings, create a single 4-hour event
     let googleEventId: string | null = null;
     const calendarClient = createGoogleCalendarClient();
+    const calendarEndTime = isBackToBack && backToBackEndTime ? backToBackEndTime : endTime;
+    const durationText = isBackToBack ? '4-hour (back-to-back)' : '2-hour';
 
     if (calendarClient) {
       try {
@@ -153,9 +185,9 @@ export async function POST(req: NextRequest): Promise<NextResponse<BookingRespon
         console.log('Calendar ID:', process.env.GOOGLE_CALENDAR_ID || 'primary (default)');
         const event = await calendarClient.createEvent({
           summary: `Ball Machine Rental - ${customer.name || email}`,
-          description: `2-hour ball machine rental session.\n\nCustomer: ${customer.name || 'N/A'}\nEmail: ${email}`,
+          description: `${durationText} ball machine rental session.\n\nCustomer: ${customer.name || 'N/A'}\nEmail: ${email}`,
           startTime: bookingDatetime,
-          endTime: endTime,
+          endTime: calendarEndTime,
           attendeeEmail: email,
           location: PICKUP_LOCATION
         });
@@ -171,7 +203,7 @@ export async function POST(req: NextRequest): Promise<NextResponse<BookingRespon
       console.warn('Google Calendar client not initialized - check GMAIL_CLIENT_ID, GMAIL_CLIENT_SECRET, GMAIL_REFRESH_TOKEN env vars');
     }
 
-    // 6. Create booking in database
+    // 6. Create booking(s) in database
     const { data: booking, error: bookingError } = await supabaseAdmin
       .from('bookings')
       .insert({
@@ -204,30 +236,75 @@ export async function POST(req: NextRequest): Promise<NextResponse<BookingRespon
       }, { status: 500 });
     }
 
-    // 7. Deduct session (FIFO - oldest credit first)
-    const { data: oldestCredit } = await supabaseAdmin
-      .from('session_credits')
-      .select('id, sessions_remaining')
-      .eq('customer_id', customer.id)
-      .gt('sessions_remaining', 0)
-      .gt('expires_at', new Date().toISOString())
-      .order('created_at', { ascending: true })
-      .limit(1)
-      .single();
+    // Create second booking for back-to-back slot
+    let backToBackBooking = null;
+    if (isBackToBack && backToBackDatetime) {
+      const { data: secondBooking, error: secondBookingError } = await supabaseAdmin
+        .from('bookings')
+        .insert({
+          customer_id: customer.id,
+          booking_date: date,
+          booking_time: `${backToBackSlot}:00`,
+          booking_datetime: backToBackDatetime.toISOString(),
+          duration_hours: SLOT_DURATION_HOURS,
+          status: 'scheduled',
+          booking_source: 'native',
+          google_calendar_event_id: googleEventId, // Same calendar event
+          waiver_accepted_at: waiverAcceptedAt || null
+        })
+        .select()
+        .single();
 
-    if (oldestCredit) {
+      if (secondBookingError) {
+        console.error('Back-to-back booking creation error:', secondBookingError);
+        // Rollback first booking
+        await supabaseAdmin.from('bookings').delete().eq('id', booking.id);
+        if (googleEventId && calendarClient) {
+          try {
+            await calendarClient.deleteEvent(googleEventId);
+          } catch {
+            console.error('Failed to rollback calendar event');
+          }
+        }
+        return NextResponse.json({
+          success: false,
+          error: 'Failed to create back-to-back booking'
+        }, { status: 500 });
+      }
+      backToBackBooking = secondBooking;
+    }
+
+    // 7. Deduct sessions (FIFO - oldest credit first)
+    // We already fetched credits with order by created_at in step 2
+    let creditsToDeduct = creditsRequired;
+    const bookingsToTrack = [booking];
+    if (backToBackBooking) bookingsToTrack.push(backToBackBooking);
+
+    for (const credit of credits || []) {
+      if (creditsToDeduct <= 0) break;
+
+      const deductFromThis = Math.min(credit.sessions_remaining, creditsToDeduct);
+
       await supabaseAdmin
         .from('session_credits')
-        .update({ sessions_remaining: oldestCredit.sessions_remaining - 1 })
-        .eq('id', oldestCredit.id);
+        .update({ sessions_remaining: credit.sessions_remaining - deductFromThis })
+        .eq('id', credit.id);
 
-      await supabaseAdmin
-        .from('session_usage')
-        .insert({
-          booking_id: booking.id,
-          session_credit_id: oldestCredit.id,
-          sessions_used: 1
-        });
+      // Track usage for each booking
+      for (let i = 0; i < deductFromThis && i < bookingsToTrack.length; i++) {
+        const bookingToTrack = bookingsToTrack.shift();
+        if (bookingToTrack) {
+          await supabaseAdmin
+            .from('session_usage')
+            .insert({
+              booking_id: bookingToTrack.id,
+              session_credit_id: credit.id,
+              sessions_used: 1
+            });
+        }
+      }
+
+      creditsToDeduct -= deductFromThis;
     }
 
     // 8. Generate cancel/reschedule URLs
@@ -236,12 +313,14 @@ export async function POST(req: NextRequest): Promise<NextResponse<BookingRespon
     const rescheduleUrl = `${baseUrl}/book/reschedule?id=${booking.id}`;
 
     // 9. Send confirmation email
+    const sessionsRemaining = totalSessions - creditsRequired;
     try {
       const emailContent = emailTemplates.bookingConfirmation(
         bookingDatetime,
-        totalSessions - 1,
+        sessionsRemaining,
         rescheduleUrl,
-        cancelUrl
+        cancelUrl,
+        isBackToBack ? calendarEndTime : undefined // Pass end time for back-to-back
       );
 
       await gmail.emails.send({
@@ -257,7 +336,13 @@ export async function POST(req: NextRequest): Promise<NextResponse<BookingRespon
 
     // 10. Notify owner of new booking
     try {
-      await notifyOwnerOfBooking(email, customer.name, bookingDatetime, 'new');
+      await notifyOwnerOfBooking(
+        email,
+        customer.name,
+        bookingDatetime,
+        'new',
+        isBackToBack ? calendarEndTime : undefined
+      );
     } catch (ownerEmailError) {
       console.error('Failed to send owner notification:', ownerEmailError);
     }
@@ -269,9 +354,11 @@ export async function POST(req: NextRequest): Promise<NextResponse<BookingRespon
         date: date,
         time: startTime,
         cancelUrl,
-        rescheduleUrl
+        rescheduleUrl,
+        isBackToBack,
+        endTime: isBackToBack && backToBackSlot ? backToBackSlot.replace(':', '') : undefined
       },
-      sessionsRemaining: totalSessions - 1
+      sessionsRemaining
     });
 
   } catch (error) {
