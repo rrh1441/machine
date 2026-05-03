@@ -102,10 +102,11 @@ export async function POST(req: NextRequest) {
 
     // Use the already retrieved session with line items
 
-    // Check if SwingStick was purchased
+    // Check if SwingStick was purchased and calculate its cost
     let includesSwingStick = false
     let swingStickQuantity = 0
-    
+    let swingStickAmount = 0
+
     if (sessionWithLineItems.line_items) {
       for (const item of sessionWithLineItems.line_items.data) {
         // Check if this is a SwingStick product by product ID or name
@@ -114,6 +115,7 @@ export async function POST(req: NextRequest) {
             item.description?.toLowerCase().includes('stick')) {
           includesSwingStick = true
           swingStickQuantity += item.quantity || 0
+          swingStickAmount += item.amount_total || 0
         }
       }
     }
@@ -122,13 +124,13 @@ export async function POST(req: NextRequest) {
     // Since metadata isn't passed through payment links, we need to infer from amount or link ID
     let packageType = 'single'
     let sessionsCount = 1
-    
+
     // Map payment link IDs to package types (you'll need to update these with your actual link IDs)
     const linkMapping: Record<string, {type: string, sessions: number}> = {
       'plink_1Rv0eiQRPaPngbWPNkTXR9qv': { type: 'single', sessions: 1 },  // Update with your actual link IDs
       // Add your 3-pack and 10-pack link IDs here
     }
-    
+
     if (session.payment_link && linkMapping[session.payment_link]) {
       packageType = linkMapping[session.payment_link].type
       sessionsCount = linkMapping[session.payment_link].sessions
@@ -137,8 +139,8 @@ export async function POST(req: NextRequest) {
       packageType = session.metadata.package_type
       sessionsCount = parseInt(session.metadata.sessions_count || '1')
     } else {
-      // Try to infer from amount (before discounts)
-      const amount = session.amount_subtotal
+      // Try to infer from amount (before discounts), subtracting SwingStick cost if present
+      const amount = (session.amount_subtotal || 0) - swingStickAmount
       if (amount === 4000) {
         packageType = 'single'
         sessionsCount = 1
@@ -151,7 +153,7 @@ export async function POST(req: NextRequest) {
       }
     }
     
-    console.log('Package type:', packageType, 'Sessions:', sessionsCount)
+    console.log('Package type:', packageType, 'Sessions:', sessionsCount, 'SwingStick:', includesSwingStick, 'SwingStick amount:', swingStickAmount)
 
     // Create or update customer
     const { data: customer, error: customerError } = await supabaseAdmin

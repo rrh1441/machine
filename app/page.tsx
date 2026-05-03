@@ -46,8 +46,8 @@ export default function LandingPage() {
       {/* ───────────────────── NAV ───────────────────── */}
       <header className="w-full border-b-2 border-club-green bg-club-cream">
         <div className="container flex h-16 items-center justify-between px-4 md:px-[5%]">
-          <Link href="/" className="flex items-center space-x-2">
-            <span className="text-lg font-bold tracking-tight text-club-green uppercase md:text-xl">
+          <Link href="/" className="flex items-center">
+            <span className="text-sm font-bold tracking-tight text-club-green uppercase sm:text-lg md:text-xl">
               Seattle Ball Machine
             </span>
           </Link>
@@ -56,9 +56,12 @@ export default function LandingPage() {
           <Button
             asChild
             size="sm"
-            className="bg-club-green hover:bg-[#265c3a] text-white font-semibold rounded-sm px-6"
+            className="bg-club-green hover:bg-[#265c3a] text-white font-semibold rounded-sm px-3 sm:px-6 text-xs sm:text-sm"
           >
-            <Link href="#pricing" onClick={() => track('nav_book_now_clicked')}>Book Your Session Now</Link>
+            <Link href="#pricing" onClick={() => track('nav_book_now_clicked')}>
+              <span className="sm:hidden">Book Now</span>
+              <span className="hidden sm:inline">Book Your Session Now</span>
+            </Link>
           </Button>
         </div>
       </header>
