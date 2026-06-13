@@ -34,5 +34,8 @@ export async function GET(
   }
 
   const dest = `https://www.seattleballmachine.com/?utm_source=qr&utm_medium=print&utm_campaign=${encodeURIComponent(slug)}`
-  return NextResponse.redirect(dest, 302)
+  // 302 (not 301) so browsers don't cache the redirect and skip scan logging.
+  const res = NextResponse.redirect(dest, 302)
+  res.headers.set("X-Robots-Tag", "noindex")
+  return res
 }

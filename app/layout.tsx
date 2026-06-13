@@ -19,6 +19,7 @@ const sourceSans = Source_Sans_3({
 });
 
 export const metadata = {
+  metadataBase: new URL("https://www.seattleballmachine.com"),
   title: "Seattle Tennis Ball Machine Rental – Queen Anne Pickup",
   description: "Professional Hydrogen Proton ball machine rental in Queen Anne, Seattle. 2-hour sessions • 65 balls included • book online. Perfect your strokes.",
   keywords: ["tennis ball machine rental", "Seattle tennis", "Queen Anne tennis", "ball machine rental Seattle", "tennis practice Seattle", "Hydrogen Proton rental"],
@@ -86,7 +87,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               "name": "Seattle Ball Machine Rental",
               "description": "Professional tennis ball machine rental service in Queen Anne, Seattle",
               "url": "https://www.seattleballmachine.com",
-              "telephone": "Available via booking system",
+              "image": "https://www.seattleballmachine.com/images/tennis-ball-hero.png",
+              "telephone": "+1-253-252-9577",
+              "email": "support@firstserveseattle.com",
               "address": {
                 "@type": "PostalAddress",
                 "streetAddress": "Queen Anne (near W McGraw St & 4th Ave W)",
@@ -141,7 +144,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             })
           }}
         />
-        {/* WebSite Schema with SearchAction */}
+        {/* WebSite Schema */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -150,15 +153,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               "@type": "WebSite",
               "name": "Seattle Ball Machine Rental",
               "url": "https://www.seattleballmachine.com",
-              "description": "Professional tennis ball machine rental service in Queen Anne, Seattle",
-              "potentialAction": {
-                "@type": "SearchAction",
-                "target": {
-                  "@type": "EntryPoint",
-                  "urlTemplate": "https://www.seattleballmachine.com/courts/{search_term_string}"
-                },
-                "query-input": "required name=search_term_string"
-              }
+              "description": "Professional tennis ball machine rental service in Queen Anne, Seattle"
             })
           }}
         />

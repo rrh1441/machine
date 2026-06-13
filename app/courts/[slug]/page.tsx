@@ -5,10 +5,14 @@ import { ChevronLeft, MapPin, Clock, CheckCircle, Car } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { courts, getCourtBySlug, getNearestCourts } from "@/lib/court-data"
+import { getCourtEnrichment } from "@/lib/court-enrichment"
 
 interface PageProps {
   params: Promise<{ slug: string }>
 }
+
+// Refresh daily so busyness data from the First Serve Seattle database stays current
+export const revalidate = 86400
 
 // Generate static params for all courts
 export async function generateStaticParams() {
@@ -28,9 +32,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     }
   }
 
+  const enrichment = await getCourtEnrichment(court.slug, court.name)
+  const facts = enrichment
+    ? `${enrichment.courtCount} court${enrichment.courtCount === 1 ? "" : "s"}${enrichment.lights ? " with lights" : ""}${enrichment.hittingWall ? ", hitting wall" : ""}. `
+    : ""
+
   return {
     title: `${court.name} Tennis Courts | Ball Machine Rental Seattle`,
-    description: `Rent a tennis ball machine for ${court.name} in ${court.neighborhood}, Seattle. Just ${court.driveTime} minutes from pickup. ${court.description}`,
+    description: `Rent a tennis ball machine for ${court.name} in ${court.neighborhood}, Seattle. ${facts}Just ${court.driveTime} minutes from pickup. ${court.description}`,
     alternates: {
       canonical: `https://www.seattleballmachine.com/courts/${court.slug}`,
     },
@@ -54,6 +63,20 @@ export default async function CourtPage({ params }: PageProps) {
   // Get nearby courts (excluding current one)
   const nearbyCourts = getNearestCourts(6).filter(c => c.slug !== court.slug).slice(0, 3)
 
+  // Live facility data from the First Serve Seattle database
+  const enrichment = await getCourtEnrichment(court.slug, court.name)
+
+  // Real, verifiable amenities from the database, falling back to editorial list
+  const verifiedAmenities = enrichment
+    ? [
+        `${enrichment.courtCount} court${enrichment.courtCount === 1 ? "" : "s"}`,
+        ...(enrichment.lights ? ["Lights for evening play"] : []),
+        ...(enrichment.hittingWall ? ["Hitting wall"] : []),
+        ...(enrichment.pickleballLined ? ["Pickleball-lined (shared use)"] : []),
+        ...court.amenities,
+      ]
+    : court.amenities
+
   // Court-specific JSON-LD schema
   const courtSchema = {
     "@context": "https://schema.org",
@@ -67,10 +90,22 @@ export default async function CourtPage({ params }: PageProps) {
       "addressRegion": "WA",
       "addressCountry": "US",
     },
-    "amenityFeature": court.amenities.map(amenity => ({
+    "amenityFeature": verifiedAmenities.map(amenity => ({
       "@type": "LocationFeatureSpecification",
       "name": amenity,
     })),
+    // Only emit ratings backed by real, approved user reviews
+    ...(enrichment && enrichment.avgRating != null && enrichment.ratingCount > 0
+      ? {
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: Math.round(enrichment.avgRating * 10) / 10,
+            reviewCount: enrichment.ratingCount,
+            bestRating: 5,
+            worstRating: 1,
+          },
+        }
+      : {}),
   }
 
   // Breadcrumb schema
@@ -170,11 +205,11 @@ export default async function CourtPage({ params }: PageProps) {
           </Button>
         </div>
 
-        {/* Amenities */}
+        {/* Amenities (verified against the First Serve Seattle court database) */}
         <div className="bg-white rounded-xl shadow-sm p-6 md:p-8 mb-8">
           <h2 className="text-2xl font-bold mb-4">Court Amenities</h2>
           <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {court.amenities.map((amenity, index) => (
+            {verifiedAmenities.map((amenity, index) => (
               <li key={index} className="flex items-center gap-3">
                 <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0" />
                 <span>{amenity}</span>
@@ -182,6 +217,67 @@ export default async function CourtPage({ params }: PageProps) {
             ))}
           </ul>
         </div>
+
+        {/* How busy is it? — live data from First Serve Seattle */}
+        {enrichment && (enrichment.busyLabel || enrichment.quietestDay) && (
+          <div className="bg-white rounded-xl shadow-sm p-6 md:p-8 mb-8">
+            <h2 className="text-2xl font-bold mb-4">How Busy Is {court.name}?</h2>
+            <div className="space-y-3 text-gray-700">
+              {enrichment.busyLabel && (
+                <p>
+                  Based on reservation and usage data from the past week, courts at{" "}
+                  {court.name} are{" "}
+                  <strong>
+                    {enrichment.busyLabel}
+                    {enrichment.busyScore7d != null &&
+                      ` (${Math.round(enrichment.busyScore7d)}/100 busy score)`}
+                  </strong>
+                  .
+                </p>
+              )}
+              {enrichment.quietestDay && enrichment.busiestDay && (
+                <p>
+                  Over the past 8 weeks, <strong>{enrichment.quietestDay}</strong> has
+                  been the easiest day to get a court here, while{" "}
+                  <strong>{enrichment.busiestDay}</strong> tends to be the busiest
+                  {enrichment.pickleballLined &&
+                    " — note these courts are also lined for pickleball, which adds demand"}
+                  .
+                </p>
+              )}
+              <p className="text-sm text-gray-500">
+                Busyness data updates daily from{" "}
+                <a
+                  href="https://firstserveseattle.com"
+                  className="text-green-600 hover:text-green-700 underline"
+                  rel="noopener"
+                >
+                  First Serve Seattle
+                </a>
+                , which tracks live court availability across Seattle.
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* Player reviews — only rendered when real approved reviews exist */}
+        {enrichment && enrichment.reviews.some((r) => r.text) && (
+          <div className="bg-white rounded-xl shadow-sm p-6 md:p-8 mb-8">
+            <h2 className="text-2xl font-bold mb-4">What Players Say</h2>
+            <div className="space-y-4">
+              {enrichment.reviews
+                .filter((r) => r.text)
+                .map((review, index) => (
+                  <blockquote key={index} className="border-l-4 border-green-200 pl-4">
+                    <p className="text-gray-700">&ldquo;{review.text}&rdquo;</p>
+                    <footer className="text-sm text-gray-500 mt-1">
+                      {review.name || "Local player"} · {review.rating}/5
+                    </footer>
+                  </blockquote>
+                ))}
+            </div>
+          </div>
+        )}
 
         {/* How it works */}
         <div className="bg-white rounded-xl shadow-sm p-6 md:p-8 mb-8">

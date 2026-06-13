@@ -1,8 +1,14 @@
 {
-  "crons": [{
-    "path": "/api/cron/send-reminders",
-    "schedule": "0 10 * * *"
-  }],
+  "crons": [
+    {
+      "path": "/api/cron/send-reminders",
+      "schedule": "0 10 * * *"
+    },
+    {
+      "path": "/api/seo/submit",
+      "schedule": "0 8 * * 1"
+    }
+  ],
   "redirects": [
     {
       "source": "/:path*",
@@ -13,6 +19,11 @@
         }
       ],
       "destination": "https://www.seattleballmachine.com/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/booking",
+      "destination": "/book",
       "permanent": true
     }
   ]

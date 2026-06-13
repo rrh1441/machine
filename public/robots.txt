@@ -1,4 +1,43 @@
+# QR-code tracking redirects and API endpoints are not for crawlers.
 User-agent: *
+Allow: /
+Disallow: /q/
+Disallow: /api/
+
+# AI assistants and answer engines are explicitly welcome.
+User-agent: GPTBot
+Allow: /
+Disallow: /q/
+Disallow: /api/
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /q/
+Disallow: /api/
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /q/
+Disallow: /api/
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /q/
+Disallow: /api/
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
 Allow: /
 
 Sitemap: https://www.seattleballmachine.com/sitemap.xml
