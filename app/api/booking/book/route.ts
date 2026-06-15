@@ -4,6 +4,7 @@ import { createGoogleCalendarClient } from '@/lib/google-calendar/client';
 import { gmail } from '@/lib/gmail/email-service';
 import { emailTemplates } from '@/lib/emails/templates';
 import { notifyOwnerOfBooking } from '@/lib/emails/notify-owner';
+import { BLOCKED_DATE_RANGES } from '@/lib/booking/constants';
 
 interface BookingRequest {
   email: string;
@@ -93,6 +94,18 @@ export async function POST(req: NextRequest): Promise<NextResponse<BookingRespon
       success: false,
       error: 'Missing required fields: email, date, startTime'
     }, { status: 400 });
+  }
+
+  // Reject bookings on blocked dates (owner unavailable). The availability API
+  // and UI already hide these, but enforce server-side against direct/stale requests.
+  const isDateBlocked = BLOCKED_DATE_RANGES.some(
+    (range) => date >= range.start && date <= range.end
+  );
+  if (isDateBlocked) {
+    return NextResponse.json({
+      success: false,
+      error: 'This date is not available for booking'
+    }, { status: 409 });
   }
 
   try {
