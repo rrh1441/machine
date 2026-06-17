@@ -39,6 +39,7 @@ export const BLOCKED_DATE_RANGES: Array<{ start: string; end: string }> = [
   { start: '2026-03-05', end: '2026-03-06' },
   { start: '2026-03-15', end: '2026-03-27' },
   { start: '2026-07-01', end: '2026-07-03' },
+  { start: '2026-07-09', end: '2026-07-12' },
   { start: '2026-08-01', end: '2026-08-08' },
 ];
 
