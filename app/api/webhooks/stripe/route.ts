@@ -87,8 +87,12 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ received: true })
     }
     
-    // Use customer_details.email if customer_email is null
-    const customerEmail = session.customer_email || session.customer_details?.email
+    // Use customer_details.email if customer_email is null.
+    // Normalize to lowercase: Apple Pay/Link pass the Apple ID email with its
+    // original casing (e.g. "Aayush.ntu@gmail.com"), but every customer lookup
+    // (booking, availability, check-credits) lowercases the email. Storing
+    // mixed case here means the customer can pay but never be found when booking.
+    const customerEmail = (session.customer_email || session.customer_details?.email)?.toLowerCase().trim()
     if (!customerEmail) {
       console.error('No customer email found')
       return NextResponse.json({ error: 'No customer email' }, { status: 400 })

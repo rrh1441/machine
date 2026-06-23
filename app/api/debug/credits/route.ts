@@ -11,7 +11,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: 'Not found' }, { status: 404 })
   }
 
-  const email = req.nextUrl.searchParams.get('email')
+  const email = req.nextUrl.searchParams.get('email')?.toLowerCase().trim()
 
   if (!email) {
     return NextResponse.json({ error: 'Email parameter required' }, { status: 400 })
