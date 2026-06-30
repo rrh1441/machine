@@ -7,6 +7,10 @@
     {
       "path": "/api/seo/submit",
       "schedule": "0 8 * * 1"
+    },
+    {
+      "path": "/api/cron/sync-calendar",
+      "schedule": "*/15 * * * *"
     }
   ],
   "redirects": [

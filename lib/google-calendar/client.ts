@@ -107,6 +107,19 @@ export class GoogleCalendarClient {
   }
 
   /**
+   * Get a single calendar event by id (read-only).
+   * Returns the event including its current `status` ('confirmed' | 'cancelled').
+   * Throws with `.code` 404 (deleted) or 410 (gone) if the event no longer exists.
+   */
+  async getEvent(eventId: string): Promise<calendar_v3.Schema$Event> {
+    const response = await this.calendar.events.get({
+      calendarId: this.calendarId,
+      eventId
+    });
+    return response.data;
+  }
+
+  /**
    * Delete a calendar event (for cancellation)
    */
   async deleteEvent(eventId: string): Promise<void> {
