@@ -41,7 +41,7 @@ export default function MaintenancePopup() {
             Temporarily Unavailable
           </h3>
           <p className="text-gray-700 leading-relaxed">
-            Ball machine rentals are temporarily paused for unexpected maintenance. We&apos;re working to get it back as soon as possible and expect to be available again soon. Thank you for your patience!
+            Ball machine rentals are temporarily paused for unexpected maintenance. We estimate the machine will be back in service by <strong>July 15, 2026</strong>. Thank you for your patience!
           </p>
         </div>
 
