@@ -3,8 +3,9 @@
 import { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 
-const MAINTENANCE_END = new Date('2026-03-27');
-const STORAGE_KEY = 'maintenance-popup-dismissed-mar-2026';
+// Auto-hides after this date. Set to 7/16 so it shows through all of 7/15 Pacific.
+const MAINTENANCE_END = new Date('2026-07-16');
+const STORAGE_KEY = 'maintenance-popup-dismissed-jul-2026';
 
 export default function MaintenancePopup() {
   const [isVisible, setIsVisible] = useState(false);
@@ -37,10 +38,10 @@ export default function MaintenancePopup() {
 
         <div className="pr-8">
           <h3 className="text-lg font-semibold text-gray-900 mb-3">
-            Maintenance Notice
+            Temporarily Unavailable
           </h3>
           <p className="text-gray-700 leading-relaxed">
-            Ball machine rentals will be unavailable from March 15-27. The machine is going out for maintenance. Thank you for your understanding!
+            Ball machine rentals are temporarily paused for unexpected maintenance. We&apos;re working to get it back as soon as possible and expect to be available again soon. Thank you for your patience!
           </p>
         </div>
 
